@@ -138,6 +138,7 @@ const Index = () => {
         onClose={() => setCartOpen(false)}
         onUpdateQuantity={updateQuantity}
         onRemoveItem={removeItem}
+        onQuickAdd={handleAddToCart}
       />
 
       {customizerItem && (
