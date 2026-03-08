@@ -115,6 +115,8 @@ const CheckoutPage = () => {
     setOrderTotal(total);
     setOrderPlaced(true);
     clearCart();
+    setOrderPlaced(true);
+    clearCart();
   };
 
   const canPlaceOrder = orderType === "pickup" || address.trim().length > 0;
