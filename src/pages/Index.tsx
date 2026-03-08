@@ -1,16 +1,15 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import lahoreSkyline from "@/assets/lahore-skyline.png";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
-import CategoryFilter from "@/components/CategoryFilter";
+import CategoryFilter, { categoryToId } from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
-
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import SandySection from "@/components/SandySection";
-import { menuItems, type MenuItem } from "@/data/menu";
+import { menuItems, categories, type MenuItem } from "@/data/menu";
 import { useCart } from "@/context/CartContext";
 
 const Index = () => {
@@ -19,13 +18,65 @@ const Index = () => {
   const { addToCart, cartCount, cartTotal } = useCart();
   const navigate = useNavigate();
 
-  const filteredItems = useMemo(
-    () =>
-      activeCategory === "All Items"
-        ? menuItems
-        : menuItems.filter((item) => item.category === activeCategory),
-    [activeCategory]
-  );
+  // Track whether the user clicked a category (to suppress scroll-spy briefly)
+  const isScrollingToRef = useRef(false);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // Group items by category (excluding "All Items")
+  const groupedItems = useMemo(() => {
+    const actualCategories = categories.filter((c) => c !== "All Items");
+    return actualCategories.map((cat) => ({
+      category: cat,
+      id: categoryToId(cat),
+      items: menuItems.filter((item) => item.category === cat),
+    }));
+  }, []);
+
+  // Scroll-spy with IntersectionObserver
+  useEffect(() => {
+    const sectionEls = groupedItems
+      .map((g) => document.getElementById(g.id))
+      .filter(Boolean) as HTMLElement[];
+
+    if (sectionEls.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isScrollingToRef.current) return;
+
+        // Find the topmost visible section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (visible.length > 0) {
+          const topSection = visible[0];
+          const cat = groupedItems.find((g) => g.id === topSection.target.id)?.category;
+          if (cat) {
+            setActiveCategory(cat);
+          }
+        }
+      },
+      {
+        rootMargin: "-120px 0px -60% 0px",
+        threshold: 0,
+      }
+    );
+
+    sectionEls.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [groupedItems]);
+
+  const handleCategoryClick = useCallback((cat: string) => {
+    setActiveCategory(cat);
+
+    // Suppress scroll-spy for a moment while smooth-scrolling
+    isScrollingToRef.current = true;
+    clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingToRef.current = false;
+    }, 1000);
+  }, []);
 
   const handleAddToCart = (item: MenuItem) => {
     if (item.category === "Sandwiches") {
@@ -39,9 +90,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <DagwoodHeader />
       <HeroBanner />
-      
 
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+      <section id="menu" className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">Our Menu</h2>
@@ -49,14 +99,24 @@ const Index = () => {
           </div>
         </div>
 
-        <CategoryFilter activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
+        <CategoryFilter activeCategory={activeCategory} onCategoryChange={handleCategoryClick} />
 
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => (
-              <MenuCard key={item.id} item={item} onAddToCart={handleAddToCart} />
-            ))}
-          </AnimatePresence>
+        {/* Category sections */}
+        <div className="mt-6 space-y-12">
+          {groupedItems.map((group) => (
+            <section key={group.id} id={group.id}>
+              <h3 className="mb-5 font-display text-xl font-bold text-foreground sm:text-2xl">
+                {group.category}
+              </h3>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <AnimatePresence mode="popLayout">
+                  {group.items.map((item) => (
+                    <MenuCard key={item.id} item={item} onAddToCart={handleAddToCart} />
+                  ))}
+                </AnimatePresence>
+              </div>
+            </section>
+          ))}
         </div>
       </section>
 
@@ -87,7 +147,6 @@ const Index = () => {
           </span>
         </motion.button>
       )}
-
 
       {customizerItem && (
         <SandwichCustomizer
