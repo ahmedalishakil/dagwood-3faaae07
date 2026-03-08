@@ -7,14 +7,16 @@ import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 import CartSidebar from "@/components/CartSidebar";
 import DessertBanner from "@/components/DessertBanner";
+import SandwichCustomizer from "@/components/SandwichCustomizer";
 import { menuItems, type MenuItem } from "@/data/menu";
-import type { CartItem } from "@/types/cart";
+import type { CartItem, SandwichCustomization } from "@/types/cart";
 
 const Index = () => {
   const [orderType, setOrderType] = useState<"delivery" | "pickup">("delivery");
   const [activeCategory, setActiveCategory] = useState("All Items");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [customizerItem, setCustomizerItem] = useState<MenuItem | null>(null);
 
   const filteredItems = useMemo(
     () =>
@@ -24,8 +26,32 @@ const Index = () => {
     [activeCategory]
   );
 
-  const addToCart = (item: MenuItem) => {
+  const handleAddToCart = (item: MenuItem) => {
+    if (item.category === "Sandwiches") {
+      setCustomizerItem(item);
+      return;
+    }
+    addItemToCart(item);
+  };
+
+  const addItemToCart = (item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => {
     setCart((prev) => {
+      // For customized sandwiches, always add as new entry with unique id
+      if (customization) {
+        const uniqueId = `${item.id}-${Date.now()}`;
+        return [
+          ...prev,
+          {
+            id: uniqueId,
+            name: item.name,
+            price: item.price,
+            quantity: 1,
+            image: item.image,
+            customization,
+            extrasTotal: extrasTotal || 0,
+          },
+        ];
+      }
       const existing = prev.find((c) => c.id === item.id);
       if (existing) {
         return prev.map((c) => (c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c));
@@ -47,6 +73,7 @@ const Index = () => {
   };
 
   const cartCount = cart.reduce((sum, c) => sum + c.quantity, 0);
+  const cartTotal = cart.reduce((s, c) => s + (c.price + (c.extrasTotal || 0)) * c.quantity, 0);
 
   return (
     <div className="min-h-screen bg-background">
@@ -54,7 +81,6 @@ const Index = () => {
       <HeroBanner />
       <DessertBanner />
 
-      {/* Menu Section */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
           <div>
@@ -68,13 +94,12 @@ const Index = () => {
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item) => (
-              <MenuCard key={item.id} item={item} onAddToCart={addToCart} />
+              <MenuCard key={item.id} item={item} onAddToCart={handleAddToCart} />
             ))}
           </AnimatePresence>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="border-t border-border bg-card">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
           <div className="flex flex-col items-center gap-4 text-center">
@@ -91,7 +116,6 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Floating cart button (mobile) */}
       {cartCount > 0 && (
         <motion.button
           initial={{ scale: 0, y: 20 }}
@@ -103,7 +127,7 @@ const Index = () => {
           <ShoppingBag className="h-5 w-5" />
           <span>{cartCount} items</span>
           <span className="border-l border-primary-foreground/30 pl-2">
-            Rs. {cart.reduce((s, c) => s + c.price * c.quantity, 0).toLocaleString()}
+            Rs. {cartTotal.toLocaleString()}
           </span>
         </motion.button>
       )}
@@ -115,6 +139,15 @@ const Index = () => {
         onUpdateQuantity={updateQuantity}
         onRemoveItem={removeItem}
       />
+
+      {customizerItem && (
+        <SandwichCustomizer
+          item={customizerItem}
+          isOpen={!!customizerItem}
+          onClose={() => setCustomizerItem(null)}
+          onAddToCart={addItemToCart}
+        />
+      )}
     </div>
   );
 };

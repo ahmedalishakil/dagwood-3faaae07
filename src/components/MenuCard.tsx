@@ -29,6 +29,11 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
             {item.badge}
           </span>
         )}
+        {item.category === "Sandwiches" && (
+          <span className="absolute right-3 top-3 rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-accent-foreground shadow-md">
+            Customizable
+          </span>
+        )}
       </div>
 
       {/* Content */}

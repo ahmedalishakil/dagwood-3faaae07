@@ -1,0 +1,311 @@
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, RotateCcw } from "lucide-react";
+import type { MenuItem } from "@/data/menu";
+import type { SandwichCustomization } from "@/types/cart";
+
+type Props = {
+  item: MenuItem;
+  isOpen: boolean;
+  onClose: () => void;
+  onAddToCart: (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => void;
+};
+
+const REMOVALS = [
+  "No Onion",
+  "No Lettuce",
+  "No Tomato",
+  "No Pickles",
+  "No Sauce",
+];
+
+const EXTRAS = [
+  { name: "Extra Mayo", price: 50 },
+  { name: "Extra Cheese", price: 100 },
+  { name: "Extra Meat/Fillet", price: 200 },
+  { name: "Pickles", price: 50 },
+  { name: "Make it Spicy", price: 50 },
+  { name: "Mustard", price: 0 },
+  { name: "Ketchup", price: 0 },
+];
+
+const PREFERENCES = [
+  "Lightly Toasted",
+  "Extra Toasted / Crispy",
+  "Cut in Half",
+];
+
+const defaultState: SandwichCustomization = {
+  breadType: "white",
+  removals: [],
+  extras: [],
+  preferences: [],
+  specialNote: "",
+};
+
+const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart }: Props) => {
+  const [customization, setCustomization] = useState<SandwichCustomization>({ ...defaultState });
+
+  const extrasTotal = useMemo(
+    () => customization.extras.reduce((sum, e) => sum + e.price, 0),
+    [customization.extras]
+  );
+
+  const total = item.price + extrasTotal;
+
+  const summary = useMemo(() => {
+    const parts: string[] = [];
+    parts.push(customization.breadType === "brown" ? "Brown Bread" : "White Bread");
+    customization.removals.forEach((r) => parts.push(r));
+    customization.extras.forEach((e) => parts.push(e.name));
+    customization.preferences.forEach((p) => parts.push(p));
+    return parts.join(", ");
+  }, [customization]);
+
+  const toggleRemoval = (r: string) => {
+    setCustomization((prev) => ({
+      ...prev,
+      removals: prev.removals.includes(r)
+        ? prev.removals.filter((x) => x !== r)
+        : [...prev.removals, r],
+    }));
+  };
+
+  const toggleExtra = (extra: { name: string; price: number }) => {
+    setCustomization((prev) => ({
+      ...prev,
+      extras: prev.extras.find((e) => e.name === extra.name)
+        ? prev.extras.filter((e) => e.name !== extra.name)
+        : [...prev.extras, extra],
+    }));
+  };
+
+  const togglePreference = (p: string) => {
+    setCustomization((prev) => ({
+      ...prev,
+      preferences: prev.preferences.includes(p)
+        ? prev.preferences.filter((x) => x !== p)
+        : [...prev.preferences, p],
+    }));
+  };
+
+  const reset = () => setCustomization({ ...defaultState });
+
+  const handleAdd = () => {
+    onAddToCart(item, customization, extrasTotal);
+    setCustomization({ ...defaultState });
+    onClose();
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 z-50 bg-foreground/40 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 28, stiffness: 260 }}
+            className="fixed inset-x-0 bottom-0 z-50 flex max-h-[92vh] flex-col rounded-t-3xl border-t border-border bg-card shadow-2xl sm:inset-x-auto sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2 sm:bottom-4 sm:rounded-3xl sm:border"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-border px-5 py-4">
+              <h2 className="font-display text-xl font-bold text-card-foreground">
+                Customize Your Sandwich
+              </h2>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={reset}
+                  className="flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:bg-secondary"
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                  Reset
+                </button>
+                <button
+                  onClick={onClose}
+                  className="rounded-full p-1.5 text-muted-foreground hover:bg-secondary"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Item preview */}
+            <div className="flex items-center gap-4 border-b border-border px-5 py-3">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="h-16 w-16 rounded-xl object-cover"
+              />
+              <div className="min-w-0 flex-1">
+                <h3 className="font-display text-lg font-bold text-card-foreground">{item.name}</h3>
+                <p className="truncate text-xs text-muted-foreground">{summary}</p>
+              </div>
+            </div>
+
+            {/* Scrollable options */}
+            <div className="flex-1 overflow-y-auto px-5 py-4 space-y-6">
+              {/* Bread Type */}
+              <section>
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  Bread Type <span className="text-primary">*</span>
+                </h4>
+                <div className="grid grid-cols-2 gap-3">
+                  {(["white", "brown"] as const).map((type) => (
+                    <button
+                      key={type}
+                      onClick={() =>
+                        setCustomization((prev) => ({ ...prev, breadType: type }))
+                      }
+                      className={`flex flex-col items-center gap-2 rounded-2xl border-2 p-4 transition-all ${
+                        customization.breadType === type
+                          ? "border-primary bg-primary/5 shadow-md"
+                          : "border-border hover:border-muted-foreground/30"
+                      }`}
+                    >
+                      <span className="text-2xl">{type === "white" ? "🍞" : "🥖"}</span>
+                      <span className="text-sm font-semibold text-card-foreground">
+                        {type === "white" ? "White Bread" : "Brown Bread"}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* Removals */}
+              <section>
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  Removals
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {REMOVALS.map((r) => {
+                    const active = customization.removals.includes(r);
+                    return (
+                      <button
+                        key={r}
+                        onClick={() => toggleRemoval(r)}
+                        className={`rounded-full border px-4 py-2.5 text-sm font-medium transition-all ${
+                          active
+                            ? "border-destructive bg-destructive/10 text-destructive"
+                            : "border-border text-card-foreground hover:bg-secondary"
+                        }`}
+                      >
+                        {r}
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* Extras */}
+              <section>
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  Add Extras
+                </h4>
+                <div className="space-y-2">
+                  {EXTRAS.map((extra) => {
+                    const active = !!customization.extras.find((e) => e.name === extra.name);
+                    return (
+                      <button
+                        key={extra.name}
+                        onClick={() => toggleExtra(extra)}
+                        className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-all ${
+                          active
+                            ? "border-primary bg-primary/5"
+                            : "border-border hover:bg-secondary"
+                        }`}
+                      >
+                        <span className="text-sm font-medium text-card-foreground">
+                          {extra.name}
+                        </span>
+                        <span
+                          className={`text-sm font-semibold ${
+                            extra.price > 0 ? "text-primary" : "text-muted-foreground"
+                          }`}
+                        >
+                          {extra.price > 0 ? `+ Rs. ${extra.price}` : "Free"}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* Preferences */}
+              <section>
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  Preferences
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {PREFERENCES.map((p) => {
+                    const active = customization.preferences.includes(p);
+                    return (
+                      <button
+                        key={p}
+                        onClick={() => togglePreference(p)}
+                        className={`rounded-full border px-4 py-2.5 text-sm font-medium transition-all ${
+                          active
+                            ? "border-accent bg-accent/10 text-accent"
+                            : "border-border text-card-foreground hover:bg-secondary"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* Special Note */}
+              <section>
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  Special Note
+                </h4>
+                <textarea
+                  value={customization.specialNote}
+                  onChange={(e) =>
+                    setCustomization((prev) => ({ ...prev, specialNote: e.target.value }))
+                  }
+                  placeholder="Any special requests? e.g. less sauce, more fries on side..."
+                  rows={2}
+                  className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </section>
+            </div>
+
+            {/* Footer with price & add button */}
+            <div className="border-t border-border px-5 py-4">
+              <div className="mb-3 flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Base Price</span>
+                <span className="font-semibold text-card-foreground">Rs. {item.price.toLocaleString()}</span>
+              </div>
+              {extrasTotal > 0 && (
+                <div className="mb-3 flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Extras</span>
+                  <span className="font-semibold text-primary">+ Rs. {extrasTotal.toLocaleString()}</span>
+                </div>
+              )}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleAdd}
+                className="w-full rounded-xl bg-primary py-4 text-sm font-bold text-primary-foreground shadow-lg"
+              >
+                Add to Cart — Rs. {total.toLocaleString()}
+              </motion.button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default SandwichCustomizer;
