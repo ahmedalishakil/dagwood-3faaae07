@@ -23,6 +23,7 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
 
   const [address, setAddress] = useState("");
+  const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("vertical");
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -89,7 +90,7 @@ const CheckoutPage = () => {
                   {orderType === "delivery" ? "Delivery" : "Pickup"}
                 </span>
                 <span className="font-bold text-card-foreground">
-                  {orderType === "delivery" ? "To your address" : "At Dagwood, Lahore"}
+                  {orderType === "delivery" ? "To your address" : pickupBranch === "vertical" ? "Vertical Branch" : "PIA Branch"}
                 </span>
               </div>
               <div className="flex justify-between border-t border-border pt-3">
@@ -112,6 +113,8 @@ const CheckoutPage = () => {
   const handlePlaceOrder = () => {
     if (orderType === "delivery" && !address.trim()) return;
     setOrderTotal(total);
+    setOrderPlaced(true);
+    clearCart();
     setOrderPlaced(true);
     clearCart();
   };
@@ -212,6 +215,48 @@ const CheckoutPage = () => {
                         placeholder="House #, Street, Area, Lahore"
                         className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                       />
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+              {orderType === "pickup" && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-4">
+                    <label className="mb-2 block text-sm font-medium text-card-foreground">
+                      Select Branch
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setPickupBranch("vertical")}
+                        className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
+                          pickupBranch === "vertical"
+                            ? "border-primary bg-primary/5"
+                            : "border-border hover:border-muted-foreground/30"
+                        }`}
+                      >
+                        <MapPin className="h-5 w-5 text-primary" />
+                        <span className="text-sm font-bold text-card-foreground">Vertical</span>
+                        <span className="text-[11px] text-muted-foreground text-center">M.M. Alam Road</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPickupBranch("pia")}
+                        className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
+                          pickupBranch === "pia"
+                            ? "border-primary bg-primary/5"
+                            : "border-border hover:border-muted-foreground/30"
+                        }`}
+                      >
+                        <MapPin className="h-5 w-5 text-primary" />
+                        <span className="text-sm font-bold text-card-foreground">PIA</span>
+                        <span className="text-[11px] text-muted-foreground text-center">PIA Housing Society</span>
+                      </button>
                     </div>
                   </div>
                 </motion.div>
