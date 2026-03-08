@@ -15,6 +15,7 @@ import brownieImg from "@/assets/menu/brownie.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
 import darkTemptationImg from "@/assets/menu/dark-temptation.png";
 import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
+import berryBlastImg from "@/assets/menu/berry-blast.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
 
 export type MenuItem = {
@@ -131,7 +132,7 @@ export const menuItems: MenuItem[] = [
     name: "Berry Blast",
     description: "Mixed berry explosion shake",
     price: 750,
-    image: shakeImg,
+    image: berryBlastImg,
     category: "Shakes",
   },
   {
