@@ -90,7 +90,7 @@ const CheckoutPage = () => {
                   {orderType === "delivery" ? "Delivery" : "Pickup"}
                 </span>
                 <span className="font-bold text-card-foreground">
-                  {orderType === "delivery" ? "To your address" : "At Dagwood, Lahore"}
+                  {orderType === "delivery" ? "To your address" : pickupBranch === "vertical" ? "Vertical Branch" : "PIA Branch"}
                 </span>
               </div>
               <div className="flex justify-between border-t border-border pt-3">
