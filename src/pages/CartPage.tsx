@@ -76,6 +76,8 @@ const CartPage = () => {
                       <img
                         src={item.image}
                         alt={item.name}
+                        loading="lazy"
+                        decoding="async"
                         className="h-20 w-20 rounded-xl object-cover sm:h-24 sm:w-24"
                       />
                       <div className="flex flex-1 flex-col justify-between min-w-0">
