@@ -13,10 +13,6 @@ const DagwoodHeader = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-xl">
-      <div className="bg-gradient-hero px-4 py-2 text-center text-sm font-medium text-primary-foreground">
-        🎉 Download our app for exclusive deals! &nbsp;
-        <span className="underline underline-offset-2 cursor-pointer">Get it now</span>
-      </div>
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
