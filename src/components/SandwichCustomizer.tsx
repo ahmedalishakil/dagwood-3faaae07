@@ -11,7 +11,7 @@ type Props = {
   onAddToCart: (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => void;
 };
 
-const REMOVALS = [
+const DEFAULT_REMOVALS = [
   "No Onion",
   "No Lettuce",
   "No Tomato",
@@ -19,13 +19,33 @@ const REMOVALS = [
   "No Sauce",
 ];
 
-const EXTRAS = [
+const DEFAULT_EXTRAS = [
   { name: "Extra Mayo", price: 50 },
   { name: "Extra Cheese", price: 100 },
   { name: "Extra Meat/Fillet", price: 200 },
   { name: "Extra Tomato Ketchup", price: 20 },
   { name: "Extra Chilli Garlic", price: 20 },
 ];
+
+const SANDWICH_OPTIONS: Record<string, { removals: string[]; extras: { name: string; price: number }[] }> = {
+  "cheese-lover": {
+    removals: [
+      "No Onion",
+      "No Lettuce",
+      "No Tomato",
+      "No Mushrooms",
+      "No Sauce",
+    ],
+    extras: [
+      { name: "Extra Mayo", price: 50 },
+      { name: "Extra Cheese", price: 100 },
+      { name: "Extra Meat/Fillet", price: 200 },
+      { name: "Extra Mushrooms", price: 100 },
+      { name: "Extra Tomato Ketchup", price: 20 },
+      { name: "Extra Chilli Garlic", price: 20 },
+    ],
+  },
+};
 
 const PREFERENCES = [
   "Lightly Toasted",
