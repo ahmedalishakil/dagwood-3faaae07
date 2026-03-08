@@ -60,27 +60,16 @@ const Index = () => {
         </div>
       </section>
 
-      <SandySection />
-
-      <footer className="relative border-t border-border bg-card overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 relative z-10">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <h3 className="font-display text-xl font-bold text-foreground">DAGWOOD</h3>
-            <p className="max-w-md text-sm text-muted-foreground">
-              Lahore&apos;s favourite sandwich destination. Fresh ingredients, bold flavors, and unmatched quality since day one.
-            </p>
-            <div className="flex gap-6 text-sm text-muted-foreground">
-              <span>📞 042-111-222-224</span>
-              <span>📍 Lahore, Pakistan</span>
-            </div>
-            <p className="text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
-          </div>
+      <footer className="relative overflow-hidden">
+        <SandySection />
+        <div className="relative">
+          <img
+            src={lahoreSkyline}
+            alt="Lahore Skyline"
+            className="pointer-events-none w-full opacity-10 object-cover object-top"
+          />
+          <p className="absolute inset-x-0 bottom-2 text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
         </div>
-        <img
-          src={lahoreSkyline}
-          alt="Lahore Skyline"
-          className="pointer-events-none w-full opacity-10 object-cover object-top"
-        />
       </footer>
 
       {cartCount > 0 && (

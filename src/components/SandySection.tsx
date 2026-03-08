@@ -25,7 +25,7 @@ const SandySection = () => {
             className="h-12 w-12 flex-shrink-0 rounded-full border-2 border-primary-foreground/30 object-cover sm:h-14 sm:w-14"
           />
           <p className="flex-1 text-sm font-semibold text-primary-foreground sm:text-base">
-            🍔 Order on WhatsApp — Sandy takes your order in seconds!
+            🥪 Order on WhatsApp — Sandy takes your order in seconds!
           </p>
           <span className="flex flex-shrink-0 items-center gap-2 rounded-full bg-primary-foreground px-4 py-2 text-xs font-bold text-primary sm:text-sm">
             <MessageCircle className="h-4 w-4" />
