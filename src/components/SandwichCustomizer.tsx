@@ -48,9 +48,7 @@ const SANDWICH_OPTIONS: Record<string, { removals: string[]; extras: { name: str
 };
 
 const PREFERENCES = [
-  "Lightly Toasted",
-  "Extra Toasted / Crispy",
-  "Cut in Half",
+  "Cut 1/4",
 ];
 
 const defaultState: SandwichCustomization = {
