@@ -116,7 +116,7 @@ export const menuItems: MenuItem[] = [
     name: "Blueberry Rise",
     description: "Blueberry burst with a tangy finish",
     price: 700,
-    image: specialDrinksImg,
+    image: blueberryRiseImg,
     category: "Special Drinks",
   },
 
