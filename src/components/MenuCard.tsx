@@ -56,7 +56,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
           handleCardClick();
         }
       }}
-      className="group relative cursor-pointer overflow-hidden rounded-[20px] border-0 bg-secondary shadow-card outline-none transition-shadow hover:shadow-card-hover focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="group relative cursor-pointer overflow-hidden rounded-[20px] border-0 bg-secondary shadow-card outline-none transition-shadow hover:shadow-card-hover focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 touch-ripple"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">

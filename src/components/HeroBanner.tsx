@@ -59,6 +59,9 @@ const HeroBanner = () => {
           key={current}
           src={slide.image}
           alt={slide.headlineRed + " " + slide.headlineWhite}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
