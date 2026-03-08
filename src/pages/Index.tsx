@@ -66,7 +66,7 @@ const Index = () => {
           <img
             src={lahoreSkyline}
             alt="Lahore Skyline"
-            className="pointer-events-none w-full max-h-20 opacity-10 object-cover object-top"
+            className="pointer-events-none w-full max-h-20 opacity-30 object-cover object-top"
           />
           <p className="absolute inset-x-0 bottom-2 text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
         </div>
