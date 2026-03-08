@@ -20,6 +20,13 @@ const slides = [
     subtext: "Crispy, gooey, and impossible to resist",
     objectPosition: "center center",
   },
+  {
+    image: heroRedVelvet,
+    headlineRed: "Sinfully",
+    headlineWhite: "Rich",
+    subtext: "Indulge in our velvety red velvet masterpiece",
+    objectPosition: "center center",
+  },
 ];
 
 const HeroBanner = () => {
