@@ -207,7 +207,7 @@ export const menuItems: MenuItem[] = [
     name: "Hot Chocolate",
     description: "Rich and creamy hot chocolate",
     price: 780,
-    image: coffeeImg,
+    image: hotChocolateImg,
     category: "Hot Coffee",
   },
   {
