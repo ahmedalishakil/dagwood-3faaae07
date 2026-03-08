@@ -13,6 +13,7 @@ import donutImg from "@/assets/menu/donut.jpg";
 import cookiesImg from "@/assets/menu/cookies.jpg";
 import brownieImg from "@/assets/menu/brownie.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
+import darkTemptationImg from "@/assets/menu/dark-temptation.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
 
 export type MenuItem = {
