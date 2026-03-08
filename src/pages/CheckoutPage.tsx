@@ -23,6 +23,7 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
 
   const [address, setAddress] = useState("");
+  const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("vertical");
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
   const [orderPlaced, setOrderPlaced] = useState(false);
