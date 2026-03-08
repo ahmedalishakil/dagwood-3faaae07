@@ -24,25 +24,6 @@ const CartPage = () => {
   const navigate = useNavigate();
   const deliveryFee = 200;
 
-  const upsellItems = useMemo(() => {
-    if (cart.length === 0) return [];
-    const cartBaseIds = new Set(cart.map((i) => i.id.replace(/-\d+$/, "")));
-    const cartCategories = new Set(
-      cart.map((i) => {
-        const baseId = i.id.replace(/-\d+$/, "");
-        return menuItems.find((m) => m.id === baseId)?.category;
-      }).filter(Boolean) as string[]
-    );
-    const suggestedCats = new Set<string>();
-    cartCategories.forEach((cat) => {
-      CATEGORY_PAIRING[cat]?.forEach((p) => suggestedCats.add(p));
-    });
-    const candidates = menuItems.filter(
-      (m) => suggestedCats.has(m.category) && !cartBaseIds.has(m.id)
-    );
-    return [...candidates].sort(() => Math.random() - 0.5).slice(0, 4);
-  }, [cart]);
-
   return (
     <div className="min-h-screen bg-background">
       <DagwoodHeader />
