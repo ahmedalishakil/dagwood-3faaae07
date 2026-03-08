@@ -16,6 +16,7 @@ import { useCart } from "@/context/CartContext";
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState("All Items");
   const [customizerItem, setCustomizerItem] = useState<MenuItem | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { addToCart, cartCount, cartTotal } = useCart();
   const navigate = useNavigate();
 
