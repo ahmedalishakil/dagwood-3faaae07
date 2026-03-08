@@ -307,12 +307,12 @@ const CheckoutPage = () => {
                 <span>Subtotal</span>
                 <span className="font-medium text-card-foreground">Rs. {cartTotal.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between text-muted-foreground">
-                <span>Delivery Fee</span>
-                <span className="font-medium text-card-foreground">
-                  {deliveryFee > 0 ? `Rs. ${deliveryFee.toLocaleString()}` : "Free"}
-                </span>
-              </div>
+              {orderType === "delivery" && (
+                <div className="flex justify-between text-muted-foreground">
+                  <span>Delivery Fee</span>
+                  <span className="font-medium text-card-foreground">Rs. {deliveryFee.toLocaleString()}</span>
+                </div>
+              )}
               <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
                 <span>Total</span>
                 <span className="text-primary">Rs. {total.toLocaleString()}</span>
