@@ -111,6 +111,7 @@ const CheckoutPage = () => {
 
   const handlePlaceOrder = () => {
     if (orderType === "delivery" && !address.trim()) return;
+    setOrderTotal(total);
     setOrderPlaced(true);
     clearCart();
   };
