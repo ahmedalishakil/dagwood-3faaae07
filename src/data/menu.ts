@@ -415,7 +415,7 @@ export const menuItems: MenuItem[] = [
     name: "Regular Fries",
     description: "Golden crispy french fries",
     price: 350,
-    image: friesImg,
+    image: regularFriesImg,
     category: "Sides",
   },
   {
