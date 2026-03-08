@@ -25,7 +25,7 @@ const slides = [
     headlineRed: "Sinfully",
     headlineWhite: "Rich",
     subtext: "Indulge in our velvety red velvet masterpiece",
-    objectPosition: "center 60%",
+    objectPosition: "center center",
   },
 ];
 
@@ -104,7 +104,7 @@ const HeroBanner = () => {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {/* Brand name */}
-            <h1 className="font-display text-7xl font-black uppercase leading-[0.85] tracking-tight text-primary sm:text-8xl lg:text-9xl">
+            <h1 className="font-display text-4xl font-black uppercase leading-[0.85] tracking-tight text-primary sm:text-5xl lg:text-6xl">
               DAGWOOD
             </h1>
 
