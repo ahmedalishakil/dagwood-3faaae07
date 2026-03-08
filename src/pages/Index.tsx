@@ -6,6 +6,7 @@ import HeroBanner from "@/components/HeroBanner";
 import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 import CartSidebar from "@/components/CartSidebar";
+import DessertBanner from "@/components/DessertBanner";
 import { menuItems, type MenuItem } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
 
@@ -51,6 +52,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <DagwoodHeader orderType={orderType} onOrderTypeChange={setOrderType} />
       <HeroBanner />
+      <DessertBanner />
 
       {/* Menu Section */}
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
