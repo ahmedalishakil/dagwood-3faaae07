@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Truck, Phone, Search, ShoppingBag } from "lucide-react";
+import { MapPin, Truck, Search, ShoppingBag, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/dagwood-logo.png";
@@ -52,11 +52,13 @@ const DagwoodHeader = () => {
             <Search className="h-5 w-5" />
           </button>
           <a
-            href="tel:+924211122224"
+            href="https://wa.me/923262188824?text=Hi%20Sandy!"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-muted"
           >
-            <Phone className="h-4 w-4" />
-            <span className="hidden md:inline">042-111-222-224</span>
+            <MessageCircle className="h-4 w-4 text-primary" />
+            <span className="hidden md:inline">Order via Sandy</span>
           </a>
 
           {/* Cart icon with badge */}
