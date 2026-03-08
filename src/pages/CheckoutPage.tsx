@@ -166,6 +166,9 @@ const CheckoutPage = () => {
             </div>
           </section>
 
+          {/* Smart Upsell */}
+          <SmartUpsell compact />
+
           {/* Delivery / Pickup */}
           <section className="rounded-2xl border border-border bg-card p-5">
             <h2 className="mb-4 font-display text-lg font-bold text-card-foreground">Delivery Method</h2>
