@@ -16,6 +16,7 @@ import sundaeImg from "@/assets/menu/sundae.jpg";
 import darkTemptationImg from "@/assets/menu/dark-temptation.png";
 import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
 import berryBlastImg from "@/assets/menu/berry-blast.png";
+import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
 
 export type MenuItem = {
@@ -106,7 +107,7 @@ export const menuItems: MenuItem[] = [
     name: "Peachy Paradise",
     description: "Sweet peach refresher with tropical notes",
     price: 700,
-    image: specialDrinksImg,
+    image: peachyParadiseImg,
     category: "Special Drinks",
   },
   {
