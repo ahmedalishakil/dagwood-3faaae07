@@ -102,13 +102,16 @@ const Index = () => {
         <CategoryFilter activeCategory={activeCategory} onCategoryChange={handleCategoryClick} />
 
         {/* Category sections */}
-        <div className="mt-6 space-y-12">
+        <div className="mt-6 space-y-8">
           {groupedItems.map((group) => (
             <section key={group.id} id={group.id}>
-              <h3 className="mb-5 font-display text-xl font-bold text-foreground sm:text-2xl">
-                {group.category}
-              </h3>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="mb-4 flex items-center gap-3">
+                <h3 className="font-display text-lg font-bold text-foreground sm:text-xl">
+                  {group.category}
+                </h3>
+                <span className="h-px flex-1 bg-border" />
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <AnimatePresence mode="popLayout">
                   {group.items.map((item) => (
                     <MenuCard key={item.id} item={item} onAddToCart={handleAddToCart} />
