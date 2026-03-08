@@ -22,6 +22,8 @@ import cakeImg from "@/assets/menu/cake.jpg";
 import pistachioCakeImg from "@/assets/menu/pistachio-cake.jpg";
 import cheesecakeImg from "@/assets/menu/cheesecake.jpg";
 import donutImg from "@/assets/menu/donut.jpg";
+import chocFudgeDonutImg from "@/assets/menu/chocolate-fudge-donut.jpg";
+import caramelDonutImg from "@/assets/menu/caramel-donut.jpg";
 import cookiesImg from "@/assets/menu/cookies.jpg";
 import brownieImg from "@/assets/menu/brownie.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
