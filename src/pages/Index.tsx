@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
@@ -8,6 +8,7 @@ import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 
 import SandwichCustomizer from "@/components/SandwichCustomizer";
+import SandySection from "@/components/SandySection";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { useCart } from "@/context/CartContext";
 
@@ -58,6 +59,8 @@ const Index = () => {
         </div>
       </section>
 
+      <SandySection />
+
       <footer className="border-t border-border bg-card">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
           <div className="flex flex-col items-center gap-4 text-center">
@@ -89,6 +92,22 @@ const Index = () => {
           </span>
         </motion.button>
       )}
+
+      {/* Sandy WhatsApp floating button */}
+      <motion.a
+        href="https://wa.me/923001234567?text=Hi%20Sandy!"
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 rounded-full bg-[hsl(142,60%,40%)] px-4 py-3 text-sm font-bold text-white shadow-xl"
+        title="Chat with Sandy — Your AI Order Buddy!"
+      >
+        <MessageCircle className="h-5 w-5" />
+        <span className="hidden sm:inline">Chat with Sandy</span>
+      </motion.a>
 
       {customizerItem && (
         <SandwichCustomizer
