@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import sandyAvatar from "@/assets/sandy-avatar.png";
 
 const WHATSAPP_LINK = "https://wa.me/923262188824?text=Hi%20Sandy!";
@@ -9,28 +10,28 @@ const SandySection = () => {
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 left-6 z-40"
+      className="block"
     >
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="relative"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mx-auto max-w-7xl px-4 py-6 sm:px-6"
       >
-        <div className="h-14 w-14 overflow-hidden rounded-full border-2 border-primary shadow-lg">
+        <div className="flex items-center gap-4 rounded-2xl bg-primary px-5 py-3 shadow-lg transition-all hover:shadow-xl hover:brightness-110 sm:gap-5 sm:px-6">
           <img
             src={sandyAvatar}
-            alt="Sandy — Order Agent"
-            className="h-full w-full object-cover"
+            alt="Sandy"
+            className="h-12 w-12 flex-shrink-0 rounded-full border-2 border-primary-foreground/30 object-cover sm:h-14 sm:w-14"
           />
+          <p className="flex-1 text-sm font-semibold text-primary-foreground sm:text-base">
+            🥪 Order on WhatsApp — Sandy takes your order in seconds!
+          </p>
+          <span className="flex flex-shrink-0 items-center gap-2 rounded-full bg-primary-foreground px-4 py-2 text-xs font-bold text-primary sm:text-sm">
+            <MessageCircle className="h-4 w-4" />
+            <span className="hidden sm:inline">Chat Now</span>
+          </span>
         </div>
-        {/* Online dot */}
-        <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-card bg-green-500" />
-        {/* Label */}
-        <span className="absolute -right-2 -top-2 rounded-full bg-primary px-2 py-0.5 text-[9px] font-bold text-primary-foreground shadow">
-          Sandy
-        </span>
       </motion.div>
     </a>
   );
