@@ -396,7 +396,7 @@ export const menuItems: MenuItem[] = [
     name: "Three Milk Sundae",
     description: "Tres leches inspired ice cream sundae",
     price: 650,
-    image: sundaeImg,
+    image: threeMilkSundaeImg,
     category: "Sundaes",
   },
   {
