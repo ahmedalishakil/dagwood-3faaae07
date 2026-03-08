@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { MenuItem } from "@/data/menu";
@@ -8,6 +9,20 @@ type Props = {
 };
 
 const MenuCard = ({ item, onAddToCart }: Props) => {
+  const [selectedSize, setSelectedSize] = useState(0);
+
+  const currentPrice = item.sizes ? item.sizes[selectedSize].price : item.price;
+
+  const handleAdd = () => {
+    const cartItem: MenuItem = {
+      ...item,
+      price: currentPrice,
+      name: item.sizes ? `${item.name} (${item.sizes[selectedSize].label})` : item.name,
+      id: item.sizes ? `${item.id}-${item.sizes[selectedSize].label.toLowerCase()}` : item.id,
+    };
+    onAddToCart(cartItem);
+  };
+
   return (
     <motion.div
       layout
@@ -40,14 +55,34 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
       <div className="p-4">
         <h3 className="font-display text-lg font-bold text-card-foreground">{item.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
+
+        {/* Size selector */}
+        {item.sizes && (
+          <div className="mt-3 flex gap-2">
+            {item.sizes.map((size, idx) => (
+              <button
+                key={size.label}
+                onClick={() => setSelectedSize(idx)}
+                className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+                  selectedSize === idx
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                {size.label}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="mt-3 flex items-center justify-between">
           <span className="text-lg font-bold text-primary">
-            Rs. {item.price.toLocaleString()}
+            Rs. {currentPrice.toLocaleString()}
           </span>
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            onClick={() => onAddToCart(item)}
+            onClick={handleAdd}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md transition-colors hover:bg-brand-dark"
           >
             <Plus className="h-5 w-5" />
