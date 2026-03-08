@@ -25,6 +25,7 @@ const CheckoutPage = () => {
 
   const [address, setAddress] = useState("");
   const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("vertical");
+  const [pickupTime, setPickupTime] = useState("asap");
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -344,37 +345,69 @@ const CheckoutPage = () => {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="mt-4">
-                    <label className="mb-2 block text-sm font-medium text-card-foreground">
-                      Select Branch
-                    </label>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setPickupBranch("vertical")}
-                        className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
-                          pickupBranch === "vertical"
-                            ? "border-primary bg-primary/5"
-                            : "border-border hover:border-muted-foreground/30"
-                        }`}
-                      >
-                        <MapPin className="h-5 w-5 text-primary" />
-                        <span className="text-sm font-bold text-card-foreground">Vertical</span>
-                        <span className="text-[11px] text-muted-foreground text-center">94 Pine Ave, Block B, Khayaban E Amin</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setPickupBranch("pia")}
-                        className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
-                          pickupBranch === "pia"
-                            ? "border-primary bg-primary/5"
-                            : "border-border hover:border-muted-foreground/30"
-                        }`}
-                      >
-                        <MapPin className="h-5 w-5 text-primary" />
-                        <span className="text-sm font-bold text-card-foreground">PIA</span>
-                        <span className="text-[11px] text-muted-foreground text-center">9-D PIA Road, Main Blvd, near Wapda Town</span>
-                      </button>
+                  <div className="mt-4 space-y-4">
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-card-foreground">
+                        Select Branch
+                      </label>
+                      <div className="grid grid-cols-2 gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setPickupBranch("vertical")}
+                          className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
+                            pickupBranch === "vertical"
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-muted-foreground/30"
+                          }`}
+                        >
+                          <MapPin className="h-5 w-5 text-primary" />
+                          <span className="text-sm font-bold text-card-foreground">Vertical</span>
+                          <span className="text-[11px] text-muted-foreground text-center">94 Pine Ave, Block B, Khayaban E Amin</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPickupBranch("pia")}
+                          className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
+                            pickupBranch === "pia"
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-muted-foreground/30"
+                          }`}
+                        >
+                          <MapPin className="h-5 w-5 text-primary" />
+                          <span className="text-sm font-bold text-card-foreground">PIA</span>
+                          <span className="text-[11px] text-muted-foreground text-center">9-D PIA Road, Main Blvd, near Wapda Town</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Pickup Time */}
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-card-foreground">
+                        When will you pick up?
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {[
+                          { value: "asap", label: "ASAP", sub: "~20 min" },
+                          { value: "30min", label: "In 30 min", sub: "" },
+                          { value: "1hr", label: "In 1 hour", sub: "" },
+                        ].map((opt) => (
+                          <button
+                            key={opt.value}
+                            type="button"
+                            onClick={() => setPickupTime(opt.value)}
+                            className={`flex flex-col items-center gap-0.5 rounded-xl border-2 px-2 py-3 text-center transition-all ${
+                              pickupTime === opt.value
+                                ? "border-primary bg-primary/5"
+                                : "border-border hover:border-muted-foreground/30"
+                            }`}
+                          >
+                            <span className="text-sm font-bold text-card-foreground">{opt.label}</span>
+                            {opt.sub && (
+                              <span className="text-[10px] text-muted-foreground">{opt.sub}</span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </motion.div>
