@@ -37,7 +37,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <DagwoodHeader />
       <HeroBanner />
-      <DessertBanner />
+      
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
