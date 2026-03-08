@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Truck, CreditCard, Banknote, CheckCircle2, Package, MessageCircle, UtensilsCrossed, PackageCheck, Bike, Clock, ChefHat } from "lucide-react";
+import { ArrowLeft, MapPin, Truck, CreditCard, Banknote, Package } from "lucide-react";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
+import OrderConfirmation from "@/components/OrderConfirmation";
 import { useCart } from "@/context/CartContext";
 import type { CartItem } from "@/types/cart";
 
