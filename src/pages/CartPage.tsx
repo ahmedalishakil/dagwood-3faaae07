@@ -1,26 +1,10 @@
-import { useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, Sparkles } from "lucide-react";
+import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft } from "lucide-react";
 import DagwoodHeader from "@/components/DagwoodHeader";
+import SmartUpsell from "@/components/SmartUpsell";
 import { useCart } from "@/context/CartContext";
-import { menuItems, type MenuItem } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
-
-const CATEGORY_PAIRING: Record<string, string[]> = {
-  Sandwiches: ["Shakes", "Special Drinks", "Sides"],
-  Combos: ["Shakes", "Special Drinks", "Sundaes"],
-  "Hot Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants", "Donuts"],
-  "Cold Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants"],
-  Shakes: ["Sandwiches", "Brownies", "Cookies & Croissants"],
-  "Special Drinks": ["Sandwiches", "Divine Cakes"],
-  "Divine Cakes": ["Hot Coffee", "Cold Coffee"],
-  Sundaes: ["Hot Coffee"],
-  Brownies: ["Hot Coffee", "Cold Coffee"],
-  Donuts: ["Hot Coffee", "Cold Coffee"],
-  "Cookies & Croissants": ["Hot Coffee", "Cold Coffee"],
-  Sides: ["Shakes", "Special Drinks"],
-};
 
 const formatCustomization = (item: CartItem): string | null => {
   if (!item.customization) return null;
