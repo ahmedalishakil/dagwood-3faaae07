@@ -26,6 +26,7 @@ const CheckoutPage = () => {
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderTotal, setOrderTotal] = useState(0);
   const [orderNumber] = useState(() => `DW-${Math.floor(100000 + Math.random() * 900000)}`);
 
   const deliveryFee = orderType === "delivery" ? 200 : 0;
@@ -93,7 +94,7 @@ const CheckoutPage = () => {
               </div>
               <div className="flex justify-between border-t border-border pt-3">
                 <span className="text-muted-foreground">Total Paid</span>
-                <span className="text-lg font-bold text-primary">Rs. {total.toLocaleString()}</span>
+                <span className="text-lg font-bold text-primary">Rs. {orderTotal.toLocaleString()}</span>
               </div>
             </div>
           </div>
@@ -110,6 +111,7 @@ const CheckoutPage = () => {
 
   const handlePlaceOrder = () => {
     if (orderType === "delivery" && !address.trim()) return;
+    setOrderTotal(total);
     setOrderPlaced(true);
     clearCart();
   };
