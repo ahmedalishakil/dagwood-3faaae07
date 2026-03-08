@@ -18,6 +18,7 @@ import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
 import berryBlastImg from "@/assets/menu/berry-blast.png";
 import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
 import blueberryRiseImg from "@/assets/menu/blueberry-rise.png";
+import strawberryMintImg from "@/assets/menu/strawberry-mint.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
 
 export type MenuItem = {
@@ -100,7 +101,7 @@ export const menuItems: MenuItem[] = [
     name: "Strawberry Mint",
     description: "Fresh strawberry blended with cool mint",
     price: 700,
-    image: specialDrinksImg,
+    image: strawberryMintImg,
     category: "Special Drinks",
   },
   {
