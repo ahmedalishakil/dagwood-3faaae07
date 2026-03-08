@@ -13,9 +13,9 @@ export default {
       },
     },
     fontFamily: {
-      display: ['Playfair Display', 'serif'],
-      body: ['DM Sans', 'sans-serif'],
-      elegant: ['Cormorant Garamond', 'serif'],
+      display: ['Bebas Neue', 'sans-serif'],
+      body: ['Lato', 'sans-serif'],
+      elegant: ['Bebas Neue', 'sans-serif'],
     },
     extend: {
       colors: {
