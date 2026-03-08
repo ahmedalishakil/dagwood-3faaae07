@@ -136,11 +136,13 @@ const HeroBanner = () => {
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="#menu"
+                href="https://wa.me/923262188824?text=Hi%20Sandy!%20I%27d%20like%20to%20place%20an%20order"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 rounded bg-primary px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground transition-colors hover:bg-primary/90"
               >
-                <Phone className="h-3.5 w-3.5" />
-                Order Now
+                <MessageCircle className="h-3.5 w-3.5" />
+                Order with Sandy AI
               </a>
               <a
                 href="#menu"
