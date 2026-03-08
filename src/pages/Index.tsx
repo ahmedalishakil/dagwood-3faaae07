@@ -125,7 +125,7 @@ const Index = () => {
 
       <footer className="relative">
         <SandySection />
-        <div className="relative py-6">
+        <div className="relative -mt-2 pb-4">
           <img
             src={lahoreSkyline}
             alt="Lahore Skyline"
