@@ -155,3 +155,10 @@
     animation: fadeIn 0.8s ease forwards;
   }
 }
+
+@layer components {
+  .font-display {
+    font-weight: 400 !important;
+    letter-spacing: 0.04em;
+  }
+}
