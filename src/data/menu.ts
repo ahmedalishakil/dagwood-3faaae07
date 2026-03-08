@@ -47,6 +47,11 @@ import doubleChocCookieImg from "@/assets/menu/double-chocolate-cookie.jpg";
 import raspberryCookieImg from "@/assets/menu/raspberry-cookie.jpg";
 import butterCroissantImg from "@/assets/menu/butter-croissant.jpg";
 
+export type MenuItemSize = {
+  label: string;
+  price: number;
+};
+
 export type MenuItem = {
   id: string;
   name: string;
@@ -55,6 +60,7 @@ export type MenuItem = {
   image: string;
   category: string;
   badge?: string;
+  sizes?: MenuItemSize[];
 };
 
 export const categories = [
