@@ -6,7 +6,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
 import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
-import DessertBanner from "@/components/DessertBanner";
+
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { useCart } from "@/context/CartContext";
@@ -37,7 +37,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <DagwoodHeader />
       <HeroBanner />
-      <DessertBanner />
+      
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
