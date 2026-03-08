@@ -1,22 +1,21 @@
 import { useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
 import CategoryFilter from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
-import CartSidebar from "@/components/CartSidebar";
 import DessertBanner from "@/components/DessertBanner";
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import { menuItems, type MenuItem } from "@/data/menu";
-import type { CartItem, SandwichCustomization } from "@/types/cart";
+import { useCart } from "@/context/CartContext";
 
 const Index = () => {
-  const [orderType, setOrderType] = useState<"delivery" | "pickup">("delivery");
   const [activeCategory, setActiveCategory] = useState("All Items");
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [cartOpen, setCartOpen] = useState(false);
   const [customizerItem, setCustomizerItem] = useState<MenuItem | null>(null);
+  const { addToCart, cartCount, cartTotal } = useCart();
+  const navigate = useNavigate();
 
   const filteredItems = useMemo(
     () =>
@@ -31,53 +30,12 @@ const Index = () => {
       setCustomizerItem(item);
       return;
     }
-    addItemToCart(item);
+    addToCart(item);
   };
-
-  const addItemToCart = (item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => {
-    setCart((prev) => {
-      // For customized sandwiches, always add as new entry with unique id
-      if (customization) {
-        const uniqueId = `${item.id}-${Date.now()}`;
-        return [
-          ...prev,
-          {
-            id: uniqueId,
-            name: item.name,
-            price: item.price,
-            quantity: 1,
-            image: item.image,
-            customization,
-            extrasTotal: extrasTotal || 0,
-          },
-        ];
-      }
-      const existing = prev.find((c) => c.id === item.id);
-      if (existing) {
-        return prev.map((c) => (c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c));
-      }
-      return [...prev, { id: item.id, name: item.name, price: item.price, quantity: 1, image: item.image }];
-    });
-  };
-
-  const updateQuantity = (id: string, delta: number) => {
-    setCart((prev) =>
-      prev
-        .map((c) => (c.id === id ? { ...c, quantity: c.quantity + delta } : c))
-        .filter((c) => c.quantity > 0)
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setCart((prev) => prev.filter((c) => c.id !== id));
-  };
-
-  const cartCount = cart.reduce((sum, c) => sum + c.quantity, 0);
-  const cartTotal = cart.reduce((s, c) => s + (c.price + (c.extrasTotal || 0)) * c.quantity, 0);
 
   return (
     <div className="min-h-screen bg-background">
-      <DagwoodHeader orderType={orderType} onOrderTypeChange={setOrderType} />
+      <DagwoodHeader />
       <HeroBanner />
       <DessertBanner />
 
@@ -121,7 +79,7 @@ const Index = () => {
           initial={{ scale: 0, y: 20 }}
           animate={{ scale: 1, y: 0 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => setCartOpen(true)}
+          onClick={() => navigate("/cart")}
           className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-primary px-6 py-4 text-sm font-bold text-primary-foreground shadow-xl"
         >
           <ShoppingBag className="h-5 w-5" />
@@ -132,21 +90,12 @@ const Index = () => {
         </motion.button>
       )}
 
-      <CartSidebar
-        items={cart}
-        isOpen={cartOpen}
-        onClose={() => setCartOpen(false)}
-        onUpdateQuantity={updateQuantity}
-        onRemoveItem={removeItem}
-        onQuickAdd={handleAddToCart}
-      />
-
       {customizerItem && (
         <SandwichCustomizer
           item={customizerItem}
           isOpen={!!customizerItem}
           onClose={() => setCustomizerItem(null)}
-          onAddToCart={addItemToCart}
+          onAddToCart={addToCart}
         />
       )}
     </div>
