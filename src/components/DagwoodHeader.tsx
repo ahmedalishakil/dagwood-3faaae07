@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Truck, Phone, Search, ShoppingBag } from "lucide-react";
+import { MapPin, Truck, Search, ShoppingBag, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/dagwood-logo.png";
