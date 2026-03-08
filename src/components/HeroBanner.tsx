@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Phone, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
 import heroDagwood from "@/assets/hero-dagwood.jpg";
 import heroGrilled from "@/assets/hero-grilled.jpg";
 import heroRedVelvet from "@/assets/hero-redvelvet.jpg";
