@@ -26,6 +26,9 @@ import chocFudgeDonutImg from "@/assets/menu/chocolate-fudge-donut.jpg";
 import caramelDonutImg from "@/assets/menu/caramel-donut.jpg";
 import cookiesImg from "@/assets/menu/cookies.jpg";
 import brownieImg from "@/assets/menu/brownie.jpg";
+import walnutBrownieImg from "@/assets/menu/walnut-brownie.jpg";
+import caramelAlmondBrownieImg from "@/assets/menu/caramel-almond-brownie.jpg";
+import bostonBrownieImg from "@/assets/menu/boston-brownie.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
 import darkTemptationImg from "@/assets/menu/dark-temptation.png";
 import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
@@ -361,7 +364,7 @@ export const menuItems: MenuItem[] = [
     name: "Walnut Chocolate",
     description: "Fudgy chocolate brownie with walnut chunks",
     price: 399,
-    image: brownieImg,
+    image: walnutBrownieImg,
     category: "Brownies",
     badge: "Chef's Pick",
   },
@@ -370,7 +373,7 @@ export const menuItems: MenuItem[] = [
     name: "Caramel Almond",
     description: "Caramel swirl brownie with toasted almonds",
     price: 399,
-    image: brownieImg,
+    image: caramelAlmondBrownieImg,
     category: "Brownies",
   },
   {
@@ -378,7 +381,7 @@ export const menuItems: MenuItem[] = [
     name: "Boston Creamy",
     description: "Boston cream inspired brownie",
     price: 320,
-    image: brownieImg,
+    image: bostonBrownieImg,
     category: "Brownies",
   },
 
