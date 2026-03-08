@@ -15,7 +15,7 @@ const REMOVALS = [
   "No Onion",
   "No Lettuce",
   "No Tomato",
-  "No Pickles",
+  "No Jalapenos",
   "No Sauce",
 ];
 
@@ -23,10 +23,8 @@ const EXTRAS = [
   { name: "Extra Mayo", price: 50 },
   { name: "Extra Cheese", price: 100 },
   { name: "Extra Meat/Fillet", price: 200 },
-  { name: "Pickles", price: 50 },
-  { name: "Make it Spicy", price: 50 },
-  { name: "Mustard", price: 0 },
-  { name: "Ketchup", price: 0 },
+  { name: "Extra Tomato Ketchup", price: 20 },
+  { name: "Extra Chilli Garlic", price: 20 },
 ];
 
 const PREFERENCES = [
