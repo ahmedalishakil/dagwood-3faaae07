@@ -2,6 +2,8 @@ import cocktailImg from "@/assets/menu/cocktail.jpg";
 import cheeseLoverImg from "@/assets/menu/cheese-lover.jpg";
 import steakImg from "@/assets/menu/steak.jpg";
 import comboImg from "@/assets/menu/combo.jpg";
+import combo1Img from "@/assets/menu/combo1.jpg";
+import combo2Img from "@/assets/menu/combo2.jpg";
 import specialDrinksImg from "@/assets/menu/special-drinks.jpg";
 import shakeImg from "@/assets/menu/shake.jpg";
 import coffeeImg from "@/assets/menu/coffee.jpg";
@@ -36,6 +38,9 @@ import berryBlastImg from "@/assets/menu/berry-blast.png";
 import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
 import blueberryRiseImg from "@/assets/menu/blueberry-rise.png";
 import strawberryMintImg from "@/assets/menu/strawberry-mint.png";
+import threeMilkSundaeImg from "@/assets/menu/three-milk-sundae.jpg";
+import regularFriesImg from "@/assets/menu/regular-fries.jpg";
+import largeFriesImg from "@/assets/menu/large-fries.jpg";
 import friesImg from "@/assets/menu/sides-fries.jpg";
 import milkChocCookieImg from "@/assets/menu/milk-chocolate-cookie.jpg";
 import doubleChocCookieImg from "@/assets/menu/double-chocolate-cookie.jpg";
@@ -103,7 +108,7 @@ export const menuItems: MenuItem[] = [
     name: "Combo 1",
     description: "3 Chicken Strips, Fries & a Drink",
     price: 600,
-    image: comboImg,
+    image: combo1Img,
     category: "Combos",
   },
   {
@@ -111,7 +116,7 @@ export const menuItems: MenuItem[] = [
     name: "Combo 2",
     description: "6 Chicken Strips, Fries & a Drink",
     price: 900,
-    image: comboImg,
+    image: combo2Img,
     category: "Combos",
     badge: "Value",
   },
@@ -391,7 +396,7 @@ export const menuItems: MenuItem[] = [
     name: "Three Milk Sundae",
     description: "Tres leches inspired ice cream sundae",
     price: 650,
-    image: sundaeImg,
+    image: threeMilkSundaeImg,
     category: "Sundaes",
   },
   {
@@ -410,7 +415,7 @@ export const menuItems: MenuItem[] = [
     name: "Regular Fries",
     description: "Golden crispy french fries",
     price: 350,
-    image: friesImg,
+    image: regularFriesImg,
     category: "Sides",
   },
   {
@@ -418,7 +423,7 @@ export const menuItems: MenuItem[] = [
     name: "Large Fries",
     description: "Extra large portion of golden fries",
     price: 500,
-    image: friesImg,
+    image: largeFriesImg,
     category: "Sides",
   },
 ];
