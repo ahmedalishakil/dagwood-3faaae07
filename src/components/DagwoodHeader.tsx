@@ -19,9 +19,8 @@ const DagwoodHeader = () => {
       </div>
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-          <img src={logo} alt="Dagwood" className="h-12 w-12 object-contain" />
-          <span className="font-display text-xl font-bold tracking-tight text-foreground">DAGWOOD</span>
+        <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
+          <img src={logo} alt="Dagwood" className="h-14 w-auto object-contain" />
         </div>
 
         <div className="hidden sm:flex items-center rounded-full border border-border bg-secondary p-1">
