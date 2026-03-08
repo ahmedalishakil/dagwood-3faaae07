@@ -255,7 +255,7 @@ const CheckoutPage = () => {
                       >
                         <MapPin className="h-5 w-5 text-primary" />
                         <span className="text-sm font-bold text-card-foreground">PIA</span>
-                        <span className="text-[11px] text-muted-foreground text-center">PIA Housing Society</span>
+                        <span className="text-[11px] text-muted-foreground text-center">9-D PIA Road, Main Blvd, near Wapda Town</span>
                       </button>
                     </div>
                   </div>
