@@ -132,7 +132,7 @@ export const menuItems: MenuItem[] = [
     name: "Berry Blast",
     description: "Mixed berry explosion shake",
     price: 750,
-    image: shakeImg,
+    image: berryBlastImg,
     category: "Shakes",
   },
   {
