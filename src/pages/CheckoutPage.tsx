@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, MapPin, Truck, CreditCard, Banknote, CheckCircle2, Package } from "lucide-react";
 import DagwoodHeader from "@/components/DagwoodHeader";
+import SmartUpsell from "@/components/SmartUpsell";
 import { useCart } from "@/context/CartContext";
 import type { CartItem } from "@/types/cart";
 
@@ -164,6 +165,9 @@ const CheckoutPage = () => {
               })}
             </div>
           </section>
+
+          {/* Smart Upsell */}
+          <SmartUpsell compact />
 
           {/* Delivery / Pickup */}
           <section className="rounded-2xl border border-border bg-card p-5">

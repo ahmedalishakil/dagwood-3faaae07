@@ -1,26 +1,10 @@
-import { useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, Sparkles } from "lucide-react";
+import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft } from "lucide-react";
 import DagwoodHeader from "@/components/DagwoodHeader";
+import SmartUpsell from "@/components/SmartUpsell";
 import { useCart } from "@/context/CartContext";
-import { menuItems, type MenuItem } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
-
-const CATEGORY_PAIRING: Record<string, string[]> = {
-  Sandwiches: ["Shakes", "Special Drinks", "Sides"],
-  Combos: ["Shakes", "Special Drinks", "Sundaes"],
-  "Hot Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants", "Donuts"],
-  "Cold Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants"],
-  Shakes: ["Sandwiches", "Brownies", "Cookies & Croissants"],
-  "Special Drinks": ["Sandwiches", "Divine Cakes"],
-  "Divine Cakes": ["Hot Coffee", "Cold Coffee"],
-  Sundaes: ["Hot Coffee"],
-  Brownies: ["Hot Coffee", "Cold Coffee"],
-  Donuts: ["Hot Coffee", "Cold Coffee"],
-  "Cookies & Croissants": ["Hot Coffee", "Cold Coffee"],
-  Sides: ["Shakes", "Special Drinks"],
-};
 
 const formatCustomization = (item: CartItem): string | null => {
   if (!item.customization) return null;
@@ -39,25 +23,6 @@ const CartPage = () => {
   const { cart, cartCount, cartTotal, updateQuantity, removeItem, addToCart } = useCart();
   const navigate = useNavigate();
   const deliveryFee = 200;
-
-  const upsellItems = useMemo(() => {
-    if (cart.length === 0) return [];
-    const cartBaseIds = new Set(cart.map((i) => i.id.replace(/-\d+$/, "")));
-    const cartCategories = new Set(
-      cart.map((i) => {
-        const baseId = i.id.replace(/-\d+$/, "");
-        return menuItems.find((m) => m.id === baseId)?.category;
-      }).filter(Boolean) as string[]
-    );
-    const suggestedCats = new Set<string>();
-    cartCategories.forEach((cat) => {
-      CATEGORY_PAIRING[cat]?.forEach((p) => suggestedCats.add(p));
-    });
-    const candidates = menuItems.filter(
-      (m) => suggestedCats.has(m.category) && !cartBaseIds.has(m.id)
-    );
-    return [...candidates].sort(() => Math.random() - 0.5).slice(0, 4);
-  }, [cart]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -168,37 +133,8 @@ const CartPage = () => {
               </AnimatePresence>
             </div>
 
-            {/* Upsell */}
-            {upsellItems.length > 0 && (
-              <div className="mt-8">
-                <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="h-5 w-5 text-accent" />
-                  <h3 className="font-display text-lg font-bold text-foreground">Complete Your Meal</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {upsellItems.map((upsell) => (
-                    <motion.button
-                      key={upsell.id}
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => addToCart(upsell)}
-                      className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-card-hover"
-                    >
-                      <div className="relative aspect-[3/2] w-full overflow-hidden">
-                        <img src={upsell.image} alt={upsell.name} className="h-full w-full object-cover" />
-                        <span className="absolute bottom-1.5 right-1.5 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground shadow">
-                          + Add
-                        </span>
-                      </div>
-                      <div className="px-2.5 py-2 text-left">
-                        <p className="text-xs font-semibold text-card-foreground leading-tight line-clamp-1">{upsell.name}</p>
-                        <p className="mt-0.5 text-xs font-bold text-primary">Rs. {upsell.price.toLocaleString()}</p>
-                      </div>
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Smart Upsell */}
+            <SmartUpsell />
 
             {/* Summary (sticky on mobile) */}
             <div className="mt-8 rounded-2xl border border-border bg-card p-6">
