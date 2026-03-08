@@ -138,7 +138,7 @@ export const menuItems: MenuItem[] = [
     name: "Dark Temptation",
     description: "Rich dark chocolate indulgence shake",
     price: 750,
-    image: sundaeImg,
+    image: darkTemptationImg,
     category: "Shakes",
     badge: "Fan Favourite",
   },
