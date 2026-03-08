@@ -67,7 +67,7 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
       <div ref={sentinelRef} className="h-0 w-full" />
 
       <div
-        className={`sticky top-0 z-30 -mx-4 px-4 py-3 transition-all duration-300 sm:-mx-6 sm:px-6 ${
+        className={`sticky top-[68px] z-30 -mx-4 px-4 py-3 transition-all duration-300 sm:-mx-6 sm:px-6 ${
           isSticky
             ? "bg-background/95 backdrop-blur-lg shadow-md border-b border-border/50"
             : "bg-transparent"
