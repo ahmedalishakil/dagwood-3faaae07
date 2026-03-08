@@ -7,6 +7,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
 import CategoryFilter, { categoryToId } from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
+import MenuCardSkeleton from "@/components/MenuCardSkeleton";
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import SandySection from "@/components/SandySection";
 import { menuItems, categories, type MenuItem } from "@/data/menu";
