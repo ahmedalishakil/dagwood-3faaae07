@@ -14,6 +14,7 @@ import cookiesImg from "@/assets/menu/cookies.jpg";
 import brownieImg from "@/assets/menu/brownie.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
 import darkTemptationImg from "@/assets/menu/dark-temptation.png";
+import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
 import friesImg from "@/assets/menu/sides-fries.jpg";
 
 export type MenuItem = {
@@ -122,7 +123,7 @@ export const menuItems: MenuItem[] = [
     name: "Strawberry Vanilla Shake",
     description: "Creamy strawberry & vanilla milkshake",
     price: 750,
-    image: shakeImg,
+    image: strawberryShakeImg,
     category: "Shakes",
   },
   {
