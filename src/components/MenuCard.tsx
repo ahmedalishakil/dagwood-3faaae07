@@ -30,6 +30,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
       price: currentPrice,
       name: item.sizes ? `${item.name} (${item.sizes[selectedSize].label})` : item.name,
       id: cartItemId,
+      item_code: item.sizes ? item.sizes[selectedSize].item_code : item.item_code,
     };
     onAddToCart(cartItem);
   };

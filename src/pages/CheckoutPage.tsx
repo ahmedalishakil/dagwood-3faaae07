@@ -79,16 +79,16 @@ const CheckoutPage = () => {
     // Build API payload
     const orderItems = cart.map((item) => {
       const addons = item.customization?.extras?.map((e) => ({
-        item_code: e.name.toLowerCase().replace(/\s+/g, "-"),
+        item_code: e.item_code,
         item_name: e.name,
-        item_group: "Addons",
+        item_group: "Sides",
         qty: 1,
         rate: e.price,
       })) || [];
 
       return {
         item: {
-          item_code: item.id,
+          item_code: item.item_code || item.id,
           item_name: item.name,
           description: item.customization
             ? [
