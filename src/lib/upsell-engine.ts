@@ -81,7 +81,7 @@ const COFFEE_PAIRINGS = [
 const SHAKE_PAIRINGS = [
   "dark-temptation", "berry-blast", "strawberry-vanilla-shake",
   "chocolate-fudge-donut", "milk-chocolate-cookie",
-  "walnut-chocolate-brownie", "boston-creamy-brownie",
+  "walnut-chocolate-brownie", "boston-creamy-donut",
 ];
 
 const BESTSELLERS = [
