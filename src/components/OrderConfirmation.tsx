@@ -235,7 +235,7 @@ const OrderConfirmation = ({
             <MessageCircle className="h-5 w-5 text-primary" />
           </div>
           <div className="flex-1 text-left">
-            <p className="text-sm font-bold text-card-foreground">Track with Sandy</p>
+            <p className="text-sm font-bold text-card-foreground">Track with Sandy AI</p>
             <p className="text-xs text-muted-foreground">
               {orderType === "delivery"
                 ? "Get live delivery updates on WhatsApp"

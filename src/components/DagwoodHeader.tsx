@@ -58,7 +58,7 @@ const DagwoodHeader = () => {
             className="hidden sm:flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-muted"
           >
             <MessageCircle className="h-4 w-4 text-primary" />
-            <span className="hidden md:inline">Order with Sandy</span>
+            <span className="hidden md:inline">Order with Sandy AI</span>
           </a>
 
           {/* Cart icon with badge */}
