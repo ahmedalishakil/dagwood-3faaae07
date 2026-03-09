@@ -52,7 +52,7 @@ const DagwoodHeader = () => {
             <Search className="h-5 w-5" />
           </button>
           <a
-            href="https://wa.me/923262188824?text=Hi%20Sandy!"
+            href="https://wa.me/923262188824?text=Hi%20Sandy%20AI!"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-muted"
