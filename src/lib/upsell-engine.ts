@@ -35,8 +35,8 @@ function getCartProfile(cart: CartItem[]): CartProfile {
   return {
     hasDessert: DESSERT_CATEGORIES.some((c) => categories.has(c)),
     hasSundae: categories.has("Sundaes"),
-    hasCoffee: categories.has("Hot Coffee"),
-    hasColdDrink: categories.has("Cold Coffee"),
+    hasCoffee: categories.has("Hot Beverages"),
+    hasColdDrink: categories.has("Cold Beverages"),
     hasShake: categories.has("Shakes"),
     hasSandwich: categories.has("Sandwiches"),
     hasCombo: categories.has("Combos"),
