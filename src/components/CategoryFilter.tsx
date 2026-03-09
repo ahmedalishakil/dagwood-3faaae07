@@ -41,10 +41,11 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
   const handleClick = useCallback(
     (cat: string) => {
       onCategoryChange(cat);
+      const isMobile = window.innerWidth < 640;
+      const offset = isMobile ? 170 : 120;
       if (cat === "All Items") {
         const menuSection = document.getElementById("menu");
         if (menuSection) {
-          const offset = 120;
           const top = menuSection.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({ top, behavior: "smooth" });
         }
@@ -53,7 +54,6 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
       const sectionId = categoryToId(cat);
       const el = document.getElementById(sectionId);
       if (el) {
-        const offset = 120; // sticky bar height + padding
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: "smooth" });
       }
