@@ -77,33 +77,64 @@ const CheckoutPage = () => {
     setIsSubmitting(true);
 
     // Build API payload
+    const customerIdStr = `${customerName.trim()}/+${phone.replace(/\D/g, "")}`;
+
     const orderItems = cart.map((item) => {
-      const addons = item.customization?.extras?.map((e) => ({
-        item_code: e.item_code,
-        item_name: e.name,
-        item_group: "Sides",
-        qty: 1,
-        rate: e.price,
-      })) || [];
+      const itemCode = item.item_code || item.id;
+      const description = item.customization
+        ? [
+            item.customization.breadType === "brown" ? "Brown Bread" : "White Bread",
+            ...item.customization.removals,
+            ...item.customization.preferences,
+            item.customization.specialNote,
+          ].filter(Boolean).join(", ")
+        : "";
+
+      // First addon is always the item itself
+      const addons: { item_code: string; item_name: string; item_group: string; qty: number; rate: number }[] = [
+        {
+          item_code: itemCode,
+          item_name: item.name,
+          item_group: "",
+          qty: item.quantity,
+          rate: item.price,
+        },
+      ];
+
+      // Then customization extras (removals as rate 0, paid extras with rate)
+      if (item.customization) {
+        item.customization.removals.forEach((r) => {
+          const matched = item.customization!.extras.find((e) => e.name === r);
+          addons.push({
+            item_code: matched?.item_code || "",
+            item_name: r,
+            item_group: "Extra Topping",
+            qty: 1,
+            rate: 0,
+          });
+        });
+        item.customization.extras.forEach((e) => {
+          addons.push({
+            item_code: e.item_code,
+            item_name: e.name,
+            item_group: "Extra Topping",
+            qty: 1,
+            rate: e.price,
+          });
+        });
+      }
 
       return {
         item: {
-          item_code: item.item_code || item.id,
+          item_code: itemCode,
           item_name: item.name,
-          description: item.customization
-            ? [
-                item.customization.breadType === "brown" ? "Brown Bread" : "White Bread",
-                ...item.customization.removals,
-                ...item.customization.preferences,
-                item.customization.specialNote,
-              ].filter(Boolean).join(", ")
-            : "",
+          description,
           rate: item.price,
           currency: "PKR",
           qty: item.quantity,
           netTotal: (item.price + (item.extrasTotal || 0)) * item.quantity,
         },
-        has_addons: addons.length > 0 ? 1 : 0,
+        has_addons: addons.length > 1 ? 1 : 0,
         addons,
       };
     });
@@ -112,9 +143,10 @@ const CheckoutPage = () => {
       order_data: {
         items: orderItems,
         customer_info: {
-          customer_id: phone.replace(/\D/g, ""),
-          customer_name: customerName,
-          mobile_no: phone,
+          customer_id: customerIdStr,
+          customer_name: customerIdStr,
+          mobile_no: `+${phone.replace(/\D/g, "")}`,
+          email: "",
           address_line1: orderType === "delivery" ? address : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
           city: "Lahore",
           country: "Pakistan",
