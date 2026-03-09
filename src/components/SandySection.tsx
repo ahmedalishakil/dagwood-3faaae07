@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import sandyAvatar from "@/assets/sandy-avatar.png";
 
-const WHATSAPP_LINK = "https://wa.me/923262188824?text=Hi%20Sandy!";
+const WHATSAPP_LINK = "https://wa.me/923262188824?text=Hi%20Sandy%20AI!";
 
 const SandySection = () => {
   return (
@@ -21,13 +21,13 @@ const SandySection = () => {
         <div className="flex items-center gap-4 rounded-2xl bg-primary px-5 py-3 shadow-lg transition-all hover:shadow-xl hover:brightness-110 sm:gap-5 sm:px-6">
           <img
             src={sandyAvatar}
-            alt="Sandy"
+            alt="Sandy AI"
             className="h-12 w-12 flex-shrink-0 rounded-full border-2 border-primary-foreground/30 object-cover sm:h-14 sm:w-14"
             loading="lazy"
             decoding="async"
           />
           <p className="flex-1 text-sm font-semibold text-primary-foreground sm:text-base">
-            🥪 Order on WhatsApp — Sandy takes your order in seconds!
+            🥪 Order on WhatsApp — Sandy AI takes your order in seconds!
           </p>
           <span className="flex flex-shrink-0 items-center gap-2 rounded-full bg-primary-foreground px-4 py-2 text-xs font-bold text-primary sm:text-sm">
             <MessageCircle className="h-4 w-4" />

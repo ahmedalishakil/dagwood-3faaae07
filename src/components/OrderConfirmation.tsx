@@ -62,7 +62,7 @@ const OrderConfirmation = ({
     return () => clearTimeout(timer);
   }, [activeCount, steps.length, orderType]);
 
-  const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20Sandy!%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20Can%20you%20help%20me%20track%20it%3F`;
+  const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20Sandy%20AI!%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20Can%20you%20help%20me%20track%20it%3F`;
 
   const allDone = activeCount >= steps.length;
 
@@ -235,7 +235,7 @@ const OrderConfirmation = ({
             <MessageCircle className="h-5 w-5 text-primary" />
           </div>
           <div className="flex-1 text-left">
-            <p className="text-sm font-bold text-card-foreground">Track with Sandy</p>
+            <p className="text-sm font-bold text-card-foreground">Track with Sandy AI</p>
             <p className="text-xs text-muted-foreground">
               {orderType === "delivery"
                 ? "Get live delivery updates on WhatsApp"
