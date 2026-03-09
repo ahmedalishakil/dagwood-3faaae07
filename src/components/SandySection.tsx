@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import sandyAvatar from "@/assets/sandy-avatar.png";
 
-const WHATSAPP_LINK = "https://wa.me/923262188824?text=Hi%20Sandy!";
+const WHATSAPP_LINK = "https://wa.me/923262188824?text=Hi%20Sandy%20AI!";
 
 const SandySection = () => {
   return (
