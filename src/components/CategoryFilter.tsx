@@ -41,10 +41,11 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
   const handleClick = useCallback(
     (cat: string) => {
       onCategoryChange(cat);
+      const isMobile = window.innerWidth < 640;
+      const offset = isMobile ? 170 : 120;
       if (cat === "All Items") {
         const menuSection = document.getElementById("menu");
         if (menuSection) {
-          const offset = 120;
           const top = menuSection.getBoundingClientRect().top + window.scrollY - offset;
           window.scrollTo({ top, behavior: "smooth" });
         }
@@ -53,7 +54,6 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
       const sectionId = categoryToId(cat);
       const el = document.getElementById(sectionId);
       if (el) {
-        const offset = 120; // sticky bar height + padding
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: "smooth" });
       }
@@ -67,7 +67,7 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
       <div ref={sentinelRef} className="h-0 w-full" />
 
       <div
-        className={`sticky top-[68px] z-30 -mx-4 px-4 py-3 transition-all duration-300 sm:-mx-6 sm:px-6 ${
+        className={`sticky top-[116px] sm:top-[68px] z-30 -mx-4 px-4 py-2 sm:py-3 transition-all duration-300 sm:-mx-6 sm:px-6 ${
           isSticky
             ? "bg-background/95 backdrop-blur-lg shadow-md border-b border-border/50"
             : "bg-transparent"
@@ -75,7 +75,7 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
       >
         <div
           ref={scrollRef}
-          className="scrollbar-hide flex gap-2 overflow-x-auto"
+          className="scrollbar-hide flex gap-1.5 sm:gap-2 overflow-x-auto"
           role="navigation"
           aria-label="Menu categories"
         >
@@ -85,7 +85,7 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
               ref={(el) => { itemRefs.current[cat] = el; }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleClick(cat)}
-              className={`relative whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
+              className={`category-pill relative whitespace-nowrap rounded-full px-3 py-1.5 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-semibold transition-all duration-300 ${
                 activeCategory === cat
                   ? "bg-primary text-primary-foreground shadow-md"
                   : "bg-secondary text-secondary-foreground hover:bg-muted"

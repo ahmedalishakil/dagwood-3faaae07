@@ -52,7 +52,7 @@ const Index = () => {
           if (cat) setActiveCategory(cat);
         }
       },
-      { rootMargin: "-120px 0px -60% 0px", threshold: 0 }
+      { rootMargin: "-170px 0px -60% 0px", threshold: 0 }
     );
     sectionEls.forEach((el) => observer.observe(el));
     return () => observer.disconnect();

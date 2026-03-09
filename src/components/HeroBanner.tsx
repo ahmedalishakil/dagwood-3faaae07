@@ -52,7 +52,7 @@ const HeroBanner = () => {
   const slide = slides[current];
 
   return (
-    <section className="relative overflow-hidden" style={{ height: "85vh", minHeight: "550px", maxHeight: "920px" }}>
+    <section className="relative overflow-hidden" style={{ height: "clamp(400px, 75vh, 920px)", minHeight: "400px", maxHeight: "920px" }}>
       {/* Background images */}
       <AnimatePresence initial={false}>
         <motion.img
