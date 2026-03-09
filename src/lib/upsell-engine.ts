@@ -61,7 +61,7 @@ const DESSERT_PAIRINGS = [
 
 const SANDWICH_PAIRINGS = [
   "dark-temptation", "strawberry-vanilla-shake", "berry-blast",
-  "strawberry-mint", "peachy-paradise", "fries",
+  "strawberry-mint", "peachy-paradise", "regular-fries",
   "iced-americano", "iced-latte",
 ];
 
