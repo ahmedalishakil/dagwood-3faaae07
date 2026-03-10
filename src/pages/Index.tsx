@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import type { SandwichCustomization } from "@/types/cart";
 import lahoreSkyline from "@/assets/lahore-skyline.png";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";

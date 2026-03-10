@@ -77,13 +77,6 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
 
   if (!item) return null;
 
-  const extrasTotal = useMemo(
-    () => customization.extras.reduce((sum, e) => sum + e.price, 0),
-    [customization.extras]
-  );
-
-  const totalPrice = (currentPrice + (isCustomizable ? extrasTotal : 0)) * qty;
-
   const toggleRemoval = (r: string) => {
     setCustomization((prev) => ({
       ...prev,
