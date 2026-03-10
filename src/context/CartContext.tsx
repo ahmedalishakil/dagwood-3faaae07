@@ -87,6 +87,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     toast("Item removed from cart");
   }, []);
 
+  const updateItemCustomization = useCallback((id: string, customization: SandwichCustomization, extrasTotal: number) => {
+    setCart((prev) =>
+      prev.map((c) => c.id === id ? { ...c, customization, extrasTotal } : c)
+    );
+    toast.success("Customization updated!");
+  }, []);
+
   const clearCart = useCallback(() => {
     setCart([]);
   }, []);
