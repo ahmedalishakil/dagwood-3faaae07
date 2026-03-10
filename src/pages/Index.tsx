@@ -158,20 +158,12 @@ const Index = () => {
 
       <WhatsAppFloat />
 
-      {customizerItem && (
-        <SandwichCustomizer
-          item={customizerItem}
-          isOpen={!!customizerItem}
-          onClose={() => setCustomizerItem(null)}
-          onAddToCart={addToCart}
-        />
-      )}
-
       <ItemDetailModal
         item={detailItem!}
         isOpen={!!detailItem}
         onClose={() => setDetailItem(null)}
         onAddToCart={handleDetailAddToCart}
+        onAddToCartCustomized={handleDetailAddToCartCustomized}
       />
     </div>
   );
