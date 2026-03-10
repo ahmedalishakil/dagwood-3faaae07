@@ -10,6 +10,7 @@ import CategoryFilter, { categoryToId } from "@/components/CategoryFilter";
 import MenuCard from "@/components/MenuCard";
 import MenuCardSkeleton from "@/components/MenuCardSkeleton";
 import SandwichCustomizer from "@/components/SandwichCustomizer";
+import ItemDetailModal from "@/components/ItemDetailModal";
 import SandySection from "@/components/SandySection";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { menuItems, categories, type MenuItem } from "@/data/menu";
