@@ -36,7 +36,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
   };
 
   const handleCardClick = () => {
-    handleAdd();
+    onAddToCart(item);
   };
 
   return (
