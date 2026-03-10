@@ -9,6 +9,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   onAddToCart: (item: MenuItem, customization: SandwichCustomization, extrasTotal: number) => void;
+  initialCustomization?: SandwichCustomization;
 };
 
 // Real addons from menu.json — Special Instructions (free toppings)
