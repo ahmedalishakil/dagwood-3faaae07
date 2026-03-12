@@ -36,8 +36,10 @@ const EXTRAS = [
   { name: "Extra Mushrooms", price: 80, item_code: "SD-00026" },
   { name: "Extra Veggies", price: 80, item_code: "SD-00025" },
   { name: "Dynamite Sauce", price: 90, item_code: "SD-00021" },
-  { name: "Bran Bread", price: 80, item_code: "SD-00023" },
 ];
+
+const BRAN_BREAD_PRICE = 80;
+const BRAN_BREAD_ITEM_CODE = "SD-00023";
 
 const PREFERENCES = ["Cut 1/4"];
 
@@ -69,8 +71,8 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
   const currentPrice = item ? (item.sizes ? item.sizes[selectedSize].price : item.price) : 0;
 
   const extrasTotal = useMemo(
-    () => customization.extras.reduce((sum, e) => sum + e.price, 0),
-    [customization.extras]
+    () => customization.extras.reduce((sum, e) => sum + e.price, 0) + (customization.breadType === "bran" ? BRAN_BREAD_PRICE : 0),
+    [customization.extras, customization.breadType]
   );
 
   const totalPrice = (currentPrice + (isCustomizable ? extrasTotal : 0)) * qty;
@@ -255,8 +257,8 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
                               <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                                 Bread Type
                               </h4>
-                              <div className="grid grid-cols-2 gap-2">
-                                {(["white", "brown"] as const).map((type) => (
+                              <div className="grid grid-cols-3 gap-2">
+                                {(["white", "brown", "bran"] as const).map((type) => (
                                   <button
                                     key={type}
                                     onClick={() => setCustomization((prev) => ({ ...prev, breadType: type }))}
@@ -266,7 +268,10 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
                                         : "border-border hover:border-muted-foreground/30"
                                     }`}
                                   >
-                                    {type === "white" ? "White Bread" : "Brown Bread"}
+                                    <span>{type === "white" ? "White" : type === "brown" ? "Brown" : "Bran"}</span>
+                                    {type === "bran" && (
+                                      <span className="block text-xs font-semibold text-primary">+Rs. {BRAN_BREAD_PRICE}</span>
+                                    )}
                                   </button>
                                 ))}
                               </div>
