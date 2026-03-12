@@ -5,6 +5,18 @@ import { categories } from "@/data/menu";
 const categoryToId = (cat: string) =>
   cat.toLowerCase().replace(/\s+&\s+/g, "-").replace(/\s+/g, "-");
 
+const getHeaderHeight = () => {
+  if (typeof window === "undefined") return 104;
+
+  const rawValue = getComputedStyle(document.documentElement)
+    .getPropertyValue("--dagwood-header-height")
+    .trim();
+  const parsedValue = Number.parseFloat(rawValue);
+
+  if (Number.isFinite(parsedValue) && parsedValue > 0) return parsedValue;
+  return window.innerWidth < 640 ? 104 : 64;
+};
+
 type Props = {
   activeCategory: string;
   onCategoryChange: (cat: string) => void;
@@ -31,18 +43,20 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
   // Auto-scroll active button into view
   useEffect(() => {
     const btn = itemRefs.current[activeCategory];
-    if (btn && scrollRef.current) {
-      const container = scrollRef.current;
-      const left = btn.offsetLeft - container.offsetWidth / 2 + btn.offsetWidth / 2;
-      container.scrollTo({ left, behavior: "smooth" });
+    if (btn) {
+      btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
     }
   }, [activeCategory]);
 
   const handleClick = useCallback(
     (cat: string) => {
       onCategoryChange(cat);
+
       const isMobile = window.innerWidth < 640;
-      const offset = isMobile ? 170 : 120;
+      const headerHeight = getHeaderHeight();
+      const filterHeight = scrollRef.current?.parentElement?.offsetHeight ?? (isMobile ? 52 : 56);
+      const offset = headerHeight + filterHeight + 12;
+
       if (cat === "All Items") {
         const menuSection = document.getElementById("menu");
         if (menuSection) {
@@ -51,6 +65,7 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
         }
         return;
       }
+
       const sectionId = categoryToId(cat);
       const el = document.getElementById(sectionId);
       if (el) {
@@ -67,7 +82,7 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
       <div ref={sentinelRef} className="h-0 w-full" />
 
       <div
-        className={`sticky top-[80px] sm:top-[72px] z-30 -mx-4 px-4 py-2.5 sm:py-3 transition-all duration-300 sm:-mx-6 sm:px-6 ${
+        className={`sticky top-[var(--dagwood-header-height,104px)] z-40 py-2.5 sm:py-3 transition-all duration-300 ${
           isSticky
             ? "bg-background/95 backdrop-blur-lg shadow-md border-b border-border/50"
             : "bg-transparent"
@@ -82,10 +97,12 @@ const CategoryFilter = ({ activeCategory, onCategoryChange }: Props) => {
           {categories.map((cat) => (
             <motion.button
               key={cat}
-              ref={(el) => { itemRefs.current[cat] = el; }}
+              ref={(el) => {
+                itemRefs.current[cat] = el;
+              }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleClick(cat)}
-              className={`category-pill relative whitespace-nowrap rounded-full px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-semibold transition-all duration-300 flex-shrink-0 ${
+              className={`category-pill relative min-h-8 sm:min-h-10 flex-shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm font-semibold transition-all duration-300 ${
                 activeCategory === cat
                   ? "bg-primary text-primary-foreground shadow-md"
                   : "bg-secondary text-secondary-foreground hover:bg-muted"

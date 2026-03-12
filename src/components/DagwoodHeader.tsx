@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { MapPin, Truck, Search, ShoppingBag, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,13 +10,34 @@ const DagwoodHeader = () => {
   const [miniCartOpen, setMiniCartOpen] = useState(false);
   const { cart, cartCount, cartTotal, orderType, setOrderType } = useCart();
   const navigate = useNavigate();
+  const headerRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const headerNode = headerRef.current;
+    if (!headerNode) return;
+
+    const syncHeaderHeight = () => {
+      document.documentElement.style.setProperty("--dagwood-header-height", `${headerNode.offsetHeight}px`);
+    };
+
+    syncHeaderHeight();
+
+    const resizeObserver = new ResizeObserver(syncHeaderHeight);
+    resizeObserver.observe(headerNode);
+    window.addEventListener("resize", syncHeaderHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", syncHeaderHeight);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-xl">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-xl">
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
-          <img src={logo} alt="Dagwood" className="h-14 w-auto object-contain" />
+          <img src={logo} alt="Dagwood" className="h-12 w-auto object-contain" />
         </div>
 
         <div className="hidden sm:flex items-center rounded-full border border-border bg-secondary p-1">
@@ -152,7 +173,7 @@ const DagwoodHeader = () => {
         </div>
       </div>
 
-      <div className="flex sm:hidden items-center justify-center gap-2 border-t border-border px-4 py-2">
+      <div className="flex sm:hidden items-center justify-center gap-2 border-t border-border px-4 h-10">
         <button
           onClick={() => setOrderType("delivery")}
           className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
