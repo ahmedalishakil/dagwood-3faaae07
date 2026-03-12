@@ -36,8 +36,10 @@ const EXTRAS = [
   { name: "Extra Mushrooms", price: 80, item_code: "SD-00026" },
   { name: "Extra Veggies", price: 80, item_code: "SD-00025" },
   { name: "Dynamite Sauce", price: 90, item_code: "SD-00021" },
-  { name: "Bran Bread", price: 80, item_code: "SD-00023" },
 ];
+
+const BRAN_BREAD_PRICE = 80;
+const BRAN_BREAD_ITEM_CODE = "SD-00023";
 
 const PREFERENCES = ["Cut 1/4"];
 
