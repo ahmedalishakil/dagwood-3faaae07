@@ -71,8 +71,8 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
   const currentPrice = item ? (item.sizes ? item.sizes[selectedSize].price : item.price) : 0;
 
   const extrasTotal = useMemo(
-    () => customization.extras.reduce((sum, e) => sum + e.price, 0),
-    [customization.extras]
+    () => customization.extras.reduce((sum, e) => sum + e.price, 0) + (customization.breadType === "bran" ? BRAN_BREAD_PRICE : 0),
+    [customization.extras, customization.breadType]
   );
 
   const totalPrice = (currentPrice + (isCustomizable ? extrasTotal : 0)) * qty;
