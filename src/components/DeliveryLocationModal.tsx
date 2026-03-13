@@ -194,7 +194,9 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
     updateLocation(LAHORE_CENTER.lat, LAHORE_CENTER.lng);
 
     // Fix tile rendering after dialog animation
-    setTimeout(() => map.invalidateSize(), 300);
+    setTimeout(() => map.invalidateSize(), 100);
+    setTimeout(() => map.invalidateSize(), 400);
+    setTimeout(() => map.invalidateSize(), 800);
 
     return () => {};
   }, [open, updateLocation]);
