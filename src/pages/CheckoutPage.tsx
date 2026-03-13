@@ -22,12 +22,12 @@ const formatCustomization = (item: CartItem): string | null => {
 };
 
 const CheckoutPage = () => {
-  const { cart, cartCount, cartTotal, orderType, setOrderType, clearCart } = useCart();
+  const { cart, cartCount, cartTotal, orderType, setOrderType, deliveryLocation, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(deliveryLocation?.address || "");
   const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("pia");
   const [pickupTime, setPickupTime] = useState("asap");
   const [notes, setNotes] = useState("");

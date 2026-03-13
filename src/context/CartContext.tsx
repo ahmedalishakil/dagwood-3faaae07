@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, useCallback, type React
 import { toast } from "sonner";
 import type { CartItem, SandwichCustomization } from "@/types/cart";
 import type { MenuItem } from "@/data/menu";
+import type { DeliveryLocation } from "@/components/DeliveryLocationModal";
 
 type CartContextType = {
   cart: CartItem[];
@@ -14,11 +15,14 @@ type CartContextType = {
   clearCart: () => void;
   orderType: "delivery" | "pickup";
   setOrderType: (type: "delivery" | "pickup") => void;
+  deliveryLocation: DeliveryLocation | null;
+  setDeliveryLocation: (loc: DeliveryLocation | null) => void;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
 
 const STORAGE_KEY = "dagwood-cart";
+const LOCATION_KEY = "dagwood-delivery-location";
 
 function loadCart(): CartItem[] {
   try {
@@ -29,13 +33,31 @@ function loadCart(): CartItem[] {
   }
 }
 
+function loadLocation(): DeliveryLocation | null {
+  try {
+    const raw = localStorage.getItem(LOCATION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>(loadCart);
   const [orderType, setOrderType] = useState<"delivery" | "pickup">("delivery");
+  const [deliveryLocation, setDeliveryLocation] = useState<DeliveryLocation | null>(loadLocation);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    if (deliveryLocation) {
+      localStorage.setItem(LOCATION_KEY, JSON.stringify(deliveryLocation));
+    } else {
+      localStorage.removeItem(LOCATION_KEY);
+    }
+  }, [deliveryLocation]);
 
   const addToCart = useCallback((item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => {
     setCart((prev) => {
@@ -103,7 +125,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ cart, cartCount, cartTotal, addToCart, updateQuantity, removeItem, updateItemCustomization, clearCart, orderType, setOrderType }}
+      value={{ cart, cartCount, cartTotal, addToCart, updateQuantity, removeItem, updateItemCustomization, clearCart, orderType, setOrderType, deliveryLocation, setDeliveryLocation }}
     >
       {children}
     </CartContext.Provider>
