@@ -7,7 +7,7 @@ export type SandwichAddon = {
 };
 
 export type SandwichCustomization = {
-  breadType: "white" | "brown";
+  breadType: "white" | "bran";
   removals: string[];
   extras: { name: string; price: number; item_code: string }[];
   preferences: string[];

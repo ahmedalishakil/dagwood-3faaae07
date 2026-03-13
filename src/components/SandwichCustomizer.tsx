@@ -71,7 +71,7 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart, initialCustomi
 
   const summary = useMemo(() => {
     const parts: string[] = [];
-    parts.push(customization.breadType === "brown" ? "Brown Bread" : "White Bread");
+    parts.push(customization.breadType === "bran" ? "Bran Bread" : "White Bread");
     customization.removals.forEach((r) => parts.push(r));
     customization.extras.forEach((e) => parts.push(e.name));
     customization.preferences.forEach((p) => parts.push(p));
@@ -174,7 +174,7 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart, initialCustomi
                   Bread Type <span className="text-primary">*</span>
                 </h4>
                 <div className="grid grid-cols-2 gap-3">
-                  {(["white", "brown"] as const).map((type) => {
+                  {(["white", "bran"] as const).map((type) => {
                     const fill = type === "white" ? "#F5E6C8" : "#A0724A";
                     const stroke = type === "white" ? "#D4B896" : "#7A5533";
                     return (
@@ -200,8 +200,11 @@ const SandwichCustomizer = ({ item, isOpen, onClose, onAddToCart, initialCustomi
                           <path d="M6 22H30" stroke={stroke} strokeWidth="1" strokeLinecap="round" opacity="0.4" />
                         </svg>
                         <span className="text-sm font-semibold text-card-foreground">
-                          {type === "white" ? "White Bread" : "Brown Bread"}
+                          {type === "white" ? "White Bread" : "Bran Bread"}
                         </span>
+                        {type === "bran" && (
+                          <span className="text-xs font-semibold text-primary">+Rs. 80</span>
+                        )}
                       </button>
                     );
                   })}

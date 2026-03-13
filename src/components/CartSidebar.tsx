@@ -33,7 +33,7 @@ const CATEGORY_PAIRING: Record<string, string[]> = {
 const formatCustomization = (item: CartItem): string | null => {
   if (!item.customization) return null;
   const parts: string[] = [];
-  parts.push(item.customization.breadType === "brown" ? "Brown Bread" : "White Bread");
+  parts.push(item.customization.breadType === "bran" ? "Bran Bread" : "White Bread");
   item.customization.removals.forEach((r) => parts.push(r));
   item.customization.extras.forEach((e) =>
     parts.push(e.price > 0 ? `${e.name} +Rs.${e.price}` : e.name)
