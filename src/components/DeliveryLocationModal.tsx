@@ -255,7 +255,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
 
         {/* Map */}
         <div className="relative w-full" style={{ height: "55vh", minHeight: 280 }}>
-          <div ref={mapRef} className="h-full w-full" />
+          <div ref={mapCallbackRef} className="h-full w-full" />
           {/* Locate me button */}
           <button
             onClick={handleLocateMe}
