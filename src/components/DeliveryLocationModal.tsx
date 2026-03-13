@@ -99,6 +99,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
   const [nearestInfo, setNearestInfo] = useState<{ branch: Branch; distance: number } | null>(null);
   const [coords, setCoords] = useState<{ lat: number; lng: number }>(LAHORE_CENTER);
   const abortRef = useRef<AbortController | null>(null);
+  const [mapReady, setMapReady] = useState(false);
 
   const reverseGeocode = useCallback(async (lat: number, lng: number) => {
     abortRef.current?.abort();
