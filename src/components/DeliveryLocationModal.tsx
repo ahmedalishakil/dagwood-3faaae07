@@ -216,6 +216,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       leafletMap.current.remove();
       leafletMap.current = null;
       centerMarker.current = null;
+      setMapReady(false);
     }
   }, [open]);
 
