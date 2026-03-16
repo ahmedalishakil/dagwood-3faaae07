@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+import { Truck, MapPin, X } from "lucide-react";
 import type { CartItem, SandwichCustomization } from "@/types/cart";
 import type { MenuItem } from "@/data/menu";
 import type { DeliveryLocation } from "@/components/DeliveryLocationModal";
