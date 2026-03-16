@@ -209,6 +209,9 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       leafletMap.current = null;
       centerMarker.current = null;
       setMapReady(false);
+      setLocationSelected(false);
+      setAddress("Move the map to select your location");
+      setNearestInfo(null);
     }
   }, [open]);
 
