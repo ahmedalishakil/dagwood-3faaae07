@@ -54,7 +54,9 @@ const DagwoodHeader = () => {
           </div>
 
           {/* Desktop order type toggle */}
-          <div className="hidden sm:flex items-center rounded-full border border-border bg-secondary p-1">
+          <div className={`hidden sm:flex items-center rounded-full border p-1 transition-colors ${
+            orderType === null ? "border-primary bg-primary/5 animate-pulse" : "border-border bg-secondary"
+          }`}>
             <button
               onClick={handleDeliveryClick}
               className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
