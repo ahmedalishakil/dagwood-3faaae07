@@ -94,11 +94,12 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
   const mapRef = useRef<HTMLDivElement>(null);
   const leafletMap = useRef<L.Map | null>(null);
   const centerMarker = useRef<L.Marker | null>(null);
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState("Move the map to select your location");
   const [loading, setLoading] = useState(false);
   const [withinRange, setWithinRange] = useState(true);
   const [nearestInfo, setNearestInfo] = useState<{ branch: Branch; distance: number } | null>(null);
   const [coords, setCoords] = useState<{ lat: number; lng: number }>(LAHORE_CENTER);
+  const [locationSelected, setLocationSelected] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const [mapReady, setMapReady] = useState(false);
 
