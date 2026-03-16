@@ -191,19 +191,8 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
 
     leafletMap.current = map;
 
-    // Try geolocation
-    navigator.geolocation?.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-        map.setView([latitude, longitude], 15);
-      },
-      () => {
-        // Fallback: stay at Lahore center
-        updateLocation(LAHORE_CENTER.lat, LAHORE_CENTER.lng);
-      }
-    );
-
-    updateLocation(LAHORE_CENTER.lat, LAHORE_CENTER.lng);
+    // Do NOT auto-detect user location — start at Lahore center without geocoding
+    // User must manually move the map or click "Locate Me"
 
     // Fix tile rendering after dialog animation
     setTimeout(() => map.invalidateSize(), 100);
