@@ -13,7 +13,7 @@ type CartContextType = {
   removeItem: (id: string) => void;
   updateItemCustomization: (id: string, customization: SandwichCustomization, extrasTotal: number) => void;
   clearCart: () => void;
-  orderType: "delivery" | "pickup";
+  orderType: "delivery" | "pickup" | null;
   setOrderType: (type: "delivery" | "pickup") => void;
   deliveryLocation: DeliveryLocation | null;
   setDeliveryLocation: (loc: DeliveryLocation | null) => void;
@@ -44,7 +44,7 @@ function loadLocation(): DeliveryLocation | null {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>(loadCart);
-  const [orderType, setOrderType] = useState<"delivery" | "pickup">("delivery");
+  const [orderType, setOrderType] = useState<"delivery" | "pickup" | null>(null);
   const [deliveryLocation, setDeliveryLocation] = useState<DeliveryLocation | null>(loadLocation);
 
   useEffect(() => {
@@ -60,6 +60,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [deliveryLocation]);
 
   const addToCart = useCallback((item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => {
+    if (!orderType) {
+      toast.error("Please select order type first (Delivery or Pickup).", {
+        duration: 3000,
+      });
+      return;
+    }
     setCart((prev) => {
       if (customization) {
         const uniqueId = `${item.id}-${Date.now()}`;
@@ -94,7 +100,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       description: customization ? "With your customizations" : undefined,
       duration: 2000,
     });
-  }, []);
+  }, [orderType]);
 
   const updateQuantity = useCallback((id: string, delta: number) => {
     setCart((prev) =>

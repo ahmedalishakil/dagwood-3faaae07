@@ -54,7 +54,9 @@ const DagwoodHeader = () => {
           </div>
 
           {/* Desktop order type toggle */}
-          <div className="hidden sm:flex items-center rounded-full border border-border bg-secondary p-1">
+          <div className={`hidden sm:flex items-center rounded-full border p-1 transition-colors ${
+            orderType === null ? "border-primary bg-primary/5 animate-pulse" : "border-border bg-secondary"
+          }`}>
             <button
               onClick={handleDeliveryClick}
               className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
@@ -200,7 +202,12 @@ const DagwoodHeader = () => {
         )}
 
         {/* Mobile order type toggle */}
-        <div className="flex sm:hidden items-center justify-center gap-2 border-t border-border px-4 h-10">
+        <div className={`flex sm:hidden items-center justify-center gap-2 border-t px-4 h-10 transition-colors ${
+          orderType === null ? "border-primary bg-primary/5" : "border-border"
+        }`}>
+          {orderType === null && (
+            <span className="text-xs font-medium text-primary mr-1">Select:</span>
+          )}
           <button
             onClick={handleDeliveryClick}
             className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
