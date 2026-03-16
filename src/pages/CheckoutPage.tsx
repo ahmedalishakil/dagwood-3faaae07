@@ -42,7 +42,8 @@ const CheckoutPage = () => {
     orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
     orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
   );
-  const total = cartTotal + deliveryFee;
+  const gst = Math.round(cartTotal * 0.16);
+  const total = cartTotal + deliveryFee + gst;
 
   if (cart.length === 0 && !orderPlaced) {
     return (
@@ -164,7 +165,16 @@ const CheckoutPage = () => {
           city: "Lahore",
           country: "Pakistan",
         },
+        taxes: orderType === "delivery" ? [{
+          charge_type: "Actual",
+          account_head: "Cash Till Takeaway and Delivery - DP",
+          description: "Delivery Charges",
+          tax_amount: deliveryFee,
+        }] : [],
+        delivery_charges: "PIA Delivery Charges",
         branch: "Dagwood PIA",
+        order_type: orderType === "delivery" ? "Delivery" : "Pickup",
+        origin: "Website",
         company: "Dagwood PIA",
       },
     };
@@ -453,6 +463,10 @@ const CheckoutPage = () => {
                   </span>
                 </div>
               )}
+              <div className="flex justify-between text-muted-foreground">
+                <span>GST (16%)</span>
+                <span className="font-medium text-card-foreground">Rs. {gst.toLocaleString()}</span>
+              </div>
               <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
                 <span>Total</span>
                 <span className="text-primary">Rs. {total.toLocaleString()}</span>
