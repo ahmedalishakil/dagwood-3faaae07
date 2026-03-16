@@ -129,6 +129,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       const info = getNearestBranch(lat, lng);
       setNearestInfo(info);
       setWithinRange(info.distance <= DELIVERY_RADIUS_KM);
+      setLocationSelected(true);
       reverseGeocode(lat, lng);
     },
     [reverseGeocode]
