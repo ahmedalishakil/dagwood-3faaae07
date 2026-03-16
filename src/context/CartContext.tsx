@@ -100,7 +100,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       description: customization ? "With your customizations" : undefined,
       duration: 2000,
     });
-  }, []);
+  }, [orderType]);
 
   const updateQuantity = useCallback((id: string, delta: number) => {
     setCart((prev) =>
