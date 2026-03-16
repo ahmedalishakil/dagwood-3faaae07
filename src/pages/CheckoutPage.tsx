@@ -38,7 +38,10 @@ const CheckoutPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderNumber] = useState(() => `DW-${Math.floor(100000 + Math.random() * 900000)}`);
 
-  const deliveryFee = orderType === "delivery" ? 200 : 0;
+  const { deliveryFee, loading: deliveryFeeLoading } = useDeliveryCharges(
+    orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
+    orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
+  );
   const total = cartTotal + deliveryFee;
 
   if (cart.length === 0 && !orderPlaced) {
