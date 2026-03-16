@@ -6,6 +6,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import { useCart } from "@/context/CartContext";
+import { useDeliveryCharges } from "@/hooks/useDeliveryCharges";
 import { menuItems } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
 import type { SandwichCustomization } from "@/types/cart";
@@ -25,9 +26,13 @@ const formatCustomization = (item: CartItem): string | null => {
 };
 
 const CartPage = () => {
-  const { cart, cartCount, cartTotal, updateQuantity, removeItem, updateItemCustomization, orderType } = useCart();
+  const { cart, cartCount, cartTotal, updateQuantity, removeItem, updateItemCustomization, orderType, deliveryLocation } = useCart();
   const navigate = useNavigate();
-  const deliveryFee = orderType === "delivery" ? 200 : 0;
+  const { deliveryFee: dynamicFee, loading: deliveryFeeLoading } = useDeliveryCharges(
+    orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
+    orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
+  );
+  const deliveryFee = orderType === "delivery" ? dynamicFee : 0;
 
   const [editingItem, setEditingItem] = useState<{ cartItem: CartItem; menuItem: MenuItem } | null>(null);
 
@@ -181,7 +186,7 @@ const CartPage = () => {
                 {orderType === "delivery" && (
                   <div className="flex justify-between text-muted-foreground">
                     <span>Delivery Fee</span>
-                    <span className="font-medium text-card-foreground">Rs. {deliveryFee.toLocaleString()}</span>
+                    <span className="font-medium text-card-foreground">{deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee.toLocaleString()}`}</span>
                   </div>
                 )}
                 <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
