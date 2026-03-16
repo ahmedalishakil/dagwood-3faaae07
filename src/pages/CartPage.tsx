@@ -33,6 +33,7 @@ const CartPage = () => {
     orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
   );
   const deliveryFee = orderType === "delivery" ? dynamicFee : 0;
+  const gst = Math.round(cartTotal * 0.16);
 
   const [editingItem, setEditingItem] = useState<{ cartItem: CartItem; menuItem: MenuItem } | null>(null);
 
