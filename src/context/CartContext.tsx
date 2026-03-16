@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Truck, MapPin, X } from "lucide-react";
 import type { CartItem, SandwichCustomization } from "@/types/cart";
 import type { MenuItem } from "@/data/menu";
+import DeliveryLocationModal from "@/components/DeliveryLocationModal";
 import type { DeliveryLocation } from "@/components/DeliveryLocationModal";
 
 type CartContextType = {
@@ -131,10 +132,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const cartCount = cart.reduce((sum, c) => sum + c.quantity, 0);
   const cartTotal = cart.reduce((s, c) => s + (c.price + (c.extrasTotal || 0)) * c.quantity, 0);
 
+  const [showLocationModal, setShowLocationModal] = useState(false);
+
   const handlePromptSelect = (type: "delivery" | "pickup") => {
     setOrderType(type);
     setShowOrderTypePrompt(false);
-    toast.success(`Order type set to ${type === "delivery" ? "Delivery" : "Pickup"}!`);
+    if (type === "delivery") {
+      setShowLocationModal(true);
+    } else {
+      toast.success("Order type set to Pickup!");
+    }
+  };
+
+  const handleLocationConfirm = (loc: DeliveryLocation) => {
+    setDeliveryLocation(loc);
+    setShowLocationModal(false);
+    toast.success("Order type set to Delivery!");
   };
 
   return (
@@ -205,6 +218,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
           </>
         )}
       </AnimatePresence>
+
+      <DeliveryLocationModal
+        open={showLocationModal}
+        onClose={() => setShowLocationModal(false)}
+        onConfirm={handleLocationConfirm}
+      />
     </CartContext.Provider>
   );
 }
