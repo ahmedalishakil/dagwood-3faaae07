@@ -13,7 +13,7 @@ type CartContextType = {
   removeItem: (id: string) => void;
   updateItemCustomization: (id: string, customization: SandwichCustomization, extrasTotal: number) => void;
   clearCart: () => void;
-  orderType: "delivery" | "pickup";
+  orderType: "delivery" | "pickup" | null;
   setOrderType: (type: "delivery" | "pickup") => void;
   deliveryLocation: DeliveryLocation | null;
   setDeliveryLocation: (loc: DeliveryLocation | null) => void;
