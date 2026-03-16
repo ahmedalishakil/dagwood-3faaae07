@@ -27,7 +27,7 @@ export function useDeliveryCharges(branchName: string | undefined, distanceKm: n
       return;
     }
 
-    const apiBranch = BRANCH_API_NAMES[branchName] || branchName;
+    const apiBranch = API_BRANCH;
 
     let cancelled = false;
     setLoading(true);
