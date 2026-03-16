@@ -26,9 +26,13 @@ const formatCustomization = (item: CartItem): string | null => {
 };
 
 const CartPage = () => {
-  const { cart, cartCount, cartTotal, updateQuantity, removeItem, updateItemCustomization, orderType } = useCart();
+  const { cart, cartCount, cartTotal, updateQuantity, removeItem, updateItemCustomization, orderType, deliveryLocation } = useCart();
   const navigate = useNavigate();
-  const deliveryFee = orderType === "delivery" ? 200 : 0;
+  const { deliveryFee: dynamicFee, loading: deliveryFeeLoading } = useDeliveryCharges(
+    orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
+    orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
+  );
+  const deliveryFee = orderType === "delivery" ? dynamicFee : 0;
 
   const [editingItem, setEditingItem] = useState<{ cartItem: CartItem; menuItem: MenuItem } | null>(null);
 
