@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Truck, MapPin, X } from "lucide-react";
 import type { CartItem, SandwichCustomization } from "@/types/cart";
 import type { MenuItem } from "@/data/menu";
+import DeliveryLocationModal from "@/components/DeliveryLocationModal";
 import type { DeliveryLocation } from "@/components/DeliveryLocationModal";
 
 type CartContextType = {
