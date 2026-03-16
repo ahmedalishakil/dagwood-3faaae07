@@ -6,6 +6,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
 import SandwichCustomizer from "@/components/SandwichCustomizer";
 import { useCart } from "@/context/CartContext";
+import { useDeliveryCharges } from "@/hooks/useDeliveryCharges";
 import { menuItems } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
 import type { SandwichCustomization } from "@/types/cart";
