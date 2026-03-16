@@ -240,6 +240,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       address,
       nearestBranch: nearestInfo.branch.name,
       branchAddress: nearestInfo.branch.address,
+      distanceKm: nearestInfo.distance,
     });
   };
 
