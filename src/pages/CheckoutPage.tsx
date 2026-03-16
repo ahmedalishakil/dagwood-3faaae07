@@ -286,7 +286,9 @@ const CheckoutPage = () => {
               >
                 <Truck className="h-6 w-6 text-primary" />
                 <span className="text-sm font-bold text-card-foreground">Delivery</span>
-                <span className="text-xs text-muted-foreground">Rs. 200 fee</span>
+                <span className="text-xs text-muted-foreground">
+                  {deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee} fee`}
+                </span>
               </button>
               <button
                 onClick={() => setOrderType("pickup")}
