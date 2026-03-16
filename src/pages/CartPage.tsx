@@ -190,9 +190,13 @@ const CartPage = () => {
                     <span className="font-medium text-card-foreground">{deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee.toLocaleString()}`}</span>
                   </div>
                 )}
+                <div className="flex justify-between text-muted-foreground">
+                  <span>GST (16%)</span>
+                  <span className="font-medium text-card-foreground">Rs. {gst.toLocaleString()}</span>
+                </div>
                 <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
                   <span>Total</span>
-                  <span className="text-primary">Rs. {(cartTotal + deliveryFee).toLocaleString()}</span>
+                  <span className="text-primary">Rs. {(cartTotal + deliveryFee + gst).toLocaleString()}</span>
                 </div>
               </div>
               <motion.button
@@ -201,7 +205,7 @@ const CartPage = () => {
                 onClick={() => navigate("/checkout")}
                 className="mt-5 w-full rounded-xl bg-primary py-4 text-sm font-bold text-primary-foreground shadow-lg"
               >
-                Proceed to Checkout — Rs. {(cartTotal + deliveryFee).toLocaleString()}
+                Proceed to Checkout — Rs. {(cartTotal + deliveryFee + gst).toLocaleString()}
               </motion.button>
             </div>
           </>

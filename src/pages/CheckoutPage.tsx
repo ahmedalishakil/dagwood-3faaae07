@@ -463,6 +463,10 @@ const CheckoutPage = () => {
                   </span>
                 </div>
               )}
+              <div className="flex justify-between text-muted-foreground">
+                <span>GST (16%)</span>
+                <span className="font-medium text-card-foreground">Rs. {gst.toLocaleString()}</span>
+              </div>
               <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
                 <span>Total</span>
                 <span className="text-primary">Rs. {total.toLocaleString()}</span>
