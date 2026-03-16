@@ -7,6 +7,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
 import OrderConfirmation from "@/components/OrderConfirmation";
 import { useCart } from "@/context/CartContext";
+import { useDeliveryCharges } from "@/hooks/useDeliveryCharges";
 import type { CartItem } from "@/types/cart";
 
 const formatCustomization = (item: CartItem): string | null => {
@@ -37,7 +38,10 @@ const CheckoutPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderNumber] = useState(() => `DW-${Math.floor(100000 + Math.random() * 900000)}`);
 
-  const deliveryFee = orderType === "delivery" ? 200 : 0;
+  const { deliveryFee, loading: deliveryFeeLoading } = useDeliveryCharges(
+    orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
+    orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
+  );
   const total = cartTotal + deliveryFee;
 
   if (cart.length === 0 && !orderPlaced) {
@@ -282,7 +286,9 @@ const CheckoutPage = () => {
               >
                 <Truck className="h-6 w-6 text-primary" />
                 <span className="text-sm font-bold text-card-foreground">Delivery</span>
-                <span className="text-xs text-muted-foreground">Rs. 200 fee</span>
+                <span className="text-xs text-muted-foreground">
+                  {deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee} fee`}
+                </span>
               </button>
               <button
                 onClick={() => setOrderType("pickup")}
@@ -442,7 +448,9 @@ const CheckoutPage = () => {
               {orderType === "delivery" && (
                 <div className="flex justify-between text-muted-foreground">
                   <span>Delivery Fee</span>
-                  <span className="font-medium text-card-foreground">Rs. {deliveryFee.toLocaleString()}</span>
+                  <span className="font-medium text-card-foreground">
+                    {deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee.toLocaleString()}`}
+                  </span>
                 </div>
               )}
               <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">

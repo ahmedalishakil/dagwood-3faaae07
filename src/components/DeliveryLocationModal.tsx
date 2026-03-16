@@ -36,6 +36,7 @@ export type DeliveryLocation = {
   address: string;
   nearestBranch: string;
   branchAddress: string;
+  distanceKm: number;
 };
 
 function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -239,6 +240,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       address,
       nearestBranch: nearestInfo.branch.name,
       branchAddress: nearestInfo.branch.address,
+      distanceKm: nearestInfo.distance,
     });
   };
 
