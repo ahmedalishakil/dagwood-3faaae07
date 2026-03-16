@@ -218,6 +218,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
           </>
         )}
       </AnimatePresence>
+
+      <DeliveryLocationModal
+        open={showLocationModal}
+        onClose={() => setShowLocationModal(false)}
+        onConfirm={handleLocationConfirm}
+      />
     </CartContext.Provider>
   );
 }

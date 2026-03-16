@@ -297,10 +297,10 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
         <div className="px-4 py-3 border-t border-border bg-card">
           <Button
             onClick={handleConfirm}
-            disabled={!withinRange || loading}
+            disabled={!locationSelected || !withinRange || loading}
             className="w-full rounded-full font-bold"
           >
-            Confirm Location
+            {locationSelected ? "Confirm Location" : "Move map to select location"}
           </Button>
         </div>
       </DialogContent>
