@@ -60,6 +60,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [deliveryLocation]);
 
   const addToCart = useCallback((item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => {
+    if (!orderType) {
+      toast.error("Please select order type first (Delivery or Pickup).", {
+        duration: 3000,
+      });
+      return;
+    }
     setCart((prev) => {
       if (customization) {
         const uniqueId = `${item.id}-${Date.now()}`;
