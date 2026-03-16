@@ -13,10 +13,7 @@ type DeliveryChargesResponse = {
   };
 };
 
-const BRANCH_API_NAMES: Record<string, string> = {
-  "PIA Road Branch": "Dagwood PIA Take Away",
-  "Khayaban-e-Amin Branch": "Dagwood Khayaban E Amin Take Away",
-};
+const API_BRANCH = "Dagwood PIA Take Away";
 
 const API_URL = "http://122.129.76.118/api/method/lucrum_pos_general.api.website_api.get_delivery_charges";
 
