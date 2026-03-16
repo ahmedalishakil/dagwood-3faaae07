@@ -165,7 +165,16 @@ const CheckoutPage = () => {
           city: "Lahore",
           country: "Pakistan",
         },
+        taxes: orderType === "delivery" ? [{
+          charge_type: "Actual",
+          account_head: "Cash Till Takeaway and Delivery - DP",
+          description: "Delivery Charges",
+          tax_amount: deliveryFee,
+        }] : [],
+        delivery_charges: "PIA Delivery Charges",
         branch: "Dagwood PIA",
+        order_type: orderType === "delivery" ? "Delivery" : "Pickup",
+        origin: "Website",
         company: "Dagwood PIA",
       },
     };
