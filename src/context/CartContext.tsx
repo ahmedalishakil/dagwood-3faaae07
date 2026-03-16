@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+import { Truck, MapPin, X } from "lucide-react";
 import type { CartItem, SandwichCustomization } from "@/types/cart";
 import type { MenuItem } from "@/data/menu";
 import type { DeliveryLocation } from "@/components/DeliveryLocationModal";
@@ -59,11 +61,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [deliveryLocation]);
 
+  const [showOrderTypePrompt, setShowOrderTypePrompt] = useState(false);
+
   const addToCart = useCallback((item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => {
     if (!orderType) {
-      toast.error("Please select order type first (Delivery or Pickup).", {
-        duration: 3000,
-      });
+      setShowOrderTypePrompt(true);
       return;
     }
     setCart((prev) => {
@@ -129,11 +131,80 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const cartCount = cart.reduce((sum, c) => sum + c.quantity, 0);
   const cartTotal = cart.reduce((s, c) => s + (c.price + (c.extrasTotal || 0)) * c.quantity, 0);
 
+  const handlePromptSelect = (type: "delivery" | "pickup") => {
+    setOrderType(type);
+    setShowOrderTypePrompt(false);
+    toast.success(`Order type set to ${type === "delivery" ? "Delivery" : "Pickup"}!`);
+  };
+
   return (
     <CartContext.Provider
       value={{ cart, cartCount, cartTotal, addToCart, updateQuantity, removeItem, updateItemCustomization, clearCart, orderType, setOrderType, deliveryLocation, setDeliveryLocation }}
     >
       {children}
+
+      {/* Order Type Selection Popup */}
+      <AnimatePresence>
+        {showOrderTypePrompt && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm"
+              onClick={() => setShowOrderTypePrompt(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed left-1/2 top-1/2 z-[101] w-[90vw] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-border bg-card p-6 shadow-2xl"
+            >
+              <button
+                onClick={() => setShowOrderTypePrompt(false)}
+                className="absolute right-3 top-3 rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              <h3 className="mb-1 font-display text-lg font-bold text-card-foreground">
+                Select Order Type
+              </h3>
+              <p className="mb-5 text-sm text-muted-foreground">
+                Please select order type first (Delivery or Pickup).
+              </p>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => handlePromptSelect("delivery")}
+                  className="flex items-center gap-3 rounded-xl border border-border bg-secondary p-4 text-left transition-all hover:border-primary hover:bg-primary/5 hover:shadow-md"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Truck className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-card-foreground">Delivery</span>
+                    <p className="text-xs text-muted-foreground">Get it delivered to your door</p>
+                  </div>
+                </button>
+                <button
+                  onClick={() => handlePromptSelect("pickup")}
+                  className="flex items-center gap-3 rounded-xl border border-border bg-secondary p-4 text-left transition-all hover:border-primary hover:bg-primary/5 hover:shadow-md"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <MapPin className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-card-foreground">Pickup</span>
+                    <p className="text-xs text-muted-foreground">Pick up from our branch</p>
+                  </div>
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </CartContext.Provider>
   );
 }
