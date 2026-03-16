@@ -7,6 +7,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
 import OrderConfirmation from "@/components/OrderConfirmation";
 import { useCart } from "@/context/CartContext";
+import { useDeliveryCharges } from "@/hooks/useDeliveryCharges";
 import type { CartItem } from "@/types/cart";
 
 const formatCustomization = (item: CartItem): string | null => {
