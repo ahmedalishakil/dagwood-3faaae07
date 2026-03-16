@@ -15,8 +15,7 @@ type DeliveryChargesResponse = {
 
 const API_BRANCH = "Dagwood PIA Take Away";
 
-const API_URL =
-  "https://dagwood-chatbot.lucrumerp.com/api/method/lucrum_pos_general.api.website_api.get_delivery_charges";
+const API_URL = "https://dagwood-chatbot.lucrumerp.com/api/delivery_charges";
 
 export function useDeliveryCharges(branchName: string | undefined, distanceKm: number | undefined) {
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
