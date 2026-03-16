@@ -44,7 +44,7 @@ function loadLocation(): DeliveryLocation | null {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>(loadCart);
-  const [orderType, setOrderType] = useState<"delivery" | "pickup">("delivery");
+  const [orderType, setOrderType] = useState<"delivery" | "pickup" | null>(null);
   const [deliveryLocation, setDeliveryLocation] = useState<DeliveryLocation | null>(loadLocation);
 
   useEffect(() => {
