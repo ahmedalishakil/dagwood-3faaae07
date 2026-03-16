@@ -448,7 +448,9 @@ const CheckoutPage = () => {
               {orderType === "delivery" && (
                 <div className="flex justify-between text-muted-foreground">
                   <span>Delivery Fee</span>
-                  <span className="font-medium text-card-foreground">Rs. {deliveryFee.toLocaleString()}</span>
+                  <span className="font-medium text-card-foreground">
+                    {deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee.toLocaleString()}`}
+                  </span>
                 </div>
               )}
               <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
