@@ -42,7 +42,8 @@ const CheckoutPage = () => {
     orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
     orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
   );
-  const total = cartTotal + deliveryFee;
+  const gst = Math.round(cartTotal * 0.16);
+  const total = cartTotal + deliveryFee + gst;
 
   if (cart.length === 0 && !orderPlaced) {
     return (
