@@ -172,7 +172,11 @@ const CheckoutPage = () => {
           tax_amount: deliveryFee,
         }] : [],
         delivery_charges: "PIA Delivery Charges",
-        branch: "Dagwood PIA",
+        branch: orderType === "delivery"
+          ? "Dagwood PIA Take Away"
+          : pickupBranch === "vertical"
+            ? "Dagwood PINE AVENUE"
+            : "Dagwood PIA Take Away",
         order_type: orderType === "delivery" ? "Delivery" : "Pickup",
         origin: "Website",
         company: "Dagwood PIA",
