@@ -61,11 +61,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [deliveryLocation]);
 
+  const [showOrderTypePrompt, setShowOrderTypePrompt] = useState(false);
+
   const addToCart = useCallback((item: MenuItem, customization?: SandwichCustomization, extrasTotal?: number) => {
     if (!orderType) {
-      toast.error("Please select order type first (Delivery or Pickup).", {
-        duration: 3000,
-      });
+      setShowOrderTypePrompt(true);
       return;
     }
     setCart((prev) => {
