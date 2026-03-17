@@ -7,6 +7,7 @@ import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
 import OrderConfirmation from "@/components/OrderConfirmation";
 import { useCart } from "@/context/CartContext";
+import { useDeliveryCharges } from "@/hooks/useDeliveryCharges";
 import type { CartItem } from "@/types/cart";
 
 const formatCustomization = (item: CartItem): string | null => {
@@ -14,9 +15,7 @@ const formatCustomization = (item: CartItem): string | null => {
   const parts: string[] = [];
   parts.push(item.customization.breadType === "bran" ? "Bran Bread" : "White Bread");
   item.customization.removals.forEach((r) => parts.push(r));
-  item.customization.extras.forEach((e) =>
-    parts.push(e.price > 0 ? `${e.name} +Rs.${e.price}` : e.name)
-  );
+  item.customization.extras.forEach((e) => parts.push(e.price > 0 ? `${e.name} +Rs.${e.price}` : e.name));
   item.customization.preferences.forEach((p) => parts.push(p));
   return parts.join(" · ");
 };
@@ -32,13 +31,18 @@ const CheckoutPage = () => {
   const [pickupTime, setPickupTime] = useState("asap");
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
+  const [modeType, setModeType] = useState<"Cash" | "Bank">("Cash");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderNumber] = useState(() => `DW-${Math.floor(100000 + Math.random() * 900000)}`);
 
-  const deliveryFee = orderType === "delivery" ? 200 : 0;
-  const total = cartTotal + deliveryFee;
+  const { deliveryFee, shippingAccount, loading: deliveryFeeLoading } = useDeliveryCharges(
+    orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
+    orderType === "delivery" ? deliveryLocation?.distanceKm : undefined,
+  );
+  const gst = Math.round(cartTotal * 0.16);
+  const total = cartTotal + deliveryFee + gst;
 
   if (cart.length === 0 && !orderPlaced) {
     return (
@@ -136,7 +140,7 @@ const CheckoutPage = () => {
           item_code: itemCode,
           item_name: item.name,
           description: item.customization
-            ? `${item.customization.breadType === "bran" ? "Bran Bread" : "White Bread"}, ${[...item.customization.removals, ...item.customization.extras.map(e => e.name), ...item.customization.preferences, item.customization.specialNote].filter(Boolean).join(", ")}`
+            ? `${item.customization.breadType === "bran" ? "Bran Bread" : "White Bread"}, ${[...item.customization.removals, ...item.customization.extras.map((e) => e.name), ...item.customization.preferences, item.customization.specialNote].filter(Boolean).join(", ")}`
             : "",
           rate: item.price,
           currency: "PKR",
@@ -156,11 +160,33 @@ const CheckoutPage = () => {
           customer_name: customerIdStr,
           mobile_no: `+${phone.replace(/\D/g, "")}`,
           email: "",
-          address_line1: orderType === "delivery" ? address : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
+          address_line1:
+            orderType === "delivery" ? address : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
           city: "Lahore",
           country: "Pakistan",
         },
-        branch: "Dagwood PIA",
+        taxes:
+          orderType === "delivery"
+            ? [
+                {
+                  charge_type: "Actual",
+                  account_head: shippingAccount,
+                  description: "Delivery Charges",
+                  tax_amount: deliveryFee,
+                },
+              ]
+            : [],
+        delivery_charges: "PIA Delivery Charges",
+        branch:
+          orderType === "delivery"
+            ? "Dagwood PIA Take Away"
+            : pickupBranch === "vertical"
+              ? "Dagwood PINE AVENUE"
+              : "Dagwood PIA Take Away",
+        order_type: orderType === "delivery" ? "Delivery" : "Pickup",
+        mode_type: orderType === "pickup" ? "Cash" : modeType,
+        pos_profile: "PIA Take Away and Delivery",
+        origin: "Website",
         company: "Dagwood PIA",
       },
     };
@@ -186,9 +212,7 @@ const CheckoutPage = () => {
   };
 
   const canPlaceOrder =
-    customerName.trim().length > 0 &&
-    phone.trim().length > 0 &&
-    (orderType === "pickup" || address.trim().length > 0);
+    customerName.trim().length > 0 && phone.trim().length > 0 && (orderType === "pickup" || address.trim().length > 0);
 
   return (
     <div className="min-h-screen bg-background pb-32 sm:pb-8">
@@ -215,12 +239,15 @@ const CheckoutPage = () => {
                 const unitPrice = item.price + (item.extrasTotal || 0);
                 return (
                   <div key={item.id} className="flex items-center gap-3">
-                    <img src={item.image} alt={item.name} className="h-12 w-12 rounded-lg object-cover" loading="lazy" />
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-12 w-12 rounded-lg object-cover"
+                      loading="lazy"
+                    />
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-semibold text-card-foreground">{item.name}</p>
-                      {customText && (
-                        <p className="truncate text-[11px] text-muted-foreground">{customText}</p>
-                      )}
+                      {customText && <p className="truncate text-[11px] text-muted-foreground">{customText}</p>}
                     </div>
                     <div className="text-right shrink-0">
                       <p className="text-sm font-bold text-card-foreground">
@@ -282,7 +309,9 @@ const CheckoutPage = () => {
               >
                 <Truck className="h-6 w-6 text-primary" />
                 <span className="text-sm font-bold text-card-foreground">Delivery</span>
-                <span className="text-xs text-muted-foreground">Rs. 200 fee</span>
+                <span className="text-xs text-muted-foreground">
+                  {deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee} fee`}
+                </span>
               </button>
               <button
                 onClick={() => setOrderType("pickup")}
@@ -342,7 +371,9 @@ const CheckoutPage = () => {
                         >
                           <MapPin className="h-5 w-5 text-primary" />
                           <span className="text-sm font-bold text-card-foreground">Vertical</span>
-                          <span className="text-[11px] text-muted-foreground text-center">94 Pine Ave, Block B, Khayaban E Amin</span>
+                          <span className="text-[11px] text-muted-foreground text-center">
+                            94 Pine Ave, Block B, Khayaban E Amin
+                          </span>
                         </button>
                         <button
                           type="button"
@@ -355,12 +386,16 @@ const CheckoutPage = () => {
                         >
                           <MapPin className="h-5 w-5 text-primary" />
                           <span className="text-sm font-bold text-card-foreground">PIA</span>
-                          <span className="text-[11px] text-muted-foreground text-center">9-D PIA Road, Main Blvd, near Wapda Town</span>
+                          <span className="text-[11px] text-muted-foreground text-center">
+                            9-D PIA Road, Main Blvd, near Wapda Town
+                          </span>
                         </button>
                       </div>
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-card-foreground">When will you pick up?</label>
+                      <label className="mb-2 block text-sm font-medium text-card-foreground">
+                        When will you pick up?
+                      </label>
                       <div className="grid grid-cols-3 gap-2">
                         {[
                           { value: "asap", label: "ASAP", sub: "~20 min" },
@@ -408,9 +443,7 @@ const CheckoutPage = () => {
               <button
                 onClick={() => setPayment("cod")}
                 className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
-                  payment === "cod"
-                    ? "border-primary bg-primary/5"
-                    : "border-border hover:border-muted-foreground/30"
+                  payment === "cod" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
                 }`}
               >
                 <Banknote className="h-6 w-6 text-primary" />
@@ -419,6 +452,43 @@ const CheckoutPage = () => {
                   <p className="text-xs text-muted-foreground">Pay when you receive your order</p>
                 </div>
               </button>
+
+              {/* Payment mode radio buttons — only for delivery + COD */}
+              <AnimatePresence>
+                {payment === "cod" && orderType === "delivery" && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="ml-1 mt-1 space-y-2 rounded-xl border border-border bg-secondary/50 p-4">
+                      <p className="text-sm font-medium text-card-foreground">Payment Mode</p>
+                      <label className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-secondary">
+                        <input
+                          type="radio"
+                          name="modeType"
+                          checked={modeType === "Cash"}
+                          onChange={() => setModeType("Cash")}
+                          className="h-4 w-4 accent-[hsl(var(--primary))]"
+                        />
+                        <span className="text-sm text-card-foreground">Cash</span>
+                      </label>
+                      <label className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-secondary">
+                        <input
+                          type="radio"
+                          name="modeType"
+                          checked={modeType === "Bank"}
+                          onChange={() => setModeType("Bank")}
+                          className="h-4 w-4 accent-[hsl(var(--primary))]"
+                        />
+                        <span className="text-sm text-card-foreground">Online Transfer</span>
+                      </label>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <button
                 disabled
                 className="flex w-full items-center gap-3 rounded-xl border-2 border-border p-4 text-left opacity-50 cursor-not-allowed"
@@ -442,9 +512,15 @@ const CheckoutPage = () => {
               {orderType === "delivery" && (
                 <div className="flex justify-between text-muted-foreground">
                   <span>Delivery Fee</span>
-                  <span className="font-medium text-card-foreground">Rs. {deliveryFee.toLocaleString()}</span>
+                  <span className="font-medium text-card-foreground">
+                    {deliveryFeeLoading ? "Calculating..." : `Rs. ${deliveryFee.toLocaleString()}`}
+                  </span>
                 </div>
               )}
+              <div className="flex justify-between text-muted-foreground">
+                <span>GST (16%)</span>
+                <span className="font-medium text-card-foreground">Rs. {gst.toLocaleString()}</span>
+              </div>
               <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
                 <span>Total</span>
                 <span className="text-primary">Rs. {total.toLocaleString()}</span>

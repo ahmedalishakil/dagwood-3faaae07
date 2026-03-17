@@ -36,6 +36,7 @@ export type DeliveryLocation = {
   address: string;
   nearestBranch: string;
   branchAddress: string;
+  distanceKm: number;
 };
 
 function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -93,11 +94,12 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
   const mapRef = useRef<HTMLDivElement>(null);
   const leafletMap = useRef<L.Map | null>(null);
   const centerMarker = useRef<L.Marker | null>(null);
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState("Move the map to select your location");
   const [loading, setLoading] = useState(false);
   const [withinRange, setWithinRange] = useState(true);
   const [nearestInfo, setNearestInfo] = useState<{ branch: Branch; distance: number } | null>(null);
   const [coords, setCoords] = useState<{ lat: number; lng: number }>(LAHORE_CENTER);
+  const [locationSelected, setLocationSelected] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const [mapReady, setMapReady] = useState(false);
 
@@ -127,6 +129,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       const info = getNearestBranch(lat, lng);
       setNearestInfo(info);
       setWithinRange(info.distance <= DELIVERY_RADIUS_KM);
+      setLocationSelected(true);
       reverseGeocode(lat, lng);
     },
     [reverseGeocode]
@@ -188,19 +191,8 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
 
     leafletMap.current = map;
 
-    // Try geolocation
-    navigator.geolocation?.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-        map.setView([latitude, longitude], 15);
-      },
-      () => {
-        // Fallback: stay at Lahore center
-        updateLocation(LAHORE_CENTER.lat, LAHORE_CENTER.lng);
-      }
-    );
-
-    updateLocation(LAHORE_CENTER.lat, LAHORE_CENTER.lng);
+    // Do NOT auto-detect user location — start at Lahore center without geocoding
+    // User must manually move the map or click "Locate Me"
 
     // Fix tile rendering after dialog animation
     setTimeout(() => map.invalidateSize(), 100);
@@ -217,6 +209,9 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       leafletMap.current = null;
       centerMarker.current = null;
       setMapReady(false);
+      setLocationSelected(false);
+      setAddress("Move the map to select your location");
+      setNearestInfo(null);
     }
   }, [open]);
 
@@ -239,6 +234,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
       address,
       nearestBranch: nearestInfo.branch.name,
       branchAddress: nearestInfo.branch.address,
+      distanceKm: nearestInfo.distance,
     });
   };
 
@@ -301,10 +297,10 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
         <div className="px-4 py-3 border-t border-border bg-card">
           <Button
             onClick={handleConfirm}
-            disabled={!withinRange || loading}
+            disabled={!locationSelected || !withinRange || loading}
             className="w-full rounded-full font-bold"
           >
-            Confirm Location
+            {locationSelected ? "Confirm Location" : "Move map to select location"}
           </Button>
         </div>
       </DialogContent>
