@@ -37,7 +37,11 @@ const CheckoutPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderNumber] = useState(() => `DW-${Math.floor(100000 + Math.random() * 900000)}`);
 
-  const { deliveryFee, shippingAccount, loading: deliveryFeeLoading } = useDeliveryCharges(
+  const {
+    deliveryFee,
+    shippingAccount,
+    loading: deliveryFeeLoading,
+  } = useDeliveryCharges(
     orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
     orderType === "delivery" ? deliveryLocation?.distanceKm : undefined,
   );
@@ -490,7 +494,7 @@ const CheckoutPage = () => {
                 )}
               </AnimatePresence>
 
-              <button
+              {/* <button
                 disabled
                 className="flex w-full items-center gap-3 rounded-xl border-2 border-border p-4 text-left opacity-50 cursor-not-allowed"
               >
@@ -499,7 +503,7 @@ const CheckoutPage = () => {
                   <p className="text-sm font-bold text-muted-foreground">Online Payment</p>
                   <p className="text-xs text-muted-foreground">Coming soon</p>
                 </div>
-              </button>
+              </button> */}
             </div>
           </section>
 
