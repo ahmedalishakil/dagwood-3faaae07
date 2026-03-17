@@ -459,7 +459,7 @@ const CheckoutPage = () => {
               </button>
 
               {/* Payment mode radio buttons — only for delivery + COD */}
-              <AnimatePresence>
+              {/* <AnimatePresence>
                 {payment === "cod" && orderType === "delivery" && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
@@ -492,9 +492,9 @@ const CheckoutPage = () => {
                     </div>
                   </motion.div>
                 )}
-              </AnimatePresence>
+              </AnimatePresence> */}
 
-              {/* <button
+              <button
                 disabled
                 className="flex w-full items-center gap-3 rounded-xl border-2 border-border p-4 text-left opacity-50 cursor-not-allowed"
               >
@@ -503,7 +503,7 @@ const CheckoutPage = () => {
                   <p className="text-sm font-bold text-muted-foreground">Online Payment</p>
                   <p className="text-xs text-muted-foreground">Coming soon</p>
                 </div>
-              </button> */}
+              </button>
             </div>
           </section>
 
