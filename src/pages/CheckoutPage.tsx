@@ -15,9 +15,7 @@ const formatCustomization = (item: CartItem): string | null => {
   const parts: string[] = [];
   parts.push(item.customization.breadType === "bran" ? "Bran Bread" : "White Bread");
   item.customization.removals.forEach((r) => parts.push(r));
-  item.customization.extras.forEach((e) =>
-    parts.push(e.price > 0 ? `${e.name} +Rs.${e.price}` : e.name)
-  );
+  item.customization.extras.forEach((e) => parts.push(e.price > 0 ? `${e.name} +Rs.${e.price}` : e.name));
   item.customization.preferences.forEach((p) => parts.push(p));
   return parts.join(" · ");
 };
@@ -41,7 +39,7 @@ const CheckoutPage = () => {
 
   const { deliveryFee, loading: deliveryFeeLoading } = useDeliveryCharges(
     orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
-    orderType === "delivery" ? deliveryLocation?.distanceKm : undefined
+    orderType === "delivery" ? deliveryLocation?.distanceKm : undefined,
   );
   const gst = Math.round(cartTotal * 0.16);
   const total = cartTotal + deliveryFee + gst;
@@ -142,7 +140,7 @@ const CheckoutPage = () => {
           item_code: itemCode,
           item_name: item.name,
           description: item.customization
-            ? `${item.customization.breadType === "bran" ? "Bran Bread" : "White Bread"}, ${[...item.customization.removals, ...item.customization.extras.map(e => e.name), ...item.customization.preferences, item.customization.specialNote].filter(Boolean).join(", ")}`
+            ? `${item.customization.breadType === "bran" ? "Bran Bread" : "White Bread"}, ${[...item.customization.removals, ...item.customization.extras.map((e) => e.name), ...item.customization.preferences, item.customization.specialNote].filter(Boolean).join(", ")}`
             : "",
           rate: item.price,
           currency: "PKR",
@@ -162,24 +160,32 @@ const CheckoutPage = () => {
           customer_name: customerIdStr,
           mobile_no: `+${phone.replace(/\D/g, "")}`,
           email: "",
-          address_line1: orderType === "delivery" ? address : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
+          address_line1:
+            orderType === "delivery" ? address : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
           city: "Lahore",
           country: "Pakistan",
         },
-        taxes: orderType === "delivery" ? [{
-          charge_type: "Actual",
-          account_head: "Cash Till Takeaway and Delivery - DP",
-          description: "Delivery Charges",
-          tax_amount: deliveryFee,
-        }] : [],
+        taxes:
+          orderType === "delivery"
+            ? [
+                {
+                  charge_type: "Actual",
+                  account_head: "Cash Till Takeaway and Delivery - DP",
+                  description: "Delivery Charges",
+                  tax_amount: deliveryFee,
+                },
+              ]
+            : [],
         delivery_charges: "PIA Delivery Charges",
-        branch: orderType === "delivery"
-          ? "Dagwood PIA Take Away"
-          : pickupBranch === "vertical"
-            ? "Dagwood PINE AVENUE"
-            : "Dagwood PIA Take Away",
+        branch:
+          orderType === "delivery"
+            ? "Dagwood PIA Take Away"
+            : pickupBranch === "vertical"
+              ? "Dagwood PINE AVENUE"
+              : "Dagwood PIA Take Away",
         order_type: orderType === "delivery" ? "Delivery" : "Pickup",
         mode_type: orderType === "pickup" ? "Cash" : modeType,
+        pos_profile: "PIA Take Away and Delivery",
         origin: "Website",
         company: "Dagwood PIA",
       },
@@ -206,9 +212,7 @@ const CheckoutPage = () => {
   };
 
   const canPlaceOrder =
-    customerName.trim().length > 0 &&
-    phone.trim().length > 0 &&
-    (orderType === "pickup" || address.trim().length > 0);
+    customerName.trim().length > 0 && phone.trim().length > 0 && (orderType === "pickup" || address.trim().length > 0);
 
   return (
     <div className="min-h-screen bg-background pb-32 sm:pb-8">
@@ -235,12 +239,15 @@ const CheckoutPage = () => {
                 const unitPrice = item.price + (item.extrasTotal || 0);
                 return (
                   <div key={item.id} className="flex items-center gap-3">
-                    <img src={item.image} alt={item.name} className="h-12 w-12 rounded-lg object-cover" loading="lazy" />
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-12 w-12 rounded-lg object-cover"
+                      loading="lazy"
+                    />
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-semibold text-card-foreground">{item.name}</p>
-                      {customText && (
-                        <p className="truncate text-[11px] text-muted-foreground">{customText}</p>
-                      )}
+                      {customText && <p className="truncate text-[11px] text-muted-foreground">{customText}</p>}
                     </div>
                     <div className="text-right shrink-0">
                       <p className="text-sm font-bold text-card-foreground">
@@ -364,7 +371,9 @@ const CheckoutPage = () => {
                         >
                           <MapPin className="h-5 w-5 text-primary" />
                           <span className="text-sm font-bold text-card-foreground">Vertical</span>
-                          <span className="text-[11px] text-muted-foreground text-center">94 Pine Ave, Block B, Khayaban E Amin</span>
+                          <span className="text-[11px] text-muted-foreground text-center">
+                            94 Pine Ave, Block B, Khayaban E Amin
+                          </span>
                         </button>
                         <button
                           type="button"
@@ -377,12 +386,16 @@ const CheckoutPage = () => {
                         >
                           <MapPin className="h-5 w-5 text-primary" />
                           <span className="text-sm font-bold text-card-foreground">PIA</span>
-                          <span className="text-[11px] text-muted-foreground text-center">9-D PIA Road, Main Blvd, near Wapda Town</span>
+                          <span className="text-[11px] text-muted-foreground text-center">
+                            9-D PIA Road, Main Blvd, near Wapda Town
+                          </span>
                         </button>
                       </div>
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-card-foreground">When will you pick up?</label>
+                      <label className="mb-2 block text-sm font-medium text-card-foreground">
+                        When will you pick up?
+                      </label>
                       <div className="grid grid-cols-3 gap-2">
                         {[
                           { value: "asap", label: "ASAP", sub: "~20 min" },
@@ -430,9 +443,7 @@ const CheckoutPage = () => {
               <button
                 onClick={() => setPayment("cod")}
                 className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
-                  payment === "cod"
-                    ? "border-primary bg-primary/5"
-                    : "border-border hover:border-muted-foreground/30"
+                  payment === "cod" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
                 }`}
               >
                 <Banknote className="h-6 w-6 text-primary" />
