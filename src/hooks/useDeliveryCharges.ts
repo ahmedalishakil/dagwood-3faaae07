@@ -69,5 +69,5 @@ export function useDeliveryCharges(branchName: string | undefined, distanceKm: n
     };
   }, [branchName, distanceKm]);
 
-  return { deliveryFee, loading };
+  return { deliveryFee, shippingAccount, loading };
 }
