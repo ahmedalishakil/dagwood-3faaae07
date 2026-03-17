@@ -33,6 +33,7 @@ const CheckoutPage = () => {
   const [pickupTime, setPickupTime] = useState("asap");
   const [notes, setNotes] = useState("");
   const [payment, setPayment] = useState<"cod" | "card">("cod");
+  const [modeType, setModeType] = useState<"Cash" | "Bank">("Cash");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
