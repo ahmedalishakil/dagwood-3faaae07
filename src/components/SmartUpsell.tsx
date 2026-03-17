@@ -38,7 +38,7 @@ const SmartUpsell = ({ compact = false }: SmartUpsellProps) => {
 
       {/* Horizontal scrollable carousel */}
       <div className="-mx-4 px-4 sm:mx-0 sm:px-0">
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide sm:grid sm:grid-cols-4 sm:overflow-visible sm:pb-0">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {items.map((item, idx) => (
             <motion.button
               key={item.id}
