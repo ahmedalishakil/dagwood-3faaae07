@@ -170,7 +170,7 @@ const CheckoutPage = () => {
             ? [
                 {
                   charge_type: "Actual",
-                  account_head: "Cash Till Takeaway and Delivery - DP",
+                  account_head: shippingAccount,
                   description: "Delivery Charges",
                   tax_amount: deliveryFee,
                 },
