@@ -47,8 +47,8 @@ const HeroBanner = () => {
         />
       ))}
 
-      {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
+      {/* Dots — hidden on mobile */}
+      <div className="absolute bottom-4 left-1/2 z-10 hidden -translate-x-1/2 gap-2.5 sm:flex">
         {slides.map((_, i) => (
           <button
             key={i}
