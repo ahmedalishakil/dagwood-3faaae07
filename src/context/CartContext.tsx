@@ -219,6 +219,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                   </div>
                 </button>
               </div>
+              </div>
             </motion.div>
           </>
         )}
