@@ -440,6 +440,43 @@ const CheckoutPage = () => {
                   <p className="text-xs text-muted-foreground">Pay when you receive your order</p>
                 </div>
               </button>
+
+              {/* Payment mode radio buttons — only for delivery + COD */}
+              <AnimatePresence>
+                {payment === "cod" && orderType === "delivery" && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="ml-1 mt-1 space-y-2 rounded-xl border border-border bg-secondary/50 p-4">
+                      <p className="text-sm font-medium text-card-foreground">Payment Mode</p>
+                      <label className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-secondary">
+                        <input
+                          type="radio"
+                          name="modeType"
+                          checked={modeType === "Cash"}
+                          onChange={() => setModeType("Cash")}
+                          className="h-4 w-4 accent-[hsl(var(--primary))]"
+                        />
+                        <span className="text-sm text-card-foreground">Cash</span>
+                      </label>
+                      <label className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-secondary">
+                        <input
+                          type="radio"
+                          name="modeType"
+                          checked={modeType === "Bank"}
+                          onChange={() => setModeType("Bank")}
+                          className="h-4 w-4 accent-[hsl(var(--primary))]"
+                        />
+                        <span className="text-sm text-card-foreground">Online Transfer</span>
+                      </label>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <button
                 disabled
                 className="flex w-full items-center gap-3 rounded-xl border-2 border-border p-4 text-left opacity-50 cursor-not-allowed"
