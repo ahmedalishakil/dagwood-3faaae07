@@ -44,6 +44,9 @@ export function useDeliveryCharges(branchName: string | undefined, distanceKm: n
         if (cancelled) return;
         const ranges = data.message?.delivery_charges_range || [];
         const defaultRate = data.message?.default_rate ?? 200;
+        const account = data.message?.shipping_account || "Cash Till Takeaway and Delivery - DP";
+
+        setShippingAccount(account);
 
         let fee = defaultRate;
         for (const range of ranges) {
