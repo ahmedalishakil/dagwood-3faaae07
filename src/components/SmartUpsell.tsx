@@ -48,7 +48,7 @@ const SmartUpsell = ({ compact = false }: SmartUpsellProps) => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleAdd(item)}
-              className="group relative flex min-w-[140px] flex-shrink-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-card-hover sm:min-w-0"
+              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-card-hover"
             >
               {/* Image */}
               <div className="relative aspect-[4/3] w-full overflow-hidden">
