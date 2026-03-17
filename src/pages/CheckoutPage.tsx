@@ -41,7 +41,8 @@ const CheckoutPage = () => {
     orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
     orderType === "delivery" ? deliveryLocation?.distanceKm : undefined,
   );
-  const gst = Math.round(cartTotal * 0.16);
+  const gstRate = modeType === "Bank" ? 0.05 : 0.16;
+  const gst = Math.round(cartTotal * gstRate);
   const total = cartTotal + deliveryFee + gst;
 
   if (cart.length === 0 && !orderPlaced) {
