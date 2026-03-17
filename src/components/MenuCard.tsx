@@ -15,9 +15,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
 
   const currentPrice = item.sizes ? item.sizes[selectedSize].price : item.price;
 
-  const cartItemId = item.sizes
-    ? `${item.id}-${item.sizes[selectedSize].label.toLowerCase()}`
-    : item.id;
+  const cartItemId = item.sizes ? `${item.id}-${item.sizes[selectedSize].label.toLowerCase()}` : item.id;
 
   // Find quantity already in cart (handle customized sandwich variants too)
   const inCartQty = cart
@@ -88,7 +86,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
 
       {/* Content */}
       <div className="p-4">
-        <h3 className="font-display text-lg font-bold text-card-foreground">{item.name}</h3>
+        <h3 className="font-display text-lg font-bold text-card-foreground line-clamp-1">{item.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
 
         {/* Size selector — stop propagation so clicking size doesn't add to cart */}
@@ -111,9 +109,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
         )}
 
         <div className="mt-3 flex items-center justify-between">
-          <span className="text-lg font-bold text-primary">
-            Rs. {currentPrice.toLocaleString()}
-          </span>
+          <span className="text-lg font-bold text-primary">Rs. {currentPrice.toLocaleString()}</span>
 
           {/* Add / quantity controls */}
           <div onClick={(e) => e.stopPropagation()}>
@@ -126,9 +122,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
                 >
                   <Minus className="h-3.5 w-3.5" />
                 </button>
-                <span className="w-6 text-center text-sm font-bold text-card-foreground">
-                  {inCartQty}
-                </span>
+                <span className="w-6 text-center text-sm font-bold text-card-foreground">{inCartQty}</span>
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={handleAdd}
