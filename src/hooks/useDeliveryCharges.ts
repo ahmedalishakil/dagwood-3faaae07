@@ -10,6 +10,7 @@ type DeliveryChargesResponse = {
   message: {
     delivery_charges_range: DeliveryRange[];
     default_rate?: number;
+    shipping_account?: string;
   };
 };
 
