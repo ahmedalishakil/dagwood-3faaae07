@@ -4,12 +4,12 @@ import cheeseLoverImg from "@/assets/menu/cheese-lover.jpg";
 import steakImg from "@/assets/menu/steak.jpg";
 import combo1Img from "@/assets/menu/combo1.jpg";
 import combo2Img from "@/assets/menu/combo2.jpg";
-import strawberryMintImg from "@/assets/menu/strawberry-mint.png";
-import peachyParadiseImg from "@/assets/menu/peachy-paradise.png";
-import blueberryRiseImg from "@/assets/menu/blueberry-rise.png";
-import strawberryShakeImg from "@/assets/menu/strawberry-shake.png";
-import berryBlastImg from "@/assets/menu/berry-blast.png";
-import darkTemptationImg from "@/assets/menu/dark-temptation.png";
+import strawberryMintImg from "@/assets/menu/strawberry-mint.jpg";
+import peachyParadiseImg from "@/assets/menu/peachy-paradise.jpg";
+import blueberryRiseImg from "@/assets/menu/bluebearry-rise.jpg";
+import strawberryShakeImg from "@/assets/menu/strawberry-shake.jpg";
+import berryBlastImg from "@/assets/menu/berry-blast.jpg";
+import darkTemptationImg from "@/assets/menu/dark-temptation.jpg";
 import icedAmericanoImg from "@/assets/menu/iced-americano.jpg";
 import icedLatteImg from "@/assets/menu/iced-latte.jpg";
 import icedMochaImg from "@/assets/menu/iced-mocha.jpg";
@@ -29,7 +29,7 @@ import chocFudgeDonutImg from "@/assets/menu/chocolate-fudge-donut.jpg";
 import caramelDonutImg from "@/assets/menu/caramel-donut.jpg";
 import bostonBrownieImg from "@/assets/menu/boston-brownie.jpg";
 import milkChocCookieImg from "@/assets/menu/milk-chocolate-cookie.jpg";
-import doubleChocCookieImg from "@/assets/menu/double-chocolate-cookie.jpg";
+import doubleChocCookieImg from "@/assets/menu/dark-chocolate-cookie.jpg";
 import raspberryCookieImg from "@/assets/menu/raspberry-cookie.jpg";
 import butterCroissantImg from "@/assets/menu/butter-croissant.jpg";
 import walnutBrownieImg from "@/assets/menu/walnut-brownie.jpg";
@@ -39,8 +39,26 @@ import sundaeImg from "@/assets/menu/sundae.jpg";
 import largeFriesImg from "@/assets/menu/large-fries.jpg";
 import regularFriesImg from "@/assets/menu/regular-fries.jpg";
 import coffeeImg from "@/assets/menu/coffee.jpg";
+import carameloCaramel from "@/assets/menu/caramelo-caramel.jpg";
+import chaiTea from "@/assets/menu/chai-tea.jpg";
+import karakChai from "@/assets/menu/Karak-Chai-3.jpg";
+import cardamomChai from "@/assets/menu/cardamom-chae.jpg";
+import pepsi from "@/assets/menu/pepsi.jpg";
+import pepsiSizer from "@/assets/menu/pep-sizer.jpg";
+import sevenUp from "@/assets/menu/7up.jpg";
+import sevenUpZero from "@/assets/menu/7up-zero.jpg";
+import water from "@/assets/menu/water.jpg";
+import chocolateFudgeCake from "@/assets/menu/chocolate-fudge-cake.jpg";
+import bostonCreamyDonut from "@/assets/menu/boston-creamy-donut.jpg";
+import dynamiteSauce from "@/assets/menu/dynamite-sauce.jpg";
+import cheeseSauce from "@/assets/menu/cheese-sauce.jpg";
+import bbqSauce from "@/assets/menu/BBQ-sauce.jpg";
+import mayoSauce from "@/assets/menu/mayo-sauce.jpg";
+import cocktailSauce from "@/assets/menu/cocktail-sauce.jpg";
+import extraChicken from "@/assets/menu/extra-chicken.jpg";
+import branBread from "@/assets/menu/bran-bread.jpeg";
 
-const API_BASE = "https://dagwood-chatbot.lucrumerp.com";
+const API_BASE = "https://dagwood.com.pk";
 
 export type MenuItemSize = {
   label: string;
@@ -234,7 +252,7 @@ export const menuItems: MenuItem[] = [
     name: "Caramelo Caramel",
     description: "Rich caramel cold beverage",
     price: 1050,
-    image: `${API_BASE}/files/WhatsApp Image 2025-05-29 at 6.05.36 AM.jpeg`,
+    image: carameloCaramel,
     category: "Cold Beverages",
   },
 
@@ -350,7 +368,7 @@ export const menuItems: MenuItem[] = [
     name: "Tea",
     description: "Classic Pakistani chai",
     price: 190,
-    image: `${API_BASE}/files/chai-tea-1330_800x533 (1).webp`,
+    image: chaiTea,
     category: "Hot Beverages",
   },
   {
@@ -359,7 +377,7 @@ export const menuItems: MenuItem[] = [
     name: "Karak Chae",
     description: "Strong, aromatic karak-style tea",
     price: 350,
-    image: `${API_BASE}/files/Karak-Chai-3.jpg`,
+    image: karakChai,
     category: "Hot Beverages",
   },
   {
@@ -368,7 +386,7 @@ export const menuItems: MenuItem[] = [
     name: "Cardamom Chae",
     description: "Fragrant cardamom-infused tea",
     price: 350,
-    image: `${API_BASE}/files/istockphoto-1128172520-612x612.jpg`,
+    image: cardamomChai,
     category: "Hot Beverages",
   },
   {
@@ -388,25 +406,7 @@ export const menuItems: MenuItem[] = [
     name: "Pepsi 345ml",
     description: "Chilled Pepsi can",
     price: 150,
-    image: `${API_BASE}/files/554P45.webp`,
-    category: "Regular Drinks",
-  },
-  {
-    id: "7up-345",
-    item_code: "CB-0007",
-    name: "7-UP 345ml",
-    description: "Refreshing 7-UP can",
-    price: 150,
-    image: `${API_BASE}/files/images.jpeg`,
-    category: "Regular Drinks",
-  },
-  {
-    id: "water-small",
-    item_code: "CB-0008",
-    name: "Water Small",
-    description: "Mineral water bottle",
-    price: 50,
-    image: `${API_BASE}/files/6bc4cd4aaa412ac6bf2dc6bdcb237d78.png`,
+    image: pepsi,
     category: "Regular Drinks",
   },
   {
@@ -415,7 +415,16 @@ export const menuItems: MenuItem[] = [
     name: "Diet Pepsi 345ml",
     description: "Sugar-free Pepsi can",
     price: 150,
-    image: `${API_BASE}/files/zero-diet-345_1200x1200.webp`,
+    image: pepsiSizer,
+    category: "Regular Drinks",
+  },
+  {
+    id: "7up-345",
+    item_code: "CB-0007",
+    name: "7-UP 345ml",
+    description: "Refreshing 7-UP can",
+    price: 150,
+    image: sevenUp,
     category: "Regular Drinks",
   },
   {
@@ -424,7 +433,16 @@ export const menuItems: MenuItem[] = [
     name: "Diet 7-UP 345ml",
     description: "Sugar-free 7-UP can",
     price: 150,
-    image: `${API_BASE}/files/8964000103463_1bcf5940-a5ed-4923-bae0-d2d948fdff66.webp`,
+    image: sevenUpZero,
+    category: "Regular Drinks",
+  },
+  {
+    id: "water-small",
+    item_code: "CB-0008",
+    name: "Water Small",
+    description: "Mineral water bottle",
+    price: 50,
+    image: water,
     category: "Regular Drinks",
   },
 
@@ -435,7 +453,7 @@ export const menuItems: MenuItem[] = [
     name: "Chocolate Fudge Cake Slice",
     description: "Rich, decadent chocolate fudge cake",
     price: 599,
-    image: cakeImg,
+    image: chocolateFudgeCake,
     category: "Divine Cakes",
   },
   {
@@ -474,7 +492,7 @@ export const menuItems: MenuItem[] = [
     name: "Boston Creamy Donut",
     description: "Boston cream filled donut",
     price: 320,
-    image: bostonBrownieImg,
+    image: bostonCreamyDonut,
     category: "Donuts Delights",
   },
   {
@@ -603,7 +621,7 @@ export const menuItems: MenuItem[] = [
     name: "Dynamite Sauce",
     description: "Signature spicy dynamite dipping sauce",
     price: 90,
-    image: `${API_BASE}/files/WhatsApp Image 2025-05-29 at 6.05.16 AM.jpeg`,
+    image: dynamiteSauce,
     category: "Sides",
   },
   {
@@ -612,16 +630,7 @@ export const menuItems: MenuItem[] = [
     name: "Cheese Sauce",
     description: "Rich melted cheese dipping sauce",
     price: 100,
-    image: `${API_BASE}/files/WhatsApp Image 2025-05-29 at 6.05.20 AM.jpeg`,
-    category: "Sides",
-  },
-  {
-    id: "bran-bread",
-    item_code: "SD-00023",
-    name: "Bran Bread",
-    description: "Healthy bran bread side",
-    price: 80,
-    image: coffeeImg,
+    image: cheeseSauce,
     category: "Sides",
   },
   {
@@ -630,7 +639,16 @@ export const menuItems: MenuItem[] = [
     name: "Mayo Sauce Dip",
     description: "Creamy mayo dipping sauce",
     price: 90,
-    image: `${API_BASE}/files/WhatsApp Image 2025-05-29 at 6.04.59 AM.jpeg`,
+    image: mayoSauce,
+    category: "Sides",
+  },
+  {
+    id: "bran-bread",
+    item_code: "SD-00023",
+    name: "Bran Bread",
+    description: "Healthy bran bread side",
+    price: 80,
+    image: branBread,
     category: "Sides",
   },
   {
@@ -639,7 +657,7 @@ export const menuItems: MenuItem[] = [
     name: "Extra Chicken",
     description: "Additional chicken portion",
     price: 120,
-    image: `${API_BASE}/files/WhatsApp Image 2025-05-29 at 6.05.18 AM.jpeg`,
+    image: extraChicken,
     category: "Sides",
   },
 ];
