@@ -168,12 +168,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
               onClick={() => setShowOrderTypePrompt(false)}
             />
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed left-1/2 top-1/2 z-[101] w-[90vw] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-border bg-card p-6 shadow-2xl"
+              className="fixed inset-0 z-[101] flex items-center justify-center p-4"
+              onClick={() => setShowOrderTypePrompt(false)}
             >
+              <div
+                className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
               <button
                 onClick={() => setShowOrderTypePrompt(false)}
                 className="absolute right-3 top-3 rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
@@ -213,6 +218,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                     <p className="text-xs text-muted-foreground">Pick up from our branch</p>
                   </div>
                 </button>
+              </div>
               </div>
             </motion.div>
           </>
