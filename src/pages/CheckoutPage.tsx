@@ -41,7 +41,8 @@ const CheckoutPage = () => {
     orderType === "delivery" ? deliveryLocation?.nearestBranch : undefined,
     orderType === "delivery" ? deliveryLocation?.distanceKm : undefined,
   );
-  const gst = Math.round(cartTotal * 0.16);
+  const gstRate = modeType === "Bank" ? 0.05 : 0.16;
+  const gst = Math.round(cartTotal * gstRate);
   const total = cartTotal + deliveryFee + gst;
 
   if (cart.length === 0 && !orderPlaced) {
@@ -518,7 +519,7 @@ const CheckoutPage = () => {
                 </div>
               )}
               <div className="flex justify-between text-muted-foreground">
-                <span>GST (16%)</span>
+                <span>GST ({Math.round(gstRate * 100)}%)</span>
                 <span className="font-medium text-card-foreground">Rs. {gst.toLocaleString()}</span>
               </div>
               <div className="flex justify-between border-t border-border pt-3 text-lg font-bold text-card-foreground">
