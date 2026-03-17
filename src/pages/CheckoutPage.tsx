@@ -179,6 +179,7 @@ const CheckoutPage = () => {
             ? "Dagwood PINE AVENUE"
             : "Dagwood PIA Take Away",
         order_type: orderType === "delivery" ? "Delivery" : "Pickup",
+        mode_type: orderType === "pickup" ? "Cash" : modeType,
         origin: "Website",
         company: "Dagwood PIA",
       },
