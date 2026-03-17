@@ -20,6 +20,7 @@ const API_URL = "https://dagwood-chatbot.lucrumerp.com/api/delivery_charges";
 
 export function useDeliveryCharges(branchName: string | undefined, distanceKm: number | undefined) {
   const [deliveryFee, setDeliveryFee] = useState<number>(0);
+  const [shippingAccount, setShippingAccount] = useState<string>("Cash Till Takeaway and Delivery - DP");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
