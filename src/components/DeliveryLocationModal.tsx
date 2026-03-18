@@ -86,7 +86,7 @@ const branchIcon = L.divIcon({
 
 type Props = {
   open: boolean;
-  onClose: () => void;
+  onClose: (wasOutOfRange?: boolean) => void;
   onConfirm: (location: DeliveryLocation) => void;
 };
 
