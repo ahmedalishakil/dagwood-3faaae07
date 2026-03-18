@@ -71,7 +71,7 @@ const CheckoutPage = () => {
   if (orderPlaced) {
     return (
       <OrderConfirmation
-        orderNumber={orderNumber}
+        orderNumber={confirmedOrderNumber}
         orderType={orderType}
         orderTotal={orderTotal}
         pickupBranch={pickupBranch}
