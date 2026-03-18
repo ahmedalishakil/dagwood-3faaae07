@@ -35,7 +35,7 @@ const CheckoutPage = () => {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [orderNumber] = useState(() => `DW-${Math.floor(100000 + Math.random() * 900000)}`);
+  const [confirmedOrderNumber, setConfirmedOrderNumber] = useState("");
 
   const {
     deliveryFee,
