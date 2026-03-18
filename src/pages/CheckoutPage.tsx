@@ -167,7 +167,9 @@ const CheckoutPage = () => {
           email: "",
           address_line1:
             orderType === "delivery"
-              ? (address.length > 140 ? address.substring(0, 137) + "..." : address)
+              ? address.length > 140
+                ? address.substring(0, 137) + "..."
+                : address
               : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
           city: "Lahore",
           country: "Pakistan",
@@ -189,13 +191,19 @@ const CheckoutPage = () => {
             return pickupBranch === "vertical" ? "Dagwood PINE AVENUE" : "Dagwood PIA Take Away";
           }
           if (deliveryLocation) {
-            const piaDist = Math.hypot(deliveryLocation.lat - 31.44530798235614, deliveryLocation.lng - 74.2806119771848);
-            const pineDist = Math.hypot(deliveryLocation.lat - 31.3809727527684, deliveryLocation.lng - 74.25553485857607);
+            const piaDist = Math.hypot(
+              deliveryLocation.lat - 31.44530798235614,
+              deliveryLocation.lng - 74.2806119771848,
+            );
+            const pineDist = Math.hypot(
+              deliveryLocation.lat - 31.3809727527684,
+              deliveryLocation.lng - 74.25553485857607,
+            );
             return pineDist < piaDist ? "Dagwood PINE AVENUE" : "Dagwood PIA Take Away";
           }
           return "Dagwood PIA Take Away";
         })(),
-        order_type: orderType === "delivery" ? "Delivery" : "Pickup",
+        order_type: orderType === "delivery" ? "Delivery" : "Take Away",
         mode_type: orderType === "pickup" ? "Cash" : modeType,
         pos_profile: "PIA Take Away and Delivery",
         origin: "Website",
