@@ -31,18 +31,30 @@ const DagwoodHeader = () => {
     };
   }, []);
 
+  const prevOrderTypeRef = useRef(orderType);
+
   const handleDeliveryClick = () => {
+    prevOrderTypeRef.current = orderType;
     setOrderType("delivery");
     setLocationModalOpen(true);
   };
 
   const handlePickupClick = () => {
     setOrderType("pickup");
+    setDeliveryLocation(null);
   };
 
   const handleLocationConfirm = (loc: DeliveryLocation) => {
     setDeliveryLocation(loc);
     setLocationModalOpen(false);
+  };
+
+  const handleLocationClose = () => {
+    setLocationModalOpen(false);
+    // If no location was confirmed, revert order type
+    if (!deliveryLocation) {
+      setOrderType(prevOrderTypeRef.current);
+    }
   };
 
   return (
