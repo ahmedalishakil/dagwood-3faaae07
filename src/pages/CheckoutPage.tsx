@@ -166,7 +166,9 @@ const CheckoutPage = () => {
           mobile_no: `+${phone.replace(/\D/g, "")}`,
           email: "",
           address_line1:
-            orderType === "delivery" ? address : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
+            orderType === "delivery"
+              ? (address.length > 140 ? address.substring(0, 137) + "..." : address)
+              : `Pickup: ${pickupBranch === "pia" ? "PIA Branch" : "Vertical Branch"}`,
           city: "Lahore",
           country: "Pakistan",
         },
