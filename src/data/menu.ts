@@ -24,9 +24,10 @@ import espressoImg from "@/assets/menu/espresso.jpg";
 import macchiatoImg from "@/assets/menu/macchiato.jpg";
 import cakeImg from "@/assets/menu/cake.jpg";
 import pistachioCakeImg from "@/assets/menu/pistachio-cake.jpg";
+import cheesecakeImg from "@/assets/menu/cheesecake.jpg";
 import chocFudgeDonutImg from "@/assets/menu/chocolate-fudge-donut.jpg";
 import caramelDonutImg from "@/assets/menu/caramel-donut.jpg";
-
+import bostonBrownieImg from "@/assets/menu/boston-brownie.jpg";
 import milkChocCookieImg from "@/assets/menu/milk-chocolate-cookie.jpg";
 import doubleChocCookieImg from "@/assets/menu/dark-chocolate-cookie.jpg";
 import raspberryCookieImg from "@/assets/menu/raspberry-cookie.jpg";
@@ -37,6 +38,7 @@ import threeMilkSundaeImg from "@/assets/menu/three-milk-sundae.jpg";
 import sundaeImg from "@/assets/menu/sundae.jpg";
 import largeFriesImg from "@/assets/menu/large-fries.jpg";
 import regularFriesImg from "@/assets/menu/regular-fries.jpg";
+import coffeeImg from "@/assets/menu/coffee.jpg";
 import carameloCaramel from "@/assets/menu/caramelo-caramel.jpg";
 import chaiTea from "@/assets/menu/chai-tea.jpg";
 import karakChai from "@/assets/menu/Karak-Chai-3.jpg";
@@ -79,18 +81,23 @@ export type MenuItem = {
 export const categories = [
   "All Items",
   "Sandwiches",
-  "Chicken with Fries",
-  "Beverages",
+  "Combos",
+  "Special Drinks",
+  "Shakes",
+  "Cold Beverages",
+  "Hot Beverages",
   "Regular Drinks",
-  "Desserts",
+  "Divine Cakes",
   "Donuts Delights",
   "Cookies & Croissants",
-  "Condiments",
+  "Brownies",
+  "Sundaes",
+  "Fries",
   "Sides",
 ];
 
 export const menuItems: MenuItem[] = [
-  // ═══ SANDWICHES ═══
+  // ═══ SANDWICHES (SandWich in JSON) ═══
   {
     id: "cocktail",
     item_code: "DL-0001",
@@ -121,7 +128,7 @@ export const menuItems: MenuItem[] = [
     badge: "Popular",
   },
 
-  // ═══ CHICKEN WITH FRIES ═══
+  // ═══ COMBOS ═══
   {
     id: "combo-1",
     item_code: "CB-00021",
@@ -129,7 +136,7 @@ export const menuItems: MenuItem[] = [
     description: "Golden, crunchy strips with tender chicken inside, freshly prepared and full of flavor",
     price: 600,
     image: combo1Img,
-    category: "Chicken with Fries",
+    category: "Combos",
   },
   {
     id: "combo-2",
@@ -138,111 +145,11 @@ export const menuItems: MenuItem[] = [
     description: "Golden, crunchy strips with tender chicken inside, freshly prepared and full of flavor",
     price: 900,
     image: combo2Img,
-    category: "Chicken with Fries",
+    category: "Combos",
     badge: "Value",
   },
-  {
-    id: "regular-fries",
-    item_code: "FR-00026",
-    name: "Regular Fries",
-    description: "Golden crispy french fries",
-    price: 350,
-    image: regularFriesImg,
-    category: "Chicken with Fries",
-  },
-  {
-    id: "large-fries",
-    item_code: "FR-00027",
-    name: "Large Fries",
-    description: "Extra large portion of crispy fries",
-    price: 500,
-    image: largeFriesImg,
-    category: "Chicken with Fries",
-  },
 
-  // ═══ BEVERAGES (Pepsi, 7-UP, Water, Shakes, Special Drinks) ═══
-  {
-    id: "pepsi-345",
-    item_code: "CB-0006",
-    name: "Pepsi 345ml",
-    description: "Chilled Pepsi can",
-    price: 150,
-    image: pepsi,
-    category: "Beverages",
-  },
-  {
-    id: "diet-pepsi-345",
-    item_code: "CB-0009",
-    name: "Pepsi Zero 345ml",
-    description: "Sugar-free Pepsi can",
-    price: 150,
-    image: pepsiSizer,
-    category: "Beverages",
-  },
-  {
-    id: "7up-345",
-    item_code: "CB-0007",
-    name: "7-UP 345ml",
-    description: "Refreshing 7-UP can",
-    price: 150,
-    image: sevenUp,
-    category: "Beverages",
-  },
-  {
-    id: "diet-7up-345",
-    item_code: "CB-0010",
-    name: "7-UP Zero 345ml",
-    description: "Sugar-free 7-UP can",
-    price: 150,
-    image: sevenUpZero,
-    category: "Beverages",
-  },
-  {
-    id: "water-small",
-    item_code: "CB-0008",
-    name: "Water Small",
-    description: "Mineral water bottle",
-    price: 50,
-    image: water,
-    category: "Beverages",
-  },
-  {
-    id: "cardamom-chae",
-    item_code: "HB-0019",
-    name: "Cardamom Chae",
-    description: "Fragrant cardamom-infused tea",
-    price: 350,
-    image: cardamomChai,
-    category: "Beverages",
-  },
-  {
-    id: "strawberry-vanilla-shake",
-    item_code: "SH-0001",
-    name: "Strawberry Vanilla",
-    description: "Creamy strawberry & vanilla milkshake",
-    price: 750,
-    image: strawberryShakeImg,
-    category: "Beverages",
-  },
-  {
-    id: "berry-blast",
-    item_code: "SH-0002",
-    name: "Berry Blast",
-    description: "A refreshing blend of blueberry and vanilla ice cream",
-    price: 750,
-    image: berryBlastImg,
-    category: "Beverages",
-  },
-  {
-    id: "dark-temptation",
-    item_code: "SH-0003",
-    name: "Dark Temptation",
-    description: "Rich, creamy chocolate shake for true chocolate lovers",
-    price: 750,
-    image: darkTemptationImg,
-    category: "Beverages",
-    badge: "Fan Favourite",
-  },
+  // ═══ SPECIAL DRINKS ═══
   {
     id: "strawberry-mint",
     item_code: "SP-0001",
@@ -250,7 +157,7 @@ export const menuItems: MenuItem[] = [
     description: "Fresh strawberry blended with cool mint",
     price: 700,
     image: strawberryMintImg,
-    category: "Beverages",
+    category: "Special Drinks",
   },
   {
     id: "blueberry-rise",
@@ -259,7 +166,7 @@ export const menuItems: MenuItem[] = [
     description: "Blueberry burst with a tangy finish",
     price: 700,
     image: blueberryRiseImg,
-    category: "Beverages",
+    category: "Special Drinks",
   },
   {
     id: "peachy-paradise",
@@ -268,10 +175,88 @@ export const menuItems: MenuItem[] = [
     description: "Sweet peach refresher with tropical notes",
     price: 700,
     image: peachyParadiseImg,
-    category: "Beverages",
+    category: "Special Drinks",
   },
 
-  // ═══ REGULAR DRINKS (Hot beverages with S/L sizes + Tea/Karak) ═══
+  // ═══ SHAKES ═══
+  {
+    id: "strawberry-vanilla-shake",
+    item_code: "SH-0001",
+    name: "Strawberry Vanilla Shake",
+    description: "Creamy strawberry & vanilla milkshake",
+    price: 750,
+    image: strawberryShakeImg,
+    category: "Shakes",
+  },
+  {
+    id: "berry-blast",
+    item_code: "SH-0002",
+    name: "Berry Blast",
+    description: "Mixed berry explosion shake",
+    price: 750,
+    image: berryBlastImg,
+    category: "Shakes",
+  },
+  {
+    id: "dark-temptation",
+    item_code: "SH-0003",
+    name: "Dark Temptation",
+    description: "Rich dark chocolate indulgence shake",
+    price: 750,
+    image: darkTemptationImg,
+    category: "Shakes",
+    badge: "Fan Favourite",
+  },
+
+  // ═══ COLD BEVERAGES ═══
+  {
+    id: "iced-americano",
+    item_code: "CB-0001",
+    name: "Iced Americano",
+    description: "Chilled espresso over ice",
+    price: 670,
+    image: icedAmericanoImg,
+    category: "Cold Beverages",
+  },
+  {
+    id: "iced-latte",
+    item_code: "CB-0002",
+    name: "Iced Latte",
+    description: "Cold milk with espresso over ice",
+    price: 850,
+    image: icedLatteImg,
+    category: "Cold Beverages",
+  },
+  {
+    id: "iced-mocha",
+    item_code: "CB-0003",
+    name: "Iced Mocha",
+    description: "Chocolate espresso served cold",
+    price: 970,
+    image: icedMochaImg,
+    category: "Cold Beverages",
+  },
+  {
+    id: "iced-caramel-latte",
+    item_code: "CB-0004",
+    name: "Iced Caramel Latte",
+    description: "Caramel drizzle iced latte",
+    price: 920,
+    image: icedCaramelLatteImg,
+    category: "Cold Beverages",
+    badge: "Popular",
+  },
+  {
+    id: "caramelo-caramel",
+    item_code: "CB-0005",
+    name: "Caramelo Caramel",
+    description: "Rich caramel cold beverage",
+    price: 1050,
+    image: carameloCaramel,
+    category: "Cold Beverages",
+  },
+
+  // ═══ HOT BEVERAGES (each drink shown as single card with S/L size selector) ═══
   {
     id: "americano",
     item_code: "HB-0001",
@@ -279,7 +264,7 @@ export const menuItems: MenuItem[] = [
     description: "Classic espresso with hot water",
     price: 450,
     image: americanoImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     sizes: [
       { label: "Small", price: 450, item_code: "HB-0001" },
       { label: "Large", price: 570, item_code: "HB-0002" },
@@ -292,7 +277,7 @@ export const menuItems: MenuItem[] = [
     description: "Espresso, steamed milk & rich foam",
     price: 650,
     image: cappuccinoImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     sizes: [
       { label: "Small", price: 650, item_code: "HB-0003" },
       { label: "Large", price: 770, item_code: "HB-0004" },
@@ -305,10 +290,10 @@ export const menuItems: MenuItem[] = [
     description: "Smooth espresso with steamed milk",
     price: 650,
     image: latteImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     sizes: [
       { label: "Small", price: 650, item_code: "HB-0005" },
-      { label: "Large", price: 770, item_code: "HB-0006" },
+      { label: "Regular", price: 770, item_code: "HB-0006" },
     ],
   },
   {
@@ -318,7 +303,7 @@ export const menuItems: MenuItem[] = [
     description: "Espresso, chocolate & steamed milk",
     price: 750,
     image: mochaImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     sizes: [
       { label: "Small", price: 750, item_code: "HB-0007" },
       { label: "Large", price: 870, item_code: "HB-0008" },
@@ -331,7 +316,7 @@ export const menuItems: MenuItem[] = [
     description: "Latte with sweet caramel drizzle",
     price: 700,
     image: caramelLatteImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     badge: "Popular",
     sizes: [
       { label: "Small", price: 700, item_code: "HB-0009" },
@@ -345,7 +330,7 @@ export const menuItems: MenuItem[] = [
     description: "Rich and creamy hot chocolate",
     price: 780,
     image: hotChocolateImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     sizes: [
       { label: "Small", price: 780, item_code: "HB-0011" },
       { label: "Large", price: 880, item_code: "HB-0012" },
@@ -358,7 +343,7 @@ export const menuItems: MenuItem[] = [
     description: "Double shot of pure espresso",
     price: 550,
     image: espressoImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     sizes: [
       { label: "Small", price: 550, item_code: "HB-0013" },
       { label: "Large", price: 670, item_code: "HB-0014" },
@@ -371,7 +356,7 @@ export const menuItems: MenuItem[] = [
     description: "Espresso marked with a dash of milk",
     price: 550,
     image: macchiatoImg,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
     sizes: [
       { label: "Small", price: 550, item_code: "HB-0015" },
       { label: "Large", price: 670, item_code: "HB-0016" },
@@ -384,7 +369,7 @@ export const menuItems: MenuItem[] = [
     description: "Classic Pakistani chai",
     price: 190,
     image: chaiTea,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
   },
   {
     id: "karak-chae",
@@ -393,7 +378,16 @@ export const menuItems: MenuItem[] = [
     description: "Strong, aromatic karak-style tea",
     price: 350,
     image: karakChai,
-    category: "Regular Drinks",
+    category: "Hot Beverages",
+  },
+  {
+    id: "cardamom-chae",
+    item_code: "HB-0019",
+    name: "Cardamom Chae",
+    description: "Fragrant cardamom-infused tea",
+    price: 350,
+    image: cardamomChai,
+    category: "Hot Beverages",
   },
   {
     id: "hot-chocolate-standalone",
@@ -402,10 +396,57 @@ export const menuItems: MenuItem[] = [
     description: "Warm & creamy hot chocolate",
     price: 450,
     image: hotChocolateImg,
+    category: "Hot Beverages",
+  },
+
+  // ═══ REGULAR DRINKS ═══
+  {
+    id: "pepsi-345",
+    item_code: "CB-0006",
+    name: "Pepsi 345ml",
+    description: "Chilled Pepsi can",
+    price: 150,
+    image: pepsi,
+    category: "Regular Drinks",
+  },
+  {
+    id: "diet-pepsi-345",
+    item_code: "CB-0009",
+    name: "Diet Pepsi 345ml",
+    description: "Sugar-free Pepsi can",
+    price: 150,
+    image: pepsiSizer,
+    category: "Regular Drinks",
+  },
+  {
+    id: "7up-345",
+    item_code: "CB-0007",
+    name: "7-UP 345ml",
+    description: "Refreshing 7-UP can",
+    price: 150,
+    image: sevenUp,
+    category: "Regular Drinks",
+  },
+  {
+    id: "diet-7up-345",
+    item_code: "CB-0010",
+    name: "Diet 7-UP 345ml",
+    description: "Sugar-free 7-UP can",
+    price: 150,
+    image: sevenUpZero,
+    category: "Regular Drinks",
+  },
+  {
+    id: "water-small",
+    item_code: "CB-0008",
+    name: "Water Small",
+    description: "Mineral water bottle",
+    price: 50,
+    image: water,
     category: "Regular Drinks",
   },
 
-  // ═══ DESSERTS (Cakes, Brownies, Cookies, Croissants, Sundaes) ═══
+  // ═══ DIVINE CAKES ═══
   {
     id: "chocolate-fudge-cake",
     item_code: "DC-0001",
@@ -413,7 +454,7 @@ export const menuItems: MenuItem[] = [
     description: "Rich, decadent chocolate fudge cake",
     price: 599,
     image: chocolateFudgeCake,
-    category: "Desserts",
+    category: "Divine Cakes",
   },
   {
     id: "pistachio-chunky-cake",
@@ -422,7 +463,7 @@ export const menuItems: MenuItem[] = [
     description: "Pistachio loaded cake with creamy layers",
     price: 799,
     image: pistachioCakeImg,
-    category: "Desserts",
+    category: "Divine Cakes",
   },
   {
     id: "red-velvet-cake",
@@ -431,73 +472,17 @@ export const menuItems: MenuItem[] = [
     description: "Classic red velvet with cream cheese frosting",
     price: 599,
     image: cakeImg,
-    category: "Desserts",
+    category: "Divine Cakes",
     badge: "Fan Favourite",
   },
   {
-    id: "walnut-chocolate-brownie",
-    item_code: "BS-0001",
-    name: "Walnut Chocolate Brownie",
-    description: "Fudgy chocolate brownie with walnut chunks",
-    price: 399,
-    image: walnutBrownieImg,
-    category: "Desserts",
-    badge: "Chef's Pick",
-  },
-  {
-    id: "caramel-almond-brownie",
-    item_code: "BS-0002",
-    name: "Caramel Almond Brownie",
-    description: "Caramel swirl brownie with toasted almonds",
-    price: 399,
-    image: caramelAlmondBrownieImg,
-    category: "Desserts",
-  },
-  {
-    id: "milk-chocolate-cookie",
-    item_code: "CC-0001",
-    name: "Milk Chocolate Cookie",
-    description: "Chunky milk chocolate chip cookie",
-    price: 330,
-    image: milkChocCookieImg,
-    category: "Desserts",
-  },
-  {
-    id: "double-chocolate-cookie",
-    item_code: "CC-0002",
-    name: "Double Chocolate Cookie",
-    description: "Double chocolate loaded cookie",
-    price: 330,
-    image: doubleChocCookieImg,
-    category: "Desserts",
-  },
-  {
-    id: "butter-croissant",
-    item_code: "CC-0004",
-    name: "Butter Croissant",
-    description: "Flaky, golden butter croissant",
-    price: 399,
-    image: butterCroissantImg,
-    category: "Desserts",
-  },
-  {
-    id: "chocolate-explosion-sundae",
-    item_code: "SD-0001",
-    name: "Chocolate Explosion",
-    description: "Triple chocolate overload sundae",
-    price: 650,
-    image: sundaeImg,
-    category: "Desserts",
-    badge: "Indulgent",
-  },
-  {
-    id: "three-milk-sundae",
-    item_code: "SD-0002",
-    name: "Three Milk",
-    description: "Tres leches inspired ice cream sundae",
-    price: 650,
-    image: threeMilkSundaeImg,
-    category: "Desserts",
+    id: "cheese-cake",
+    item_code: "DC-0004",
+    name: "Cheese Cake Slice",
+    description: "New York style creamy cheesecake",
+    price: 799,
+    image: cheesecakeImg,
+    category: "Divine Cakes",
   },
 
   // ═══ DONUTS DELIGHTS ═══
@@ -531,6 +516,24 @@ export const menuItems: MenuItem[] = [
 
   // ═══ COOKIES & CROISSANTS ═══
   {
+    id: "milk-chocolate-cookie",
+    item_code: "CC-0001",
+    name: "Milk Chocolate Cookie",
+    description: "Chunky milk chocolate chip cookie",
+    price: 330,
+    image: milkChocCookieImg,
+    category: "Cookies & Croissants",
+  },
+  {
+    id: "double-chocolate-cookie",
+    item_code: "CC-0002",
+    name: "Double Chocolate Cookie",
+    description: "Double chocolate loaded cookie",
+    price: 330,
+    image: doubleChocCookieImg,
+    category: "Cookies & Croissants",
+  },
+  {
     id: "raspberry-cookie",
     item_code: "CC-0003",
     name: "Raspberry Cookie",
@@ -539,34 +542,96 @@ export const menuItems: MenuItem[] = [
     image: raspberryCookieImg,
     category: "Cookies & Croissants",
   },
-
-  // ═══ CONDIMENTS ═══
   {
-    id: "cocktail-sauce",
-    item_code: "SD-00020",
-    name: "Cocktail Sauce",
-    description: "Signature cocktail dipping sauce",
-    price: 100,
-    image: cocktailSauce,
-    category: "Condiments",
+    id: "butter-croissant",
+    item_code: "CC-0004",
+    name: "Butter Croissant",
+    description: "Flaky, golden butter croissant",
+    price: 399,
+    image: butterCroissantImg,
+    category: "Cookies & Croissants",
   },
+
+  // ═══ BROWNIES ═══
+  {
+    id: "walnut-chocolate-brownie",
+    item_code: "BS-0001",
+    name: "Walnut Chocolate Brownie",
+    description: "Fudgy chocolate brownie with walnut chunks",
+    price: 399,
+    image: walnutBrownieImg,
+    category: "Brownies",
+    badge: "Chef's Pick",
+  },
+  {
+    id: "caramel-almond-brownie",
+    item_code: "BS-0002",
+    name: "Caramel Almond Brownie",
+    description: "Caramel swirl brownie with toasted almonds",
+    price: 399,
+    image: caramelAlmondBrownieImg,
+    category: "Brownies",
+  },
+
+  // ═══ SUNDAES ═══
+  {
+    id: "chocolate-explosion-sundae",
+    item_code: "SD-0001",
+    name: "Chocolate Explosion",
+    description: "Triple chocolate overload sundae",
+    price: 650,
+    image: sundaeImg,
+    category: "Sundaes",
+    badge: "Indulgent",
+  },
+  {
+    id: "three-milk-sundae",
+    item_code: "SD-0002",
+    name: "Three Milk",
+    description: "Tres leches inspired ice cream sundae",
+    price: 650,
+    image: threeMilkSundaeImg,
+    category: "Sundaes",
+  },
+
+  // ═══ FRIES ═══
+  {
+    id: "regular-fries",
+    item_code: "FR-00026",
+    name: "Regular Fries",
+    description: "Golden crispy french fries",
+    price: 350,
+    image: regularFriesImg,
+    category: "Fries",
+  },
+  {
+    id: "large-fries",
+    item_code: "FR-00027",
+    name: "Large Fries",
+    description: "Extra large portion of crispy fries",
+    price: 500,
+    image: largeFriesImg,
+    category: "Fries",
+  },
+
+  // ═══ SIDES ═══
   {
     id: "dynamite-sauce",
     item_code: "SD-00021",
-    name: "Dynamite Sauce Dip",
+    name: "Dynamite Sauce",
     description: "Signature spicy dynamite dipping sauce",
     price: 90,
     image: dynamiteSauce,
-    category: "Condiments",
+    category: "Sides",
   },
   {
     id: "cheese-sauce",
     item_code: "SD-00022",
-    name: "Cheese Sauce Dip",
+    name: "Cheese Sauce",
     description: "Rich melted cheese dipping sauce",
     price: 100,
     image: cheeseSauce,
-    category: "Condiments",
+    category: "Sides",
   },
   {
     id: "mayo-sauce-dip",
@@ -575,63 +640,6 @@ export const menuItems: MenuItem[] = [
     description: "Creamy mayo dipping sauce",
     price: 90,
     image: mayoSauce,
-    category: "Condiments",
-  },
-  {
-    id: "bbq-sauce",
-    item_code: "SD-00029",
-    name: "BBQ Sauce",
-    description: "Classic BBQ dipping sauce",
-    price: 80,
-    image: bbqSauce,
-    category: "Condiments",
-  },
-
-  // ═══ SIDES ═══
-  {
-    id: "iced-americano",
-    item_code: "CB-0001",
-    name: "Iced Americano",
-    description: "Chilled espresso over ice",
-    price: 670,
-    image: icedAmericanoImg,
-    category: "Sides",
-  },
-  {
-    id: "iced-latte",
-    item_code: "CB-0002",
-    name: "Iced Latte",
-    description: "Cold milk with espresso over ice",
-    price: 850,
-    image: icedLatteImg,
-    category: "Sides",
-  },
-  {
-    id: "iced-mocha",
-    item_code: "CB-0003",
-    name: "Iced Mocha",
-    description: "Chocolate espresso served cold",
-    price: 970,
-    image: icedMochaImg,
-    category: "Sides",
-  },
-  {
-    id: "iced-caramel-latte",
-    item_code: "CB-0004",
-    name: "Iced Caramel Latte",
-    description: "Caramel drizzle iced latte",
-    price: 920,
-    image: icedCaramelLatteImg,
-    category: "Sides",
-    badge: "Popular",
-  },
-  {
-    id: "caramelo-caramel",
-    item_code: "CB-0005",
-    name: "Caramelo Caramel",
-    description: "Rich caramel cold beverage",
-    price: 1050,
-    image: carameloCaramel,
     category: "Sides",
   },
   {

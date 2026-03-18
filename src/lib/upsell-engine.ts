@@ -2,9 +2,9 @@ import { menuItems, type MenuItem } from "@/data/menu";
 import type { CartItem } from "@/types/cart";
 
 // Category groupings for detection
-const DESSERT_CATEGORIES = ["Desserts", "Donuts Delights", "Cookies & Croissants"];
-const DRINK_CATEGORIES = ["Beverages", "Regular Drinks"];
-const SAVORY_CATEGORIES = ["Sandwiches", "Chicken with Fries", "Condiments", "Sides"];
+const DESSERT_CATEGORIES = ["Sundaes", "Divine Cakes", "Brownies", "Donuts Delights", "Cookies & Croissants"];
+const DRINK_CATEGORIES = ["Hot Beverages", "Cold Beverages", "Shakes", "Special Drinks", "Regular Drinks"];
+const SAVORY_CATEGORIES = ["Sandwiches", "Combos", "Fries", "Sides"];
 
 type CartProfile = {
   hasDessert: boolean;
@@ -34,13 +34,13 @@ function getCartProfile(cart: CartItem[]): CartProfile {
 
   return {
     hasDessert: DESSERT_CATEGORIES.some((c) => categories.has(c)),
-    hasSundae: itemNames.some((n) => n.includes("explosion") || n.includes("three milk")),
-    hasCoffee: categories.has("Regular Drinks"),
-    hasColdDrink: itemNames.some((n) => n.includes("iced") || n.includes("caramelo")),
-    hasShake: itemNames.some((n) => n.includes("temptation") || n.includes("berry") || n.includes("strawberry vanilla")),
+    hasSundae: categories.has("Sundaes"),
+    hasCoffee: categories.has("Hot Beverages"),
+    hasColdDrink: categories.has("Cold Beverages"),
+    hasShake: categories.has("Shakes"),
     hasSandwich: categories.has("Sandwiches"),
-    hasCombo: categories.has("Chicken with Fries"),
-    hasSides: categories.has("Sides") || categories.has("Condiments"),
+    hasCombo: categories.has("Combos"),
+    hasSides: categories.has("Sides"),
     categories,
     itemNames,
   };
@@ -48,13 +48,13 @@ function getCartProfile(cart: CartItem[]): CartProfile {
 
 // Prioritized item IDs for specific scenarios
 const SUNDAE_PAIRINGS = [
-  "mocha", "hot-chocolate-coffee", "iced-mocha", "dark-temptation",
+  "mocha", "hot-chocolate", "iced-mocha", "dark-temptation",
   "chocolate-fudge-donut", "milk-chocolate-cookie", "caramel-latte",
   "iced-caramel-latte", "cappuccino", "walnut-chocolate-brownie",
 ];
 
 const DESSERT_PAIRINGS = [
-  "mocha", "caramel-latte", "hot-chocolate-coffee", "cappuccino",
+  "mocha", "caramel-latte", "hot-chocolate", "cappuccino",
   "iced-mocha", "iced-latte", "iced-caramel-latte",
   "dark-temptation", "strawberry-vanilla-shake",
 ];
@@ -114,7 +114,7 @@ export function getSmartUpsell(cart: CartItem[]): UpsellResult {
   // Determine best pairings based on what's in cart
   if (profile.hasSundae) {
     priorityIds = SUNDAE_PAIRINGS;
-    const sundaeName = profile.itemNames.find((n) => n.includes("explosion") || n.includes("three milk"));
+    const sundaeName = profile.itemNames.find((n) => n.includes("sundae"));
     const displayName = sundaeName
       ? sundaeName.split(" ").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
       : "Sundae";
