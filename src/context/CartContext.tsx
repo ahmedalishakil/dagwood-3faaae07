@@ -235,7 +235,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
       <DeliveryLocationModal
         open={showLocationModal}
-        onClose={() => setShowLocationModal(false)}
+        onClose={handleLocationClose}
         onConfirm={handleLocationConfirm}
       />
     </CartContext.Provider>
