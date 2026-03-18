@@ -14,7 +14,10 @@ type DeliveryChargesResponse = {
   };
 };
 
-const API_BRANCH = "Dagwood PINE AVENUE";
+const BRANCH_API_MAP: Record<string, string> = {
+  "PIA Road Branch": "Dagwood PIA Take Away",
+  "Khayaban-e-Amin Branch": "Dagwood PINE AVENUE",
+};
 
 const API_URL = "https://dagwood-chatbot.lucrumerp.com/api/delivery_charges";
 
@@ -29,7 +32,7 @@ export function useDeliveryCharges(branchName: string | undefined, distanceKm: n
       return;
     }
 
-    const apiBranch = API_BRANCH;
+    const apiBranch = BRANCH_API_MAP[branchName] || "Dagwood PIA Take Away";
 
     let cancelled = false;
     setLoading(true);
