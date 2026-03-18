@@ -247,7 +247,7 @@ const DagwoodHeader = () => {
 
       <DeliveryLocationModal
         open={locationModalOpen}
-        onClose={() => setLocationModalOpen(false)}
+        onClose={handleLocationClose}
         onConfirm={handleLocationConfirm}
       />
     </>
