@@ -69,9 +69,11 @@ const DagwoodHeader = () => {
           </div>
 
           {/* Desktop order type toggle */}
-          <div className={`hidden sm:flex items-center rounded-full border p-1 transition-colors ${
-            orderType === null ? "border-primary bg-primary/5 animate-pulse" : "border-border bg-secondary"
-          }`}>
+          <div
+            className={`hidden sm:flex items-center rounded-full border p-1 transition-colors ${
+              orderType === null ? "border-primary bg-primary/5 animate-pulse" : "border-border bg-secondary"
+            }`}
+          >
             <button
               onClick={handleDeliveryClick}
               className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
@@ -148,7 +150,10 @@ const DagwoodHeader = () => {
                           <ShoppingBag className="mx-auto mb-2 h-10 w-10 text-muted-foreground/30" />
                           <p className="text-sm font-medium text-muted-foreground">Cart is empty</p>
                           <button
-                            onClick={() => { setMiniCartOpen(false); navigate("/"); }}
+                            onClick={() => {
+                              setMiniCartOpen(false);
+                              navigate("/");
+                            }}
                             className="mt-2 text-sm font-semibold text-primary hover:underline"
                           >
                             Browse Menu
@@ -181,13 +186,19 @@ const DagwoodHeader = () => {
                             </span>
                             <div className="flex gap-2">
                               <button
-                                onClick={() => { setMiniCartOpen(false); navigate("/cart"); }}
+                                onClick={() => {
+                                  setMiniCartOpen(false);
+                                  navigate("/cart");
+                                }}
                                 className="rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-card-foreground hover:bg-secondary"
                               >
                                 View Cart
                               </button>
                               <button
-                                onClick={() => { setMiniCartOpen(false); navigate("/checkout"); }}
+                                onClick={() => {
+                                  setMiniCartOpen(false);
+                                  navigate("/checkout");
+                                }}
                                 className="rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground"
                               >
                                 Checkout
@@ -217,18 +228,16 @@ const DagwoodHeader = () => {
         )}
 
         {/* Mobile order type toggle */}
-        <div className={`flex sm:hidden items-center justify-center gap-2 border-t px-4 h-10 transition-colors ${
-          orderType === null ? "border-primary bg-primary/5" : "border-border"
-        }`}>
-          {orderType === null && (
-            <span className="text-xs font-medium text-primary mr-1">Select:</span>
-          )}
+        <div
+          className={`flex sm:hidden items-center justify-center gap-2 border-t px-4 py-1 transition-colors ${
+            orderType === null ? "border-primary bg-primary/5" : "border-border"
+          }`}
+        >
+          {orderType === null && <span className="text-xs font-medium text-primary mr-1">Select:</span>}
           <button
             onClick={handleDeliveryClick}
             className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
-              orderType === "delivery"
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-muted-foreground"
+              orderType === "delivery" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
             }`}
           >
             <Truck className="h-4 w-4" />
@@ -237,9 +246,7 @@ const DagwoodHeader = () => {
           <button
             onClick={handlePickupClick}
             className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
-              orderType === "pickup"
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-muted-foreground"
+              orderType === "pickup" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
             }`}
           >
             <MapPin className="h-4 w-4" />
@@ -248,11 +255,7 @@ const DagwoodHeader = () => {
         </div>
       </header>
 
-      <DeliveryLocationModal
-        open={locationModalOpen}
-        onClose={handleLocationClose}
-        onConfirm={handleLocationConfirm}
-      />
+      <DeliveryLocationModal open={locationModalOpen} onClose={handleLocationClose} onConfirm={handleLocationConfirm} />
     </>
   );
 };
