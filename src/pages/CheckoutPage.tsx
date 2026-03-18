@@ -204,23 +204,36 @@ const CheckoutPage = () => {
     };
 
     try {
-      await fetch("https://dagwood-chatbot.lucrumerp.com/api/order", {
+      const res = await fetch("https://dagwood-chatbot.lucrumerp.com/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-    } catch {
-      // Still show success — order might have been received
-    }
 
-    toast.success("Thank you for your order! 🎉", {
-      description: "Please check your WhatsApp for further details. Sandy will assist you there.",
-      duration: 6000,
-    });
-    setOrderTotal(total);
-    setOrderPlaced(true);
-    clearCart();
-    setIsSubmitting(false);
+      const data = await res.json();
+
+      if (res.ok && data?.message === "Order created successfully" && data?.erp_response?.message) {
+        const erpOrderNumber = data.erp_response.message;
+        setConfirmedOrderNumber(erpOrderNumber);
+        toast.success("Thank you for your order! 🎉", {
+          description: "Please check your WhatsApp for further details. Sandy will assist you there.",
+          duration: 6000,
+        });
+        setOrderTotal(total);
+        setOrderPlaced(true);
+        clearCart();
+      } else {
+        const errMsg = data?.detail || data?.message || "Something went wrong. Please try again.";
+        toast.error("Order failed", { description: errMsg, duration: 6000 });
+      }
+    } catch {
+      toast.error("Network error", {
+        description: "Could not reach the server. Please check your connection and try again.",
+        duration: 6000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const canPlaceOrder =
