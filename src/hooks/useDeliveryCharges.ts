@@ -14,7 +14,7 @@ type DeliveryChargesResponse = {
   };
 };
 
-const API_BRANCH = "Dagwood PIA Take Away";
+const API_BRANCH = "Dagwood PINE AVENUE";
 
 const API_URL = "https://dagwood-chatbot.lucrumerp.com/api/delivery_charges";
 
