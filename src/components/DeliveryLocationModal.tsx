@@ -252,8 +252,8 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
         <DialogTitle className="sr-only">Select Delivery Location</DialogTitle>
 
         {/* Header */}
-        <div className="flex items-center gap-2 border-b border-border px-4 py-3 bg-card">
-          <MapPin className="h-5 w-5 text-primary" />
+        <div className="flex items-center gap-2 border-b border-border px-4 py-3 pr-12 bg-card">
+          <MapPin className="h-5 w-5 text-primary shrink-0" />
           <h2 className="text-base font-bold text-card-foreground">Select Delivery Location</h2>
         </div>
 
