@@ -191,8 +191,16 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
 
     leafletMap.current = map;
 
-    // Do NOT auto-detect user location — start at Lahore center without geocoding
-    // User must manually move the map or click "Locate Me"
+    // Auto-detect user location; fall back to Lahore center on denial
+    navigator.geolocation?.getCurrentPosition(
+      (pos) => {
+        map.setView([pos.coords.latitude, pos.coords.longitude], 16);
+      },
+      () => {
+        // Permission denied — keep default Lahore center
+      },
+      { timeout: 8000 }
+    );
 
     // Fix tile rendering after dialog animation
     setTimeout(() => map.invalidateSize(), 100);
