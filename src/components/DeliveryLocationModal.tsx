@@ -110,7 +110,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
     setLoading(true);
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`,
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en`,
         { signal: controller.signal }
       );
       const data = await res.json();
