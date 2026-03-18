@@ -13,21 +13,14 @@ type Props = {
   onQuickAdd: (item: MenuItem) => void;
 };
 
-const UPSELL_CATEGORIES = ["Special Drinks", "Shakes", "Divine Cakes", "Sundaes", "Brownies", "Donuts", "Cookies & Croissants", "Sides"];
+const UPSELL_CATEGORIES = ["Beverages", "Desserts", "Condiments", "Chicken with Fries"];
 
 const CATEGORY_PAIRING: Record<string, string[]> = {
-  Sandwiches: ["Shakes", "Special Drinks", "Sides"],
-  Combos: ["Shakes", "Special Drinks", "Sundaes"],
-  "Hot Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants", "Donuts"],
-  "Cold Coffee": ["Divine Cakes", "Brownies", "Cookies & Croissants"],
-  Shakes: ["Sandwiches", "Brownies", "Cookies & Croissants"],
-  "Special Drinks": ["Sandwiches", "Divine Cakes"],
-  "Divine Cakes": ["Hot Coffee", "Cold Coffee"],
-  Sundaes: ["Hot Coffee"],
-  Brownies: ["Hot Coffee", "Cold Coffee"],
-  Donuts: ["Hot Coffee", "Cold Coffee"],
-  "Cookies & Croissants": ["Hot Coffee", "Cold Coffee"],
-  Sides: ["Shakes", "Special Drinks"],
+  "Sandwich with Fries": ["Beverages", "Desserts", "Condiments"],
+  "Chicken with Fries": ["Beverages", "Desserts", "Condiments"],
+  Beverages: ["Sandwich with Fries", "Desserts", "Chicken with Fries"],
+  Desserts: ["Beverages", "Sandwich with Fries"],
+  Condiments: ["Sandwich with Fries", "Chicken with Fries", "Beverages"],
 };
 
 const formatCustomization = (item: CartItem): string | null => {

@@ -113,7 +113,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
 
           {/* Add / quantity controls */}
           <div onClick={(e) => e.stopPropagation()}>
-            {inCartQty > 0 && item.category !== "Sandwiches" ? (
+            {inCartQty > 0 && item.category !== "Sandwich with Fries" ? (
               <div className="flex items-center gap-1 rounded-full border border-border bg-card">
                 <button
                   onClick={() => updateQuantity(cartItemId, -1)}
