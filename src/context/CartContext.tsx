@@ -150,6 +150,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     toast.success("Order type set to Delivery!");
   };
 
+  const handleLocationClose = () => {
+    setShowLocationModal(false);
+    // If no location was confirmed, revert order type
+    if (!deliveryLocation) {
+      setOrderType(null);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{ cart, cartCount, cartTotal, addToCart, updateQuantity, removeItem, updateItemCustomization, clearCart, orderType, setOrderType, deliveryLocation, setDeliveryLocation }}
@@ -227,7 +235,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
       <DeliveryLocationModal
         open={showLocationModal}
-        onClose={() => setShowLocationModal(false)}
+        onClose={handleLocationClose}
         onConfirm={handleLocationConfirm}
       />
     </CartContext.Provider>
