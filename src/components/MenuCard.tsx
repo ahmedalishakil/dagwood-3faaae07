@@ -66,7 +66,7 @@ const MenuCard = ({ item, onAddToCart }: Props) => {
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        {item.category === "Sandwiches" && (
+        {item.category === "Sandwich with Fries" && (
           <span className="absolute right-3 top-3 rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-accent-foreground shadow-md">
             Customizable
           </span>
