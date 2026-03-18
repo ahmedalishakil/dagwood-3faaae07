@@ -67,7 +67,7 @@ const ItemDetailModal = ({ item, isOpen, onClose, onAddToCart, onAddToCartCustom
   }
   if (isOpen !== lastOpen) setLastOpen(isOpen);
 
-  const isCustomizable = item ? item.category === "Sandwiches" : false;
+  const isCustomizable = item ? item.category === "Sandwich with Fries" : false;
   const currentPrice = item ? (item.sizes ? item.sizes[selectedSize].price : item.price) : 0;
 
   const extrasTotal = useMemo(
