@@ -49,10 +49,13 @@ const DagwoodHeader = () => {
     setLocationModalOpen(false);
   };
 
-  const handleLocationClose = () => {
+  const handleLocationClose = (wasOutOfRange?: boolean) => {
     setLocationModalOpen(false);
-    // If no location was confirmed, revert order type
-    if (!deliveryLocation) {
+    if (wasOutOfRange) {
+      // User was out of range — clear any previously saved location
+      setDeliveryLocation(null);
+      setOrderType(prevOrderTypeRef.current);
+    } else if (!deliveryLocation) {
       setOrderType(prevOrderTypeRef.current);
     }
   };

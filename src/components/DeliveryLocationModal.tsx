@@ -247,7 +247,7 @@ export default function DeliveryLocationModal({ open, onClose, onConfirm }: Prop
   };
 
   return (
-    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+    <Dialog open={open} onOpenChange={(v) => !v && onClose(!withinRange)}>
       <DialogContent className="max-w-lg p-0 overflow-hidden gap-0 rounded-2xl sm:max-w-md max-h-[95vh]">
         <DialogTitle className="sr-only">Select Delivery Location</DialogTitle>
 

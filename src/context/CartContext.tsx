@@ -150,10 +150,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     toast.success("Order type set to Delivery!");
   };
 
-  const handleLocationClose = () => {
+  const handleLocationClose = (wasOutOfRange?: boolean) => {
     setShowLocationModal(false);
-    // If no location was confirmed, revert order type
-    if (!deliveryLocation) {
+    if (wasOutOfRange) {
+      setDeliveryLocation(null);
+      setOrderType(null);
+    } else if (!deliveryLocation) {
       setOrderType(null);
     }
   };
