@@ -36,6 +36,7 @@ const CheckoutPage = () => {
   const [orderTotal, setOrderTotal] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [confirmedOrderNumber, setConfirmedOrderNumber] = useState("");
+  const [psid, setPsid] = useState<string | null>(null);
 
   const {
     deliveryFee,
