@@ -174,6 +174,55 @@ const OrderConfirmation = ({
             <p className="mt-3 text-xs text-muted-foreground">
               Scan the QR code or use the PSID to complete your payment via your bank app or any payment channel.
             </p>
+
+            {/* Payment Verification */}
+            <div className="mt-4 border-t border-border pt-4">
+              <button
+                onClick={handleVerifyPayment}
+                disabled={verifying || paymentStatus === "paid"}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-bold text-secondary-foreground transition-all hover:bg-secondary/80 active:scale-[0.98] disabled:opacity-60"
+              >
+                {verifying ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Verifying…
+                  </>
+                ) : paymentStatus === "paid" ? (
+                  <>
+                    <ShieldCheck className="h-4 w-4 text-primary" />
+                    Payment Verified
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="h-4 w-4" />
+                    Check Payment Status
+                  </>
+                )}
+              </button>
+
+              <AnimatePresence>
+                {paymentStatus === "paid" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-3 flex items-center gap-2 rounded-xl bg-primary/10 p-3 text-sm font-medium text-primary"
+                  >
+                    <ShieldCheck className="h-5 w-5 shrink-0" />
+                    Payment received successfully!
+                  </motion.div>
+                )}
+                {paymentStatus === "unpaid" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-3 flex items-center gap-2 rounded-xl bg-destructive/10 p-3 text-sm font-medium text-destructive"
+                  >
+                    <ShieldX className="h-5 w-5 shrink-0" />
+                    Payment not received yet. Please complete your payment and try again.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
         )}
 
