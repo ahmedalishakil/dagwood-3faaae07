@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { SandwichCustomization } from "@/types/cart";
-import lahoreSkyline from "@/assets/lahore-skyline.png";
+
 import DagwoodHeader from "@/components/DagwoodHeader";
 import HeroBanner from "@/components/HeroBanner";
 import TrustBar from "@/components/TrustBar";
@@ -128,14 +128,8 @@ const Index = () => {
 
       <footer className="relative">
         <SandySection />
-        <div className="relative -mt-6 pb-2">
-          <img
-            src={lahoreSkyline}
-            alt="Lahore Skyline"
-            className="pointer-events-none mx-auto block w-full max-w-5xl object-contain px-4"
-            loading="lazy"
-          />
-          <div className="mt-1 flex flex-col items-center gap-1">
+        <div className="pb-4 pt-2">
+          <div className="flex flex-col items-center gap-1">
             <button
               onClick={() => navigate("/policies")}
               className="text-xs font-medium text-primary hover:underline"
