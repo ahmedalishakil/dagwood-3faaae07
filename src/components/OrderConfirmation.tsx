@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle2, MessageCircle, Copy, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, MessageCircle, Copy, Check, Loader2, ShieldCheck, ShieldX } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import DagwoodHeader from "@/components/DagwoodHeader";
 
