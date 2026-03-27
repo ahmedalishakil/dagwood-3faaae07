@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 import PoliciesPage from "./pages/PoliciesPage";
+import PolicyAcceptance from "./components/PolicyAcceptance";
 
 const queryClient = new QueryClient();
 
@@ -24,9 +25,9 @@ const App = () => (
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/policies" element={<PoliciesPage />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <PolicyAcceptance />
         </BrowserRouter>
       </CartProvider>
     </TooltipProvider>

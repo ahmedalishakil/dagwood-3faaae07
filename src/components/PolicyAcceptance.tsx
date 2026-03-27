@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Shield, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const STORAGE_KEY = "dagwood-policies-accepted";
 
