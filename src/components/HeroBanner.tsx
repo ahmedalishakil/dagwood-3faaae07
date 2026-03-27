@@ -42,7 +42,7 @@ const HeroBanner = () => {
           alt={`Banner ${i + 1}`}
           fetchPriority="high"
           decoding="sync"
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out will-change-[opacity]"
+          className="absolute inset-0 h-full w-full transition-opacity duration-700 ease-in-out will-change-[opacity]"
           style={{ opacity: i === current ? 1 : 0 }}
         />
       ))}
@@ -55,9 +55,7 @@ const HeroBanner = () => {
             onClick={() => setCurrent(i)}
             aria-label={`Go to slide ${i + 1}`}
             className={`h-2.5 rounded-full transition-all duration-500 ${
-              i === current
-                ? "w-8 bg-primary"
-                : "w-2.5 bg-foreground/30 hover:bg-foreground/50"
+              i === current ? "w-8 bg-primary" : "w-2.5 bg-foreground/30 hover:bg-foreground/50"
             }`}
           />
         ))}
