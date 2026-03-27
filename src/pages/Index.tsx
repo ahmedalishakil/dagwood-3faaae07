@@ -135,7 +135,15 @@ const Index = () => {
             className="pointer-events-none mx-auto block w-full max-w-5xl object-contain px-4"
             loading="lazy"
           />
-          <p className="mt-1 text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
+          <div className="mt-1 flex flex-col items-center gap-1">
+            <button
+              onClick={() => navigate("/policies")}
+              className="text-xs font-medium text-primary hover:underline"
+            >
+              Our Policies
+            </button>
+            <p className="text-center text-xs text-muted-foreground/60">© 2026 Dagwood. All rights reserved.</p>
+          </div>
         </div>
       </footer>
 
