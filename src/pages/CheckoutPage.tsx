@@ -77,6 +77,8 @@ const CheckoutPage = () => {
         orderTotal={orderTotal}
         pickupBranch={pickupBranch}
         onBackToMenu={() => navigate("/")}
+        psid={psid}
+        paymentMethod={payment}
       />
     );
   }
@@ -224,8 +226,47 @@ const CheckoutPage = () => {
       if (res.ok && data?.message === "Order created successfully" && data?.erp_response?.message) {
         const erpOrderNumber = data.erp_response.message;
         setConfirmedOrderNumber(erpOrderNumber);
+
+        // If online payment, fetch PSID
+        if (payment === "card") {
+          try {
+            const today = new Date().toISOString().split("T")[0];
+            const psidRes = await fetch(
+              "https://pia-dagwood.lucrumerp.com/api/method/lucrum_payments_integrations.apis.asaanbill.add_payment",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  payment_body: {
+                    payment: {
+                      title: "Online Payment",
+                      identifier: erpOrderNumber,
+                      dueDate: today,
+                      amount: String(total),
+                      amountAfterDueDate: String(total + 20),
+                    },
+                  },
+                  generation_type: "",
+                }),
+              }
+            );
+            const psidData = await psidRes.json();
+            if (psidData?.message?.Consumer_Detail?.BillStatus === "U") {
+              setPsid(psidData.message.Consumer_Detail.ConsumerNumber);
+            } else if (psidData?.message?.ConsumerNumber) {
+              setPsid(psidData.message.ConsumerNumber);
+            } else if (typeof psidData?.message === "string") {
+              setPsid(psidData.message);
+            }
+          } catch {
+            console.error("Failed to fetch PSID");
+          }
+        }
+
         toast.success("Thank you for your order! 🎉", {
-          description: "Please check your WhatsApp for further details. Sandy will assist you there.",
+          description: payment === "card"
+            ? "Your online payment details are ready. Please complete the payment."
+            : "Please check your WhatsApp for further details. Sandy will assist you there.",
           duration: 6000,
         });
         setOrderTotal(total);
@@ -524,13 +565,18 @@ const CheckoutPage = () => {
               </AnimatePresence> */}
 
               <button
-                disabled
-                className="flex w-full items-center gap-3 rounded-xl border-2 border-border p-4 text-left opacity-50 cursor-not-allowed"
+                onClick={() => {
+                  setPayment("card");
+                  setModeType("Bank");
+                }}
+                className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
+                  payment === "card" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
+                }`}
               >
-                <CreditCard className="h-6 w-6 text-muted-foreground" />
+                <CreditCard className="h-6 w-6 text-primary" />
                 <div>
-                  <p className="text-sm font-bold text-muted-foreground">Online Payment</p>
-                  <p className="text-xs text-muted-foreground">Coming soon</p>
+                  <p className="text-sm font-bold text-card-foreground">Online Payment</p>
+                  <p className="text-xs text-muted-foreground">Pay via bank transfer (5% GST)</p>
                 </div>
               </button>
             </div>
