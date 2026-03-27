@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
-import sandyAvatar from "@/assets/sandy-avatar.png";
+import logo from "@/assets/dagwood-logo.png";
 
 const WHATSAPP_LINK = "https://wa.me/923262188824?text=Hi%20there!%20%F0%9F%91%8B%20I%20can%20help%20you%20place%20an%20order.%20What%20would%20you%20like%20today%3F";
 
@@ -20,9 +20,9 @@ const SandySection = () => {
       >
         <div className="flex items-center gap-4 rounded-2xl bg-primary px-5 py-3 shadow-lg transition-all hover:shadow-xl hover:brightness-110 sm:gap-5 sm:px-6">
           <img
-            src={sandyAvatar}
-            alt="Sandy AI"
-            className="h-12 w-12 flex-shrink-0 rounded-full border-2 border-primary-foreground/30 object-cover sm:h-14 sm:w-14"
+            src={logo}
+            alt="Dagwood"
+            className="h-12 w-12 flex-shrink-0 rounded-full border-2 border-primary-foreground/30 object-contain bg-primary-foreground p-1 sm:h-14 sm:w-14"
             loading="lazy"
             decoding="async"
           />
