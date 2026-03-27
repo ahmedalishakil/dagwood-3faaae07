@@ -24,7 +24,40 @@ const OrderConfirmation = ({
   paymentMethod,
 }: OrderConfirmationProps) => {
   const [copied, setCopied] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<"idle" | "paid" | "unpaid">("idle");
   const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20there!%20%F0%9F%91%8B%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20What%20would%20you%20like%20today%3F`;
+
+  const handleVerifyPayment = async () => {
+    if (!psid) return;
+    setVerifying(true);
+    try {
+      const res = await fetch(
+        "https://pia-dagwood.lucrumerp.com/api/method/lucrum_payments_integrations.apis.asaanbill.verify_with_gateway",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            payment_data: {
+              psid,
+              amount: String(orderTotal),
+              order_id: orderNumber,
+            },
+          }),
+        }
+      );
+      const data = await res.json();
+      if (data?.message?.success) {
+        setPaymentStatus("paid");
+      } else {
+        setPaymentStatus("unpaid");
+      }
+    } catch {
+      setPaymentStatus("unpaid");
+    } finally {
+      setVerifying(false);
+    }
+  };
 
   const handleCopy = async () => {
     if (!psid) return;
