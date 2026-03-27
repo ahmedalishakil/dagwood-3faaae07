@@ -49,7 +49,10 @@ const PolicyAcceptance = () => {
                 </button>
               </div>
               <p className="mb-4 text-xs leading-relaxed text-muted-foreground">
-                By continuing to use Dagwood's services, you agree to our Terms & Conditions, Privacy Policy, Shipping Policy, and Return & Refund Policy.
+                By continuing to use Dagwood's services, you agree to our{" "}
+                <Link to="/policies" className="font-semibold text-primary underline hover:text-primary/80">
+                  Terms & Conditions, Privacy Policy, Shipping Policy, and Return & Refund Policy
+                </Link>.
               </p>
               <button
                 onClick={handleAccept}
