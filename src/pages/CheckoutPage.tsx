@@ -516,7 +516,10 @@ const CheckoutPage = () => {
             <h2 className="mb-4 font-display text-lg font-bold text-card-foreground">Payment Method</h2>
             <div className="space-y-3">
               <button
-                onClick={() => setPayment("cod")}
+                onClick={() => {
+                  setPayment("cod");
+                  setModeType("Cash");
+                }}
                 className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
                   payment === "cod" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
                 }`}
@@ -524,7 +527,7 @@ const CheckoutPage = () => {
                 <Banknote className="h-6 w-6 text-primary" />
                 <div>
                   <p className="text-sm font-bold text-card-foreground">Cash on Delivery</p>
-                  <p className="text-xs text-muted-foreground">Pay when you receive your order</p>
+                  <p className="text-xs text-muted-foreground">Pay when you receive your order (16% GST)</p>
                 </div>
               </button>
 
