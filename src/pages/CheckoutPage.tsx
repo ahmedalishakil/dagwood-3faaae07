@@ -251,10 +251,8 @@ const CheckoutPage = () => {
               }
             );
             const psidData = await psidRes.json();
-            if (psidData?.message?.Consumer_Detail?.BillStatus === "U") {
-              setPsid(psidData.message.Consumer_Detail.ConsumerNumber);
-            } else if (psidData?.message?.ConsumerNumber) {
-              setPsid(psidData.message.ConsumerNumber);
+            if (psidData?.message?.data?.psid) {
+              setPsid(psidData.message.data.psid);
             } else if (typeof psidData?.message === "string") {
               setPsid(psidData.message);
             }
