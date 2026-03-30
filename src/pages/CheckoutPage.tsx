@@ -37,6 +37,7 @@ const CheckoutPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [confirmedOrderNumber, setConfirmedOrderNumber] = useState("");
   const [psid, setPsid] = useState<string | null>(null);
+  const [paymentId, setPaymentId] = useState<string | null>(null);
 
   const {
     deliveryFee,
@@ -78,6 +79,7 @@ const CheckoutPage = () => {
         pickupBranch={pickupBranch}
         onBackToMenu={() => navigate("/")}
         psid={psid}
+        paymentId={paymentId}
         paymentMethod={payment}
       />
     );
@@ -253,6 +255,9 @@ const CheckoutPage = () => {
             const psidData = await psidRes.json();
             if (psidData?.message?.data?.psid) {
               setPsid(psidData.message.data.psid);
+              if (psidData.message.data.id) {
+                setPaymentId(String(psidData.message.data.id));
+              }
             } else if (typeof psidData?.message === "string") {
               setPsid(psidData.message);
             }
