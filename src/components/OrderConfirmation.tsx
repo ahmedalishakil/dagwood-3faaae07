@@ -25,7 +25,7 @@ const OrderConfirmation = ({
 }: OrderConfirmationProps) => {
   const [copied, setCopied] = useState(false);
   const [verifying, setVerifying] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<"idle" | "paid" | "unpaid">("idle");
+  const [paymentStatus, setPaymentStatus] = useState<string>("idle");
   const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20there!%20%F0%9F%91%8B%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20What%20would%20you%20like%20today%3F`;
 
   const handleVerifyPayment = async () => {
@@ -47,13 +47,14 @@ const OrderConfirmation = ({
         },
       );
       const data = await res.json();
-      if (data?.message?.success) {
-        setPaymentStatus("paid");
+      const status = data?.message?.data?.status;
+      if (status) {
+        setPaymentStatus(status);
       } else {
-        setPaymentStatus("unpaid");
+        setPaymentStatus("ERROR");
       }
     } catch {
-      setPaymentStatus("unpaid");
+      setPaymentStatus("ERROR");
     } finally {
       setVerifying(false);
     }
@@ -174,7 +175,7 @@ const OrderConfirmation = ({
             <div className="mt-4 border-t border-border pt-4">
               <button
                 onClick={handleVerifyPayment}
-                disabled={verifying || paymentStatus === "paid"}
+                disabled={verifying || paymentStatus === "PROCESSED"}
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-bold text-secondary-foreground transition-all hover:bg-secondary/80 active:scale-[0.98] disabled:opacity-60"
               >
                 {verifying ? (
@@ -182,7 +183,7 @@ const OrderConfirmation = ({
                     <Loader2 className="h-4 w-4 animate-spin" />
                     Verifying…
                   </>
-                ) : paymentStatus === "paid" ? (
+                ) : paymentStatus === "PROCESSED" ? (
                   <>
                     <ShieldCheck className="h-4 w-4 text-primary" />
                     Payment Verified
@@ -196,24 +197,30 @@ const OrderConfirmation = ({
               </button>
 
               <AnimatePresence>
-                {paymentStatus === "paid" && (
+                {paymentStatus !== "idle" && !verifying && (
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-3 flex items-center gap-2 rounded-xl bg-primary/10 p-3 text-sm font-medium text-primary"
+                    className={`mt-3 flex items-center gap-2 rounded-xl p-3 text-sm font-medium ${
+                      paymentStatus === "PROCESSED"
+                        ? "bg-primary/10 text-primary"
+                        : paymentStatus === "APPROVED"
+                          ? "bg-amber-500/10 text-amber-700"
+                          : "bg-destructive/10 text-destructive"
+                    }`}
                   >
-                    <ShieldCheck className="h-5 w-5 shrink-0" />
-                    Payment received successfully!
-                  </motion.div>
-                )}
-                {paymentStatus === "unpaid" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-3 flex items-center gap-2 rounded-xl bg-destructive/10 p-3 text-sm font-medium text-destructive"
-                  >
-                    <ShieldX className="h-5 w-5 shrink-0" />
-                    Payment not received yet. Please complete your payment and try again.
+                    {paymentStatus === "PROCESSED" ? (
+                      <ShieldCheck className="h-5 w-5 shrink-0" />
+                    ) : (
+                      <ShieldX className="h-5 w-5 shrink-0" />
+                    )}
+                    {paymentStatus === "DRAFT" && "PSID not assigned yet. Please wait and try again."}
+                    {paymentStatus === "IN_PROCESS" && "Payment is being processed. Please wait a moment."}
+                    {paymentStatus === "APPROVED" && "PSID assigned but payment not received yet. Please complete your payment."}
+                    {paymentStatus === "PROCESSED" && "Payment received successfully!"}
+                    {paymentStatus === "DISCARD" && "This payment link has expired. Please place a new order."}
+                    {paymentStatus === "ERRORED" && "Payment processing failed. Please contact support."}
+                    {paymentStatus === "ERROR" && "Unable to verify payment. Please try again."}
                   </motion.div>
                 )}
               </AnimatePresence>
