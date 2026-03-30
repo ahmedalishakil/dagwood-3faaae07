@@ -13,6 +13,7 @@ const DagwoodHeader = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [miniCartOpen, setMiniCartOpen] = useState(false);
   const [locationModalOpen, setLocationModalOpen] = useState(false);
+  const [ordersOpen, setOrdersOpen] = useState(false);
   const { cart, cartCount, cartTotal, orderType, setOrderType, deliveryLocation, setDeliveryLocation } = useCart();
   const navigate = useNavigate();
   const headerRef = useRef<HTMLElement>(null);
