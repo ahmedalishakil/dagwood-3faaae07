@@ -22,7 +22,8 @@ interface MyOrdersDialogProps {
 
 const statusColor = (status: string) => {
   const s = status.toLowerCase();
-  if (s.includes("completed") || s.includes("delivered")) return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
+  if (s.includes("completed") || s.includes("delivered"))
+    return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
   if (s.includes("cancel")) return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
   return "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400";
 };
@@ -52,12 +53,12 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
       }
 
       const res = await fetch(
-        "https://dagwood.lucrumerp.com/api/method/lucrum_pos_general.api.website_api.get_customer_orders",
+        "https://pia-dagwood.lucrumerp.com/api/method/lucrum_pos_general.api.website_api.get_customer_orders",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        }
+        },
       );
       const data = await res.json();
 
@@ -102,7 +103,12 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
           {/* Toggle between phone / order number */}
           <div className="flex rounded-full border border-border bg-secondary p-1">
             <button
-              onClick={() => { setSearchType("phone"); setSearchValue(""); setOrders([]); setSearched(false); }}
+              onClick={() => {
+                setSearchType("phone");
+                setSearchValue("");
+                setOrders([]);
+                setSearched(false);
+              }}
               className={`flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium transition-all ${
                 searchType === "phone"
                   ? "bg-primary text-primary-foreground shadow-sm"
@@ -113,7 +119,12 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
               Phone Number
             </button>
             <button
-              onClick={() => { setSearchType("order"); setSearchValue(""); setOrders([]); setSearched(false); }}
+              onClick={() => {
+                setSearchType("order");
+                setSearchValue("");
+                setOrders([]);
+                setSearched(false);
+              }}
               className={`flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium transition-all ${
                 searchType === "order"
                   ? "bg-primary text-primary-foreground shadow-sm"
@@ -163,7 +174,9 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
                       <p className="truncate text-sm font-bold text-card-foreground">{order.customer_name}</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">#{order.name}</p>
                     </div>
-                    <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold ${statusColor(order.status)}`}>
+                    <span
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold ${statusColor(order.status)}`}
+                    >
                       {order.status}
                     </span>
                   </div>
@@ -175,9 +188,7 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
                         year: "numeric",
                       })}
                     </span>
-                    <span className="text-sm font-bold text-primary">
-                      Rs. {order.grand_total.toLocaleString()}
-                    </span>
+                    <span className="text-sm font-bold text-primary">Rs. {order.grand_total.toLocaleString()}</span>
                   </div>
                 </div>
               ))}
