@@ -231,7 +231,7 @@ const CheckoutPage = () => {
         const erpOrderNumber = data.erp_response.message;
         setConfirmedOrderNumber(erpOrderNumber);
 
-        // If online payment, fetch PSID
+        // If Asaanbill online payment, fetch PSID
         if (payment === "card") {
           try {
             const today = new Date().toISOString().split("T")[0];
@@ -265,6 +265,31 @@ const CheckoutPage = () => {
             }
           } catch {
             console.error("Failed to fetch PSID");
+          }
+        }
+
+        // If XPay payment, create payment intent and process
+        if (payment === "xpay_card" || payment === "xpay_jazzcash") {
+          try {
+            await xpay.initCheckout(
+              { name: customerName.trim(), email: "", phone: phone.replace(/\D/g, "") },
+              total,
+            );
+            const result = await xpay.pay();
+            if (result === "success") {
+              navigate("/payment/success", { state: { orderNumber: erpOrderNumber, amount: total } });
+            } else if (result === "pending") {
+              navigate("/payment/pending", { state: { orderNumber: erpOrderNumber, amount: total, piId: xpay.paymentIntent?.pi_id } });
+            } else {
+              navigate("/payment/failed", { state: { orderNumber: erpOrderNumber, error: xpay.error } });
+            }
+            setOrderTotal(total);
+            clearCart();
+            return;
+          } catch {
+            navigate("/payment/failed", { state: { orderNumber: erpOrderNumber, error: "Payment processing failed" } });
+            clearCart();
+            return;
           }
         }
 
