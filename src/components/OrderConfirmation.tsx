@@ -33,7 +33,7 @@ const OrderConfirmation = ({
     setVerifying(true);
     try {
       const res = await fetch(
-        "https://pia-dagwood.lucrumerp.com/api/method/lucrum_payments_integrations.apis.asaanbill.add_payment",
+        "https://pia-dagwood.lucrumerp.com/api/method/lucrum_payments_integrations.apis.asaanbill.get_payment",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
