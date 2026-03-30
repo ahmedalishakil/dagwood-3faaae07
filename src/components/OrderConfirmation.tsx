@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, MessageCircle, Copy, Check, Loader2, ShieldCheck, ShieldX } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
