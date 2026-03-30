@@ -2,12 +2,13 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Truck, Banknote, CreditCard, Package, Loader2 } from "lucide-react";
+import { ArrowLeft, MapPin, Truck, Banknote, CreditCard, Package, Loader2, Smartphone, Shield } from "lucide-react";
 import DagwoodHeader from "@/components/DagwoodHeader";
 import SmartUpsell from "@/components/SmartUpsell";
 import OrderConfirmation from "@/components/OrderConfirmation";
 import { useCart } from "@/context/CartContext";
 import { useDeliveryCharges } from "@/hooks/useDeliveryCharges";
+import { useXPayCheckout } from "@/hooks/useXPayCheckout";
 import type { CartItem } from "@/types/cart";
 
 const formatCustomization = (item: CartItem): string | null => {
