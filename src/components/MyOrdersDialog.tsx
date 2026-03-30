@@ -8,7 +8,7 @@ interface Order {
   name: string;
   customer_name: string;
   grand_total: number;
-  status: string;
+  custom_payment_status: string;
   transaction_date: string;
   delivery_date: string;
   resturent_type: string;
@@ -175,9 +175,9 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
                       <p className="mt-0.5 text-xs text-muted-foreground">#{order.name}</p>
                     </div>
                     <span
-                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold ${statusColor(order.status)}`}
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold ${statusColor(order.custom_payment_status || "Pending")}`}
                     >
-                      {order.status}
+                      {order.custom_payment_status || "Pending"}
                     </span>
                   </div>
                   <div className="mt-2.5 flex items-center justify-between border-t border-border pt-2.5">
