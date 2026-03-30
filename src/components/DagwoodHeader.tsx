@@ -109,7 +109,7 @@ const DagwoodHeader = () => {
                     onClick={() => setOrdersOpen(true)}
                     className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                   >
-                    <ClipboardList className="h-5 w-5" />
+                    <Receipt className="h-5 w-5" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
