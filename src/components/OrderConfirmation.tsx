@@ -234,7 +234,8 @@ const OrderConfirmation = ({
                     )}
                     {paymentStatus === "DRAFT" && "PSID not assigned yet. Please wait and try again."}
                     {paymentStatus === "IN_PROCESS" && "Payment is being processed. Please wait a moment."}
-                    {paymentStatus === "APPROVED" && "PSID assigned but payment not received yet. Please complete your payment."}
+                    {paymentStatus === "APPROVED" &&
+                      "PSID assigned but payment not received yet. Please complete your payment."}
                     {paymentStatus === "PROCESSED" && "Payment received successfully!"}
                     {paymentStatus === "DISCARD" && "This payment link has expired. Please place a new order."}
                     {paymentStatus === "ERRORED" && "Payment processing failed. Please contact support."}

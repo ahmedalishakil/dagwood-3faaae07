@@ -8,7 +8,7 @@ interface Order {
   name: string;
   customer_name: string;
   grand_total: number;
-  custom_payment_status: string;
+  status: string;
   transaction_date: string;
   delivery_date: string;
   resturent_type: string;
@@ -20,20 +20,11 @@ interface MyOrdersDialogProps {
   onClose: () => void;
 }
 
-const paymentStatusLabel = (status: string | null) => {
-  const s = (status || "").toUpperCase();
-  if (s === "PROCESSED") return "PAID";
-  if (s === "APPROVED") return "NOT PAID";
-  if (s === "DISCARD") return "Assigned PSID reused for a newer payment";
-  if (s === "ERRORED") return "Unable to further process/drafting failed";
-  return status || "Pending";
-};
-
-const statusColor = (label: string) => {
-  if (label === "PAID")
+const statusColor = (status: string) => {
+  const s = status.toLowerCase();
+  if (s.includes("completed") || s.includes("delivered"))
     return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
-  if (label === "NOT PAID" || label.includes("PSID reused") || label.includes("Unable to"))
-    return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
+  if (s.includes("cancel")) return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
   return "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400";
 };
 
@@ -62,7 +53,7 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
       }
 
       const res = await fetch(
-        "https://pia-dagwood.lucrumerp.com/api/method/lucrum_pos_general.api.website_api.get_customer_orders",
+        "https://dagwood.lucrumerp.com/api/method/lucrum_pos_general.api.website_api.get_customer_orders",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -183,14 +174,11 @@ const MyOrdersDialog = ({ open, onClose }: MyOrdersDialogProps) => {
                       <p className="truncate text-sm font-bold text-card-foreground">{order.customer_name}</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">#{order.name}</p>
                     </div>
-                    {(() => {
-                      const label = paymentStatusLabel(order.custom_payment_status);
-                      return (
-                        <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold ${statusColor(label)}`}>
-                          {label}
-                        </span>
-                      );
-                    })()}
+                    <span
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold ${statusColor(order.status)}`}
+                    >
+                      {order.status}
+                    </span>
                   </div>
                   <div className="mt-2.5 flex items-center justify-between border-t border-border pt-2.5">
                     <span className="text-xs text-muted-foreground">
