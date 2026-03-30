@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { MapPin, Truck, Search, ShoppingBag, MessageCircle, ClipboardList } from "lucide-react";
+import { MapPin, Truck, Search, ShoppingBag, MessageCircle, Receipt } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/dagwood-logo.png";
@@ -109,7 +109,7 @@ const DagwoodHeader = () => {
                     onClick={() => setOrdersOpen(true)}
                     className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                   >
-                    <ClipboardList className="h-5 w-5" />
+                    <Receipt className="h-5 w-5" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
