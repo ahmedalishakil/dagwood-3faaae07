@@ -31,8 +31,9 @@ const CheckoutPage = () => {
   const [pickupBranch, setPickupBranch] = useState<"vertical" | "pia">("pia");
   const [pickupTime, setPickupTime] = useState("asap");
   const [notes, setNotes] = useState("");
-  const [payment, setPayment] = useState<"cod" | "card">("cod");
+  const [payment, setPayment] = useState<"cod" | "card" | "xpay_card" | "xpay_jazzcash">("cod");
   const [modeType, setModeType] = useState<"Cash" | "Bank">("Cash");
+  const xpay = useXPayCheckout();
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderTotal, setOrderTotal] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
