@@ -567,7 +567,6 @@ const CheckoutPage = () => {
               </AnimatePresence> */}
 
               <button
-                disabled
                 onClick={() => {
                   setPayment("card");
                   setModeType("Bank");
