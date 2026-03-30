@@ -13,7 +13,7 @@ interface OrderConfirmationProps {
   onBackToMenu: () => void;
   psid?: string | null;
   paymentId?: string | null;
-  paymentMethod?: "cod" | "card";
+  paymentMethod?: "cod" | "card" | "xpay_card" | "xpay_jazzcash";
 }
 
 const OrderConfirmation = ({
