@@ -29,35 +29,54 @@ const OrderConfirmation = ({
   const [copied, setCopied] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<string>("idle");
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20there!%20%F0%9F%91%8B%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20What%20would%20you%20like%20today%3F`;
 
-  const handleVerifyPayment = async () => {
+  const pollPaymentStatus = async (isManual = false) => {
     if (!paymentId) return;
-    setVerifying(true);
+    if (isManual) setVerifying(true);
     try {
       const res = await fetch(
         "https://pia-dagwood.lucrumerp.com/api/method/lucrum_payments_integrations.apis.asaanbill.get_payment",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            payment_id: paymentId,
-          }),
+          body: JSON.stringify({ payment_id: paymentId }),
         },
       );
       const data = await res.json();
       const status = data?.message?.data?.status;
       if (status) {
         setPaymentStatus(status);
+        if (status === "PROCESSED") {
+          toast.success("Payment processed successfully! 🎉");
+          if (intervalRef.current) clearInterval(intervalRef.current);
+        }
       } else {
         setPaymentStatus("ERROR");
       }
     } catch {
-      setPaymentStatus("ERROR");
+      if (isManual) setPaymentStatus("ERROR");
     } finally {
-      setVerifying(false);
+      if (isManual) setVerifying(false);
     }
   };
+
+  // Auto-poll every 3 seconds for card payments
+  useEffect(() => {
+    if (paymentMethod !== "card" || !paymentId) return;
+    intervalRef.current = setInterval(() => pollPaymentStatus(false), 3000);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [paymentMethod, paymentId]);
+
+  // Stop polling when PROCESSED
+  useEffect(() => {
+    if (paymentStatus === "PROCESSED" && intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+  }, [paymentStatus]);
 
   const handleCopy = async () => {
     if (!psid) return;
