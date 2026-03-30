@@ -1,16 +1,19 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { MapPin, Truck, Search, ShoppingBag, MessageCircle } from "lucide-react";
+import { MapPin, Truck, Search, ShoppingBag, MessageCircle, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/dagwood-logo.png";
 import { useCart } from "@/context/CartContext";
 import DeliveryLocationModal from "@/components/DeliveryLocationModal";
+import MyOrdersDialog from "@/components/MyOrdersDialog";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { DeliveryLocation } from "@/components/DeliveryLocationModal";
 
 const DagwoodHeader = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [miniCartOpen, setMiniCartOpen] = useState(false);
   const [locationModalOpen, setLocationModalOpen] = useState(false);
+  const [ordersOpen, setOrdersOpen] = useState(false);
   const { cart, cartCount, cartTotal, orderType, setOrderType, deliveryLocation, setDeliveryLocation } = useCart();
   const navigate = useNavigate();
   const headerRef = useRef<HTMLElement>(null);
@@ -99,6 +102,21 @@ const DagwoodHeader = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <TooltipProvider delayDuration={300}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={() => setOrdersOpen(true)}
+                    className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  >
+                    <ClipboardList className="h-5 w-5" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>My Orders</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
@@ -256,6 +274,7 @@ const DagwoodHeader = () => {
       </header>
 
       <DeliveryLocationModal open={locationModalOpen} onClose={handleLocationClose} onConfirm={handleLocationConfirm} />
+      <MyOrdersDialog open={ordersOpen} onClose={() => setOrdersOpen(false)} />
     </>
   );
 };
