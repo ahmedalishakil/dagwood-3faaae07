@@ -33,7 +33,7 @@ const OrderConfirmation = ({
     setVerifying(true);
     try {
       const res = await fetch(
-        "https://pia-dagwood.lucrumerp.com/api/method/lucrum_payments_integrations.apis.asaanbill.verify_with_gateway",
+        "https://pia-dagwood.lucrumerp.com/api/method/lucrum_payments_integrations.apis.asaanbill.add_payment",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ const OrderConfirmation = ({
               order_id: orderNumber,
             },
           }),
-        }
+        },
       );
       const data = await res.json();
       if (data?.message?.success) {
@@ -114,22 +114,18 @@ const OrderConfirmation = ({
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">
-                {orderType === "delivery" ? "Delivery" : "Pickup"}
-              </span>
+              <span className="text-muted-foreground">{orderType === "delivery" ? "Delivery" : "Pickup"}</span>
               <span className="font-bold text-card-foreground">
                 {orderType === "delivery"
                   ? "To your address"
                   : pickupBranch === "vertical"
-                  ? "Vertical Branch"
-                  : "PIA Branch"}
+                    ? "Vertical Branch"
+                    : "PIA Branch"}
               </span>
             </div>
             <div className="flex justify-between border-t border-border pt-3">
               <span className="text-muted-foreground">Total</span>
-              <span className="text-lg font-bold text-primary">
-                Rs. {orderTotal.toLocaleString()}
-              </span>
+              <span className="text-lg font-bold text-primary">Rs. {orderTotal.toLocaleString()}</span>
             </div>
           </div>
         </div>
@@ -142,12 +138,13 @@ const OrderConfirmation = ({
             transition={{ delay: 0.3 }}
             className="mt-5 w-full rounded-2xl border-2 border-primary/30 bg-card p-5"
           >
-            <h2 className="mb-4 font-display text-lg font-bold text-card-foreground">
-              Online Payment Details
-            </h2>
+            <h2 className="mb-4 font-display text-lg font-bold text-card-foreground">Online Payment Details</h2>
 
             {/* QR Code */}
-            <div className="mx-auto mb-4 flex items-center justify-center rounded-xl bg-white p-4" style={{ width: "fit-content" }}>
+            <div
+              className="mx-auto mb-4 flex items-center justify-center rounded-xl bg-white p-4"
+              style={{ width: "fit-content" }}
+            >
               <QRCodeSVG value={psid} size={180} level="H" />
             </div>
 
@@ -166,9 +163,7 @@ const OrderConfirmation = ({
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                 </button>
               </div>
-              {copied && (
-                <p className="mt-1 text-xs font-medium text-primary">Copied to clipboard!</p>
-              )}
+              {copied && <p className="mt-1 text-xs font-medium text-primary">Copied to clipboard!</p>}
             </div>
 
             <p className="mt-3 text-xs text-muted-foreground">
