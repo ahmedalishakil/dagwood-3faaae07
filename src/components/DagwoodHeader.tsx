@@ -102,6 +102,21 @@ const DagwoodHeader = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            <TooltipProvider delayDuration={300}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={() => setOrdersOpen(true)}
+                    className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  >
+                    <ClipboardList className="h-5 w-5" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>My Orders</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
@@ -259,6 +274,7 @@ const DagwoodHeader = () => {
       </header>
 
       <DeliveryLocationModal open={locationModalOpen} onClose={handleLocationClose} onConfirm={handleLocationConfirm} />
+      <MyOrdersDialog open={ordersOpen} onClose={() => setOrdersOpen(false)} />
     </>
   );
 };
