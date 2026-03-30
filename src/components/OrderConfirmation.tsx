@@ -11,6 +11,7 @@ interface OrderConfirmationProps {
   pickupBranch: "vertical" | "pia";
   onBackToMenu: () => void;
   psid?: string | null;
+  paymentId?: string | null;
   paymentMethod?: "cod" | "card";
 }
 
@@ -21,6 +22,7 @@ const OrderConfirmation = ({
   pickupBranch,
   onBackToMenu,
   psid,
+  paymentId,
   paymentMethod,
 }: OrderConfirmationProps) => {
   const [copied, setCopied] = useState(false);
@@ -29,7 +31,7 @@ const OrderConfirmation = ({
   const WHATSAPP_LINK = `https://wa.me/923262188824?text=Hi%20there!%20%F0%9F%91%8B%20I%20just%20placed%20order%20${encodeURIComponent(orderNumber)}.%20What%20would%20you%20like%20today%3F`;
 
   const handleVerifyPayment = async () => {
-    if (!psid) return;
+    if (!paymentId) return;
     setVerifying(true);
     try {
       const res = await fetch(
@@ -38,11 +40,7 @@ const OrderConfirmation = ({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            payment_data: {
-              psid,
-              amount: String(orderTotal),
-              order_id: orderNumber,
-            },
+            payment_id: paymentId,
           }),
         },
       );
