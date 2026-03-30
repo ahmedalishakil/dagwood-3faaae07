@@ -248,7 +248,7 @@ const CheckoutPage = () => {
                   },
                   generation_type: "",
                 }),
-              }
+              },
             );
             const psidData = await psidRes.json();
             if (psidData?.message?.data?.psid) {
@@ -262,9 +262,10 @@ const CheckoutPage = () => {
         }
 
         toast.success("Thank you for your order! 🎉", {
-          description: payment === "card"
-            ? "Your online payment details are ready. Please complete the payment."
-            : "Please check your WhatsApp for further details. Sandy will assist you there.",
+          description:
+            payment === "card"
+              ? "Your online payment details are ready. Please complete the payment."
+              : "Please check your WhatsApp for further details. Sandy will assist you there.",
           duration: 6000,
         });
         setOrderTotal(total);
@@ -566,6 +567,7 @@ const CheckoutPage = () => {
               </AnimatePresence> */}
 
               <button
+                disabled
                 onClick={() => {
                   setPayment("card");
                   setModeType("Bank");
