@@ -522,10 +522,7 @@ const CheckoutPage = () => {
             <h2 className="mb-4 font-display text-lg font-bold text-card-foreground">Payment Method</h2>
             <div className="space-y-3">
               <button
-                onClick={() => {
-                  setPayment("cod");
-                  setModeType("Cash");
-                }}
+                onClick={() => { setPayment("cod"); setModeType("Cash"); xpay.reset(); }}
                 className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
                   payment === "cod" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
                 }`}
@@ -537,57 +534,94 @@ const CheckoutPage = () => {
                 </div>
               </button>
 
-              {/* Payment mode radio buttons — only for delivery + COD */}
-              {/* <AnimatePresence>
-                {payment === "cod" && orderType === "delivery" && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="ml-1 mt-1 space-y-2 rounded-xl border border-border bg-secondary/50 p-4">
-                      <p className="text-sm font-medium text-card-foreground">Payment Mode</p>
-                      <label className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-secondary">
-                        <input
-                          type="radio"
-                          name="modeType"
-                          checked={modeType === "Cash"}
-                          onChange={() => setModeType("Cash")}
-                          className="h-4 w-4 accent-[hsl(var(--primary))]"
-                        />
-                        <span className="text-sm text-card-foreground">Cash</span>
-                      </label>
-                      <label className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-secondary">
-                        <input
-                          type="radio"
-                          name="modeType"
-                          checked={modeType === "Bank"}
-                          onChange={() => setModeType("Bank")}
-                          className="h-4 w-4 accent-[hsl(var(--primary))]"
-                        />
-                        <span className="text-sm text-card-foreground">Online Transfer</span>
-                      </label>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence> */}
-
               <button
-                onClick={() => {
-                  setPayment("card");
-                  setModeType("Bank");
-                }}
+                onClick={() => { setPayment("card"); setModeType("Bank"); xpay.reset(); }}
                 className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
                   payment === "card" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
                 }`}
               >
                 <CreditCard className="h-6 w-6 text-primary" />
                 <div>
-                  <p className="text-sm font-bold text-card-foreground">Online Payment</p>
-                  <p className="text-xs text-muted-foreground">Pay via bank transfer (5% GST)</p>
+                  <p className="text-sm font-bold text-card-foreground">Online Payment (Bank Transfer)</p>
+                  <p className="text-xs text-muted-foreground">Pay via bank transfer / PSID (5% GST)</p>
                 </div>
               </button>
+
+              {/* XPay Card */}
+              <button
+                onClick={() => { setPayment("xpay_card"); setModeType("Bank"); xpay.setSelectedMethod("card"); xpay.reset(); }}
+                className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
+                  payment === "xpay_card" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
+                }`}
+              >
+                <CreditCard className="h-6 w-6 text-primary" />
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-card-foreground">Pay with Card</p>
+                  <p className="text-xs text-muted-foreground">Visa, Mastercard via XPay (5% GST)</p>
+                </div>
+                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">XPay</span>
+              </button>
+
+              {/* XPay JazzCash */}
+              <button
+                onClick={() => { setPayment("xpay_jazzcash"); setModeType("Bank"); xpay.setSelectedMethod("jazzcash"); xpay.reset(); }}
+                className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
+                  payment === "xpay_jazzcash" ? "border-primary bg-primary/5" : "border-border hover:border-muted-foreground/30"
+                }`}
+              >
+                <Smartphone className="h-6 w-6 text-primary" />
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-card-foreground">Pay with JazzCash</p>
+                  <p className="text-xs text-muted-foreground">Mobile wallet payment (5% GST)</p>
+                </div>
+                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">XPay</span>
+              </button>
+
+              {/* XPay SDK container */}
+              <AnimatePresence>
+                {(payment === "xpay_card" || payment === "xpay_jazzcash") && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-2 space-y-3 rounded-xl border border-border bg-secondary/30 p-4">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Shield className="h-3.5 w-3.5" />
+                        <span>Secure encrypted payment powered by XPay</span>
+                      </div>
+                      <div
+                        id={payment === "xpay_card" ? "xpay-card-container" : "xpay-jazzcash-container"}
+                        className="min-h-[60px] rounded-lg border border-input bg-background p-3"
+                      >
+                        {xpay.status === "idle" && (
+                          <p className="text-center text-xs text-muted-foreground py-2">
+                            Payment fields will load when you place the order
+                          </p>
+                        )}
+                        {(xpay.status === "creating_intent" || xpay.status === "initializing_sdk") && (
+                          <div className="flex items-center justify-center gap-2 py-2">
+                            <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                            <span className="text-xs text-muted-foreground">Loading payment form...</span>
+                          </div>
+                        )}
+                        {xpay.status === "ready" && (
+                          <p className="text-center text-xs text-muted-foreground py-2">Payment form ready</p>
+                        )}
+                      </div>
+                      {xpay.error && (
+                        <div className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2">
+                          <p className="text-xs text-destructive">{xpay.error}</p>
+                          <button onClick={() => xpay.reset()} className="mt-1 text-xs font-semibold text-primary hover:underline">
+                            Try again
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </section>
 
