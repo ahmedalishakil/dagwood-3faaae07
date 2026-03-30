@@ -192,7 +192,7 @@ const OrderConfirmation = ({
             {/* Payment Verification */}
             <div className="mt-4 border-t border-border pt-4">
               <button
-                onClick={handleVerifyPayment}
+                onClick={() => pollPaymentStatus(true)}
                 disabled={verifying || paymentStatus === "PROCESSED"}
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-bold text-secondary-foreground transition-all hover:bg-secondary/80 active:scale-[0.98] disabled:opacity-60"
               >
